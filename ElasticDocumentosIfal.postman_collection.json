@@ -1,0 +1,741 @@
+{
+	"info": {
+		"_postman_id": "82bd72be-a7f5-4b5d-bd10-c0491e52f03a",
+		"name": "ElasticDocumentosIfal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3841692"
+	},
+	"item": [
+		{
+			"name": "create",
+			"item": [
+				{
+					"name": "_ingest/pipeline/attachment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Extract attachment information\",\r\n  \"processors\": [\r\n    {\r\n      \"attachment\": {\r\n        \"field\": \"data\"\r\n      }\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/_ingest/pipeline/attachment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"_ingest",
+								"pipeline",
+								"attachment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "_ingest/pipeline/attachment GET",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9200/_ingest/pipeline/attachment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"_ingest",
+								"pipeline",
+								"attachment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:9200/documentos_ifal/_doc/_mapping",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_mapping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_mapping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleting /documentos_ifal",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/documentos_ifal settings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n \"settings\": {\r\n    \"analysis\": {\r\n      \"filter\": {\r\n        \"synonym_test\": {\r\n          \"type\": \"synonym\", \r\n          \"synonyms\": [\r\n            \"9394/96, 9.394/96, Diretrizes e Bases da Educação, Diretrizes e Bases  => LDB\",\r\n            \"Educação para Jovens e Adultos, Jovens e Adultos => EJA\",\r\n            \"Educação a Distância => EAD\",\r\n            \"Técnico => Profissionalizante\",\r\n            \"Profissional => Profissionalizante\",\r\n            \"Ensino Técnico, Curso FIC => PRONATEC\",\r\n            \"Capacitação => Qualificação\",\r\n            \"infância => criança\",\r\n            \"diversidade, deficiência, surdo, cego, síndrome de down, autismo, educação Especial,  dificuldades auditivas => inclusiva\",\r\n            \"13.146,  Lei Brasileira de Inclusão => Inclusão\"\r\n          ]\r\n        },\r\n        \"brazilian_stop\": {\r\n          \"type\":       \"stop\",\r\n          \"stopwords\":  \"_brazilian_\" \r\n        },\r\n        \"brazilian_keywords\": {\r\n          \"type\":       \"keyword_marker\",\r\n          \"keywords\":   [] \r\n        },\r\n        \"brazilian_stemmer\": {\r\n          \"type\":       \"stemmer\",\r\n          \"language\":   \"brazilian\"\r\n        }\r\n      },\r\n      \"analyzer\": {\r\n        \"my_analyzer\": {\r\n          \"tokenizer\": \"standard\",\r\n          \"filter\": [\r\n            \"lowercase\",\r\n            \"synonym_test\",\r\n            \"brazilian_stop\",\r\n            \"brazilian_keywords\",\r\n            \"brazilian_stemmer\"\r\n          ]\r\n        }\r\n      }\r\n    }\r\n  },\r\n  \"mappings\": {\r\n      \"properties\": {\r\n      \t\r\n      \t\"ato\": {\r\n    \t\t\"properties\": {\r\n    \t\t\t\"arquivo\":  {\r\n\t\t\t    \t\"type\": \"text\",\r\n\t\t\t    \t\"fields\": {\r\n\t\t\t        \t\"keyword\": {\r\n\t\t\t        \t\t\"type\": \"keyword\"\r\n\t\t\t        \t}\r\n\t\t\t    \t}\r\n    \t\t\t},\r\n    \t\t\t\"titulo\":  {\r\n\t\t\t    \t\"type\": \"text\",\r\n\t\t\t    \t\"fields\": {\r\n\t\t\t        \t\"keyword\": {\r\n\t\t\t        \t\t\"type\": \"keyword\"\r\n\t\t\t        \t}\r\n\t\t\t    \t}\r\n    \t\t\t},\r\n    \t\t\t\"ato_id\":  {\r\n\t\t\t    \t\"type\": \"text\",\r\n\t\t\t    \t\"fields\": {\r\n\t\t\t        \t\"keyword\": {\r\n\t\t\t        \t\t\"type\": \"keyword\"\r\n\t\t\t        \t}\r\n\t\t\t    \t}\r\n    \t\t\t},\r\n    \t\t\t\"numero\":  {\r\n\t\t\t    \t\"type\": \"text\",\r\n\t\t\t    \t\"fields\": {\r\n\t\t\t        \t\"keyword\": {\r\n\t\t\t        \t\t\"type\": \"keyword\"\r\n\t\t\t        \t}\r\n\t\t\t    \t}\r\n    \t\t\t},\r\n    \t\t\t\"data_publicacao\":  {\r\n\t\t\t    \t\"type\": \"date\"\r\n    \t\t\t},\r\n    \t\t\t\"ano\":  {\r\n\t\t\t    \t\"type\": \"integer\"\r\n    \t\t\t},\r\n    \t\t\t\"ementa\":  {\r\n\t\t\t    \t\"type\": \"text\",\r\n\t\t\t    \t\"analyzer\": \"my_analyzer\",\r\n\t\t\t    \t\"fields\": {\r\n\t\t\t        \t\"keyword\": {\r\n\t\t\t        \t\t\"type\": \"keyword\"\r\n\t\t\t        \t}\r\n\t\t\t    \t}\r\n    \t\t\t},\r\n    \t\t\t\"tipo_doc\": {\r\n                                \"type\": \"text\",\r\n                                \"fielddata\": true\r\n                },\r\n                \"tags\": {\r\n                                \"type\": \"text\",\r\n                                \"fielddata\": true,\r\n                                \"fields\": {\r\n                                    \"keyword\": {\r\n                                        \"type\": \"keyword\",\r\n                                        \"ignore_above\": 256\r\n                                    }\r\n                                }\r\n                            },\r\n    \t\t\t\"fonte\":{\r\n    \t\t\t\t\"properties\":{\r\n    \t\t\t\t\t\"orgao\": {\r\n    \t\t\t\t\t\t\"type\": \"text\",\r\n\t\t\t\t\t    \t\"fields\": {\r\n\t\t\t\t\t        \t\"keyword\": {\r\n\t\t\t\t\t        \t\t\"type\": \"keyword\"\r\n\t\t\t\t\t        \t}\r\n\t\t\t\t\t    \t}\r\n    \t\t\t\t\t},\r\n    \t\t\t\t\t\"uf\": {\r\n    \t\t\t\t\t\t\"type\": \"keyword\"\r\n\t\t\t\t\t    \t\r\n    \t\t\t\t\t},\r\n    \t\t\t\t\t\"uf_sigla\": {\r\n    \t\t\t\t\t\t\"type\": \"keyword\"\r\n    \t\t\t\t\t},\r\n    \t\t\t\t\t\"sigla\": {\r\n    \t\t\t\t\t\t\"type\": \"keyword\"\r\n    \t\t\t\t\t},\r\n    \t\t\t\t\t\"esfera\": {\r\n    \t\t\t\t\t\t\"type\": \"keyword\"\r\n    \t\t\t\t\t},\r\n    \t\t\t\t\t\"url\": {\r\n    \t\t\t\t\t\t\"type\": \"keyword\"\r\n\t\t\t\t\t    \t\r\n    \t\t\t\t\t}\r\n    \t\t\t\t}\r\n    \t\t\t}\r\n    \t\t}\r\n    \t\t\r\n    \t}\r\n    \t,\"attachment\": {\r\n                        \"properties\": {\r\n                            \"content\": {\r\n                                \"type\": \"text\",\r\n                                \"analyzer\": \"my_analyzer\",\r\n                                \"fields\": {\r\n                                    \"keyword\": {\r\n                                        \"type\": \"keyword\",\r\n                                        \"ignore_above\": 256\r\n                                    }\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n      }\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update/_mapping/_doc -ato.tags fielddata",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"properties\": {\r\n  \t\"ato.tags\": {\r\n                                \"type\": \"text\",\r\n                                \"fielddata\": true,\r\n                                \"fields\": {\r\n                                    \"keyword\": {\r\n                                        \"type\": \"keyword\",\r\n                                        \"ignore_above\": 256\r\n                                    }\r\n                                }\r\n                            }\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_mapping/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_mapping",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update/_mapping/_doc - tipo_doc fielddata",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"properties\": {\r\n  \t\"ato.tipo_doc\": {\r\n                                \"type\": \"text\",\r\n                                \"fielddata\": true,\r\n                                \"fields\": {\r\n                                    \"keyword\": {\r\n                                        \"type\": \"keyword\",\r\n                                        \"ignore_above\": 256\r\n                                    }\r\n                                }\r\n                            }\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_mapping/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_mapping",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "plugins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/_cat/plugins?v",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"_cat",
+								"plugins"
+							],
+							"query": [
+								{
+									"key": "v",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "status elastic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9200/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inserts",
+			"item": [
+				{
+					"name": "doc1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ato\": {\n        \"ano\": 2023,\n        \"arquivo\": \"documento1.pdf\",\n        \"ato_id\": \"EDU001\",\n        \"data_publicacao\": \"2023-10-24\",\n        \"ementa\": \"Normativas sobre educação básica.\",\n        \"fonte\": {\n            \"esfera\": \"Estadual\",\n            \"orgao\": \"Conselho Estadual de Educação de São Paulo\",\n            \"sigla\": \"CEE-SP\",\n            \"uf\": \"SP\",\n            \"uf_sigla\": \"SP\",\n            \"url\": \"http://www.cee.sp.gov.br\"\n        },\n        \"numero\": \"001\",\n        \"tags\": [\"educação básica\", \"normativas\"],\n        \"tipo_doc\": \"Resolução\",\n        \"titulo\": \"Resolução sobre Educação Básica em SP\"\n    },\n    \"attachment\": {\n        \"data\": \"Texto completo da resolução sobre educação básica no estado de São Paulo.\"\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_doc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doc2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ato\": {\n        \"ano\": 2023,\n        \"arquivo\": \"documento2.pdf\",\n        \"ato_id\": \"EDU002\",\n        \"data_publicacao\": \"2023-09-12\",\n        \"ementa\": \"Diretrizes para ensino médio técnico.\",\n        \"fonte\": {\n            \"esfera\": \"Estadual\",\n            \"orgao\": \"Conselho Estadual de Educação do Rio de Janeiro\",\n            \"sigla\": \"CEE-RJ\",\n            \"uf\": \"RJ\",\n            \"uf_sigla\": \"RJ\",\n            \"url\": \"http://www.cee.rj.gov.br\"\n        },\n        \"numero\": \"002\",\n        \"tags\": [\"ensino médio\", \"técnico\"],\n        \"tipo_doc\": \"Portaria\",\n        \"titulo\": \"Diretrizes para Ensino Médio Técnico no RJ\"\n    },\n    \"attachment\": {\n        \"content\": \"Texto completo das diretrizes para ensino médio técnico no estado do Rio de Janeiro.\"\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_doc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doc3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ato\": {\n        \"ano\": 2022,\n        \"arquivo\": \"documento3.pdf\",\n        \"ato_id\": \"EDU003\",\n        \"data_publicacao\": \"2022-11-05\",\n        \"ementa\": \"Padrões mínimos de infraestrutura para escolas municipais.\",\n        \"fonte\": {\n            \"esfera\": \"Municipal\",\n            \"orgao\": \"Conselho Municipal de Educação de Salvador\",\n            \"sigla\": \"CME-Salvador\",\n            \"uf\": \"BA\",\n            \"uf_sigla\": \"BA\",\n            \"url\": \"http://www.cme.salvador.ba.gov.br\"\n        },\n        \"numero\": \"003\",\n        \"tags\": [\"infraestrutura\", \"escolas municipais\"],\n        \"tipo_doc\": \"Decreto\",\n        \"titulo\": \"Padrões de Infraestrutura para Escolas de Salvador\"\n    },\n    \"attachment\": {\n        \"content\": \"Texto completo sobre padrões mínimos de infraestrutura para escolas municipais de Salvador.\"\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_doc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doc4",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ato\": {\n        \"ano\": 2022,\n        \"arquivo\": \"documento4.pdf\",\n        \"ato_id\": \"EDU004\",\n        \"data_publicacao\": \"2022-08-15\",\n        \"ementa\": \"Critérios para formação continuada de professores.\",\n        \"fonte\": {\n            \"esfera\": \"Estadual\",\n            \"orgao\": \"Conselho Estadual de Educação de Minas Gerais\",\n            \"sigla\": \"CEE-MG\",\n            \"uf\": \"MG\",\n            \"uf_sigla\": \"MG\",\n            \"url\": \"http://www.cee.mg.gov.br\"\n        },\n        \"numero\": \"004\",\n        \"tags\": [\"formação\", \"professores\"],\n        \"tipo_doc\": \"Instrução\",\n        \"titulo\": \"Formação Continuada de Professores em MG\"\n    },\n    \"attachment\": {\n        \"content\": \"Texto completo sobre critérios para formação continuada de professores no estado de Minas Gerais.\"\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_doc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "doc5",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ato\": {\n        \"ano\": 2023,\n        \"arquivo\": \"documento5.pdf\",\n        \"ato_id\": \"EDU005\",\n        \"data_publicacao\": \"2023-01-28\",\n        \"ementa\": \"Plano municipal de educação inclusiva.\",\n        \"fonte\": {\n            \"esfera\": \"Municipal\",\n            \"orgao\": \"Conselho Municipal de Educação de Curitiba\",\n            \"sigla\": \"CME-Curitiba\",\n            \"uf\": \"PR\",\n            \"uf_sigla\": \"PR\",\n            \"url\": \"http://www.cme.curitiba.pr.gov.br\"\n        },\n        \"numero\": \"005\",\n        \"tags\": [\"educação inclusiva\", \"plano municipal\"],\n        \"tipo_doc\": \"Plano\",\n        \"titulo\": \"Plano de Educação Inclusiva de Curitiba\"\n    },\n    \"attachment\": {\n        \"content\": \"Texto completo do plano municipal de educação inclusiva de Curitiba.\"\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_doc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_doc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "select",
+			"item": [
+				{
+					"name": "match_all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_source\": {\n    \"includes\": [\n      \"attachment.*\",\n      \"ato.*\"\n    ],\n    \"excludes\": [\n      \"data\"\n    ]\n  },\n  \"query\": {\n    \"match_all\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "match_all-size-from",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"size\": 5,\n  \"from\": 0,\n  \"query\": {\n    \"match_all\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "match_all-attachement.content",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_source\": [\"attachment.content\"],\n  \"size\": 5,\n  \"from\": 0,\n  \"query\": {\n    \"match_all\": {}\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "match_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_doc/Nb5mZIsB-qYqLxysre9r",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_doc",
+								"Nb5mZIsB-qYqLxysre9r"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "query",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n    \"match\": {\n      \"attachment.content\": \"educação\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "query2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_source\": {\n    \"includes\": [\n      \"attachment.*\",\n      \"ato.*\"\n    ],\n    \"excludes\": [\n      \"data\"\n    ]\n  },\n  \"query\": {\n    \"match\": {\n      \"attachment.content\": \"educação\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "delete",
+			"item": [
+				{
+					"name": "delete_by_query",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"query\": {\n      \"match_all\": {}\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal/_delete_by_query",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal",
+								"_delete_by_query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-indice",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9200/documentos_ifal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"documentos_ifal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "scroll",
+			"item": [
+				{
+					"name": "http://localhost:9200/_search?scroll=1m",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_source\": [\"attachment.content\", \"ato.arquivo\"],\n  \"query\": { \"match_all\": {} },\n  \"size\": 50\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/_search?scroll=1m",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"_search"
+							],
+							"query": [
+								{
+									"key": "scroll",
+									"value": "1m"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:9200/_search/scroll/",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scroll_id\": \"FGluY2x1ZGVfY29udGV4dF91dWlkDnF1ZXJ5VGhlbkZldGNoAhZRNEFzQjNjVlNIbVVSdnU3UHBUYjB3AAAAAAAAYBsWZjVGNlBRNlpUMU91UmlRTWhDaWxJURZRNEFzQjNjVlNIbVVSdnU3UHBUYjB3AAAAAAAAYBwWZjVGNlBRNlpUMU91UmlRTWhDaWxJUQ==\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/_search/scroll/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"_search",
+								"scroll",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
