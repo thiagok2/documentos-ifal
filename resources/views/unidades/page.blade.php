@@ -117,7 +117,7 @@
             </div>
             <div class="col-lg-4"></div>
             <div class="col-lg-4 text-right">
-                <a class="btn btn-mobile btn-info btn-pill m-1 mt-2 btn-sm" href="{{route('unidades-search')}}"><i class="fa fa-search"></i> Pesquisar Conselhos</a>
+                <a class="btn btn-mobile btn-info btn-pill m-1 mt-2 btn-sm" href="{{route('unidades-search')}}"><i class="fa fa-search"></i> Pesquisar Unidades</a>
                 <a class="btn btn-outline-secondary btn-pill btn-login m-1 mt-2" href="{{route('consultas-public')}}">Termos frequentes<i class="fa fa-search-plus"></i></a>
                 <a class="btn btn-outline-secondary btn-pill btn-login m-1 mt-2" href="{{route('downloads-public')}}">Mais baixados<i class="fa fa-download"></i></a>
                 @if (Route::has('login'))

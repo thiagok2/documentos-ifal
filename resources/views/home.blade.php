@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-lg-12">
         <p class="alert alert-success" style="padding: 10px;">
-            Você é um usuário assessor. Você pode conceder aos conselhos municipais de educação acesso à plataforma Documentos ifal.
+            Você é um usuário assessor. Você pode conceder as unidades acesso à plataforma Documentos ifal.
         </p>
     </div>
 </div>
@@ -38,7 +38,7 @@
                 <div class="inner">
                     <h3>Novos Acessos</h3>
 
-                    <p>Convide/Crie Conselhos</p>
+                    <p>Convide/Crie Unidade</p>
                 </div>
                 <div class="icon">
                 
@@ -46,7 +46,7 @@
                     <i class="ion ion-person-add"></i>
                 </div>
                 <div class="small-box-footer">
-                    Convidar novos usuários/conselhos
+                    Convidar novos usuários/unidades
                     <i class="fa fa-arrow-circle-right"></i>
                 </div>
             </div>
@@ -149,7 +149,7 @@
         <span class="info-box-icon"><i class="fa fa-university"></i></span>
 
         <div class="info-box-content">
-            <span class="info-box-text">Conselhos Confirmados</span>
+            <span class="info-box-text">Unidades Confirmadas</span>
             <span class="info-box-number">
                 {{$countUnidadesConfirmadas}} ({{$porcentagemConfirmadas}}%)
                 de {{$totalUnidades}}
@@ -240,7 +240,7 @@
     <div class="col-lg-5">
         <div class="box box-danger">
             <div class="box-header">
-                <h3 class="box-title">Conselhos confirmados </h3>
+                <h3 class="box-title">Unidades confirmados </h3>
             </div>
             <div class="box-body no-padding">
                 <canvas id="chartConsConfirmados"></canvas>
@@ -248,7 +248,7 @@
             <div class="box-footer">
                 <span class="text-muted pull-right">
                     <a href="{{route('unidades')}}">
-                        Consulte os conselhos
+                        Consulte as unidades
                     </a>
                 </span>
             </div>
@@ -382,7 +382,7 @@
     <div class="col-lg-6 ">
         <div class="box box-success">
             <div class="box-header">
-                <h3 class="box-title">Conselhos sem confirmação({{$unidadesNaoConfirmadas->total()}})</h3>
+                <h3 class="box-title">Unidades sem confirmação({{$unidadesNaoConfirmadas->total()}})</h3>
             </div>
 
             <div class="box-body no-padding">
@@ -411,7 +411,7 @@
             <div class="box-footer">
                 <span class="text-muted pull-right">
                     <a href="{{route('unidades')}}">
-                        Pesquisar conselhos
+                        Pesquisar unidades
                     </a>
                 </span>
             </div>
@@ -420,7 +420,7 @@
     <div class="col-lg-6 ">
         <div class="box box-success">
             <div class="box-header">
-                <h3 class="box-title">Conselhos com mais documentos</h3>
+                <h3 class="box-title">Unidades com mais documentos</h3>
             </div>
 
             <div class="box-body no-padding">
@@ -453,7 +453,7 @@
             <div class="box-footer">
                 <span class="text-muted pull-left">
 
-                    Total de {{$unidades->total()}} conselhos com documentos publicados
+                    Total de {{$unidades->total()}} unidades com documentos publicados
 
                 </span>
             </div>

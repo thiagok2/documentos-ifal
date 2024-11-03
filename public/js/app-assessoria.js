@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     $('select[name=estado_id]').change(function () {
         var estado = $( "#estado_id option:selected" ).text();
-        $("#nome").val("Assessoria dos Conselhos de Educação de "+estado);
+        $("#nome").val("Assessoria das Unidade de "+estado);
         
     });
 

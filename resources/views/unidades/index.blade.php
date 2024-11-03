@@ -115,7 +115,7 @@
                     <div class="row">
                         <div class="col text-center mt-2 mb-2">
                             <button type="submit" class="btn btn-primary mr-1"><i class="fa fa-search"></i>
-                                Pesquisar conselhos
+                                Pesquisar unidades
                             </button>
                             <a class="btn btn-info ml-1" href="/" target="_blank">
                                 <i class="fa fa-cogs"></i> Atos Normativos

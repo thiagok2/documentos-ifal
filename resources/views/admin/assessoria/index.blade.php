@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="well">As unidades de assessoria têm a função de cadastrar e conceder acesso aos conselhos municipais de educação de seu estado.</div>
+                <div class="well">As unidades de assessoria têm a função de cadastrar e conceder acesso.</div>
             </div>
             <div class="col-lg-12">
                 @include('admin.includes.alerts')

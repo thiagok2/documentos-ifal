@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <label for="nome">Nome*</label>
                                         <input type="text" class="form-control" value="{{ $unidade->nome }}" name="nome" id="nome"
-                                            required maxlength="255" minlength="10" placeholder="Ex.: Assessoria dos Conselhos de Educação de Alagoas">
+                                            required maxlength="255" minlength="10" placeholder="Ex.: Departamento de Ensino Campus - Rio Largo">
                                     </div>
                                 </div>      
                                 <div class="col-sm-12">

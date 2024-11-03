@@ -11,15 +11,14 @@
         gtag('config', 'G-0M43YF0CSW');
         </script>
 
-        <title>@yield("title", "Portal Atos Documentos IFAL - Uma plataforma de buscas sobre portarias, resoluções e decretos dos conselhos de educação")</title>
+        <title>@yield("title", "Portal Atos Documentos IFAL - Uma plataforma de buscas sobre portarias, resoluções e decretos")</title>
 
         <meta name="robots" content="index, follow">
         
         <meta name="description" 
-            content="@yield("description", 'No portal você pode realizar buscas sobre portarias, resoluções, decretos e outros atos normativos produzidos 
-                        pelos dos conselhos de municipais, estaduais e federal de educação')" />
+            content="@yield("description", 'No portal você pode realizar buscas sobre portarias, resoluções, decretos e outros atos produzidos na instituição')" />
         
-        <meta name="keywords" content="@yield("keywords", "conselhos educação, normas, edital, resolução, ata, ementa, normativas, normativos")"  />
+        <meta name="keywords" content="@yield("keywords", "unidades educação, normas, edital, resolução, ata, ementa, normativas, normativos")"  />
 
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta property="og:image" content="/img/social.png">

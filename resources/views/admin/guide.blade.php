@@ -44,7 +44,7 @@
                             <!-- Descrição e texto explicativo -->
                             <div class="timeline-item no-shadow">                    
                                 <h3 class="timeline-header no-border"><a>Busca</a> na plataforma</h3>
-                                <p class="text">Neste vídeo, são mostradas as formas de buscar documentos, como visualizar e avaliar, fazer o download de arquivos e filtrar os resultados. Além disso, é mostrado como buscar por conselhos de educação e consultar os documentos destes conselhos.</p>
+                                <p class="text">Neste vídeo, são mostradas as formas de buscar documentos, como visualizar e avaliar, fazer o download de arquivos e filtrar os resultados. Além disso, é mostrado como buscar por unidades e consultar os documentos destas.</p>
                             </div>
                         </li>
                     <!-- Componente do video - fim -->
@@ -77,7 +77,7 @@
                             <!-- Descrição e texto explicativo -->
                             <div class="timeline-item no-shadow">                    
                                 <h3 class="timeline-header no-border"><a>Tipos de usuário</a> e <a>Primeiro Contato</a> com a plataforma</h3>
-                                <p class="text">Neste vídeo, falaremos sobre alguns dos tipos de usuários existentes disponíveis, mais especificamente os que atuam nos conselhos, além de como é o primeiro contato de um usuário com a plataforma Normativas.</p>
+                                <p class="text">Neste vídeo, falaremos sobre alguns dos tipos de usuários existentes disponíveis, mais especificamente os que atuam na gestão de documentos.</p>
                             </div>
                         </li>
                     <!-- Componente do video - fim -->

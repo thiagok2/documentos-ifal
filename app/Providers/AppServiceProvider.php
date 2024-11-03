@@ -65,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add('Unidades');
                 $event->menu->add(
                     [
-                        'text' => 'Conselhos',
+                        'text' => 'Unidades',
                         'icon' => 'university',
                         'url' => 'admin/unidades',
                     ]

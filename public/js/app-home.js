@@ -1,6 +1,6 @@
 
 $(function () {
-    //Conselhos confirmados
+    //Unidades confirmados
     var url = '/api/unidades/confirmadas/periodo';
     $.getJSON(url, function (data) {
         var ctxConsConfirmados = document.getElementById('chartConsConfirmados')
@@ -45,7 +45,7 @@ $(function () {
             }
         });
     });
-    //fim conselhos confirmados
+    //fim unidades confirmados
 
     //Documentos enviados
     var url ="/api/documentos/enviados/6meses";
