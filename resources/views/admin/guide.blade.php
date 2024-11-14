@@ -8,8 +8,8 @@
 
 @section('content')
     <ol class="breadcrumb">
-    <li><a href="{{route('home')}}">Painel</a></li>
-        <li> <a href="#" class="active"><a href="#">Guia da Plataforma</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+        <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Guia da Plataforma</a></li>
     </ol>    
 
     <div class="box box-primary">

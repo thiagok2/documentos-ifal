@@ -9,9 +9,9 @@
 @section('content')    
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li> <a href="{{route('unidades')}}" ><a href="#">Unidades</a></li>
-            <li> <a href="{{route('assessoria')}}" class="active"><a href="#">Assessorias</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"> <a href="{{route('unidades')}}" ><a href="#">Unidades</a></li>
+            <li class="breadcrumb-item active"> <a href="{{route('assessoria')}}" class="active"><a href="#">Assessorias</a></li>
         </ol>
 
         <div class="row">
@@ -27,7 +27,6 @@
                 
                 <div class="col-lg-2">
                     <a href="{{route('assessoria-create')}}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Adicionar Assessoria</a>
-                    <p>
                 </div>
                
             @endif

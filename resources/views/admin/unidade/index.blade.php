@@ -9,15 +9,15 @@
 @section('content')    
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li> <a href="#" class="active"><a href="#">Unidades</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Unidades</a></li>
         </ol>
         <div class="row">
             @if (auth()->user()->isAdmin() || auth()->user()->isAssessor())
                 
                 <div class="col-lg-2">
                     <a href="{{route('unidade-create')}}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Adicionar Conselho</a>
-                    <p>
+        
                 </div>
                
             @endif
@@ -32,7 +32,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Filtrar</div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="margin-bottom: 25px">
                         <form class="form-inline" method="GET" action="{{route('unidades')}}">
 
                             <input type="text" id="nome" name="nome" class="form-control" value="{{$nome}}"
@@ -61,7 +61,7 @@
                             </select>
 
                             <button type="submit" class="btn btn-primary">Pesquisar</button>
-
+                        
                             <select class="form-control" name="ordenarPor" id="ordenarPor">
                                 <option value="confirmado_em" @if($ordenarPor == 'confirmado_em') selected @endif>Ordenar por Confirmação</option>
                                 <option value="updated_at" @if($ordenarPor == 'updated_at') selected @endif>Ordenar por Atualização</option>
@@ -89,11 +89,11 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="box box-info">
+                    <div class="box-header">
                             Resultados ({{$unidades->total()}})
                     </div>
-                    <div class="panel-body">
+                    <div class="box-body no-padding">
                         <table id="tbl-conselhos" class="table table-striped table-condensed">
                             <thead>
                                 <tr>
@@ -223,7 +223,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 
     <div class="modal fade" id="modalAtualizarConvidar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog modal-lg" role="document">

@@ -9,10 +9,10 @@
 @section('content')
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li> <a href="{{route('unidades')}}" ><a href="#">Unidades</a></li>            
-            <li> <a href="{{route('assessorias')}}" >Assessorias</a></li>
-            <li> <a href="#" class="active"><a href="#">Nova Assessoria</a></li>            
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"> <a href="{{route('unidades')}}" ><a href="#">Unidades</a></li>            
+            <li class="breadcrumb-item active"> <a href="{{route('assessorias')}}" >Assessorias</a></li>
+            <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Nova Assessoria</a></li>            
         </ol>
 
         @include('admin.includes.alerts')

@@ -9,15 +9,15 @@
 @section('content')    
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li> <a href="#" class="active">Tipos Documento</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"> <a href="#" class="active">Tipos Documento</a></li>
         </ol>
         <div class="page-header">
             <h2> 
                 <small>Tipos de documentos a serem enviados</small>
             </h2>
             @if(auth()->user()->isAdmin())
-            <a href="{{route('tiposdocumento-create')}}" class="btn btn-primary btn-lg">Novo Tipo de Documento</a>
+            <a href="{{route('tiposdocumento-create')}}" class="btn btn-primary btn-lg"  style="margin-top: 10px;">Novo Tipo de Documento</a>
             @endif
         </div>
 

@@ -9,9 +9,9 @@
 @section('content')        
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li><a href="{{route('tiposdocumento')}}">Tipos de Documento</a></li>
-            <li><a href="#">Novo</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('tiposdocumento')}}">Tipos de Documento</a></li>
+            <li class="breadcrumb-item active"><a href="#">Novo</a></li>
         </ol>
 
         <div class="row">

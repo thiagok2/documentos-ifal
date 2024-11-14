@@ -25,9 +25,9 @@
 @section('content')    
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li> <a href="#" ><a href="#">Documentos</a></li>
-            <li> <a href="#" class="active"><a href="#">Publicar em Lote</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"> <a href="#" ><a href="#">Documentos</a></li>
+            <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Publicar em Lote</a></li>
         </ol>
 
         @include('admin.includes.alerts')

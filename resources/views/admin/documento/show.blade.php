@@ -18,9 +18,9 @@
         <br/>
 
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li> <a href="{{route('documentos')}}" ><a href="#">Documentos</a></li>
-            <li> <a href="#" class="active"><a href="#">Detalhes</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"> <a href="{{route('documentos')}}" ><a href="#">Documentos</a></li>
+            <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Detalhes</a></li>
         </ol>
 
         @include('admin.includes.alerts')                  

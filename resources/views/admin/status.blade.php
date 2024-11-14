@@ -8,8 +8,8 @@
 
 @section('content')
     <ol class="breadcrumb">
-    <li><a href="{{route('home')}}">Painel</a></li>
-        <li> <a href="#" class="active"><a href="#">Status</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+        <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Status</a></li>
     </ol>
     <div class="page-header">
         <h1>Status do Servidor ElasticSearch</h1>

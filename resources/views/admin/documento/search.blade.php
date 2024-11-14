@@ -18,10 +18,10 @@
 @endpush
 
 @section('content')
-
+<div class="container-fluid">
     <ol class="breadcrumb">
-        <li><a href="{{route('home')}}">Painel</a></li>
-        <li> <a href="#" class="active"><a href="#">Pesquisar Pendências</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+        <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Pesquisar Pendências</a></li>
     </ol>
 
     <div class="row">
@@ -86,7 +86,7 @@
                     <h3 class="box-title">Ajuda</h3>
                 </div>
                 <div class="box-body">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <ul class="list-group legenda">
                             <li class="list-group-item active">
                                 Status <small>(para documentos do extrator)</small>
@@ -110,7 +110,7 @@
                             </li>
                         </ul>   
                     </div><!-- end col-->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <ul class="list-group legenda">
                             <li class="list-group-item active">
                                 Método de Inserção
@@ -227,5 +227,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @stop

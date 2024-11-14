@@ -9,9 +9,9 @@
 @section('content')
     <div class="container-fluid">
         <ol class="breadcrumb">
-            <li><a href="{{route('home')}}">Painel</a></li>
-            <li> <a href="{{route('unidades')}}" >Unidades</a></li>
-            <li> <a href="#" ><a href="#">Atualizar dados da Unidade</a></li>
+            <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+            <li class="breadcrumb-item active"> <a href="{{route('unidades')}}" >Unidades</a></li>
+            <li class="breadcrumb-item active"> <a href="#" ><a href="#">Atualizar dados da Unidade</a></li>
         </ol>
         
         <div class="row">

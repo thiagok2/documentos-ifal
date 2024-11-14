@@ -8,8 +8,8 @@
 
 @section('content')
     <ol class="breadcrumb">
-    <li><a href="{{route('home')}}">Painel</a></li>
-        <li> <a href="#" class="active"><a href="#">Ambiente</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+        <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Ambiente</a></li>
     </ol>
     <div class="page-header">
         <h1>Variáveis de ambiente 

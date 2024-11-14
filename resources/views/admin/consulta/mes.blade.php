@@ -9,8 +9,8 @@
 @section('content')
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="{{route('home')}}">Painel</a></li>
-        <li><a href="#" class="active"><a href="#">Consultas nos Meses Top 20</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+        <li class="breadcrumb-item active"><a href="#" class="active"><a href="#">Consultas nos Meses Top 20</a></li>
     </ol>
 
     <div class="row">

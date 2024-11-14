@@ -2669,6 +2669,7 @@ textarea.form-control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  gap: 10px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-flow: row wrap;
@@ -6936,7 +6937,7 @@ button.bg-secondary:focus {
 }
 
 .bg-success {
-  background-color: #38c172 !important;
+  background-color: #67CB57 !important;
 }
 
 a.bg-success:hover,
@@ -10472,3 +10473,15 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.panel-heading{
+  margin: 10px 0 10px 0;
+}
+
+.fa-plus{
+  margin-right: 20px;
+}
+
+.well{
+  margin-bottom: 10px;
+  
+}

@@ -8,9 +8,10 @@
 
 @section('content')
 
+<div class="container-fluid">
     <ol class="breadcrumb">
-        <li><a href="{{route('home')}}">Painel</a></li>
-        <li> <a href="#" class="active"><a href="#">Documentos</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
+        <li class="breadcrumb-item active"> <a href="#" class="active"><a href="#">Documentos</a></li>
     </ol>
 
     <div class="row">
@@ -27,7 +28,6 @@
                     <form class="form" method="GET" action="{{route('documentos-pesquisar')}}">
 
 
-                        <div class="container">
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="form-group">
@@ -104,7 +104,6 @@
                                     </div>
                                 </div>
 
-                            </div>
 
                         </div>
 
@@ -211,5 +210,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @stop
