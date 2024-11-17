@@ -94,7 +94,7 @@
                             Resultados ({{$unidades->total()}})
                     </div>
                     <div class="box-body no-padding">
-                        <table id="tbl-conselhos" class="table table-striped table-condensed">
+                        <table id="tbl-conselhos" class="table table-striped table-hover table-condensed">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -122,24 +122,24 @@
                                         <td>
                                             <span class="label label-info">
                                                 CRIADO:
-                                                <small style="color:white;">({{$unidade->created_at}})</small>
+                                                <small>({{$unidade->created_at}})</small>
                                             </span>
                                             @if($unidade->updated_at != $unidade->created_at)
                                             <br/>
                                             <span class="label label-info">
                                                 ATUALIZADO:
-                                                <small style="color:white;">({{$unidade->updated_at}})</small>
+                                                <small>({{$unidade->updated_at}})</small>
                                             </span>
                                             @endif
                                             @if(!str_contains($unidade->email,'alterar_email'))
                                                 <br/>
                                                 <span class="label label-info">
-                                                    <small style="color:white;">({{substr($unidade->email,0,40)}})</small>
+                                                    <small>({{substr($unidade->email,0,40)}})</small>
                                                 </span>
                                             @else
                                                 <br/>
                                                 <span class="label label-danger">
-                                                    <small style="color:white;">SEM EMAIL</small>
+                                                    <small>SEM EMAIL</small>
                                                 </span>
                                             @endif
                                         </td>
@@ -155,7 +155,7 @@
                                             @if ($unidade->trashed())                                            
                                                 <h4>
                                                     <span class="label label-default" style="color:white;">
-                                                    <small style="color:white;">
+                                                    <small>
                                                     DESABILITADA
                                                     ({{$unidade->deleted_at}})
                                                     </small>
@@ -165,7 +165,7 @@
                                             @if (!$unidade->trashed() && ($unidade->responsavel && $unidade->responsavel->confirmado))                                            
                                                 <h4>
                                                     <span class="label label-success" style="color:white;">
-                                                    <small style="color:white;">
+                                                    <small>
                                                     CONFIRMADO
                                                     ({{$unidade->confirmado_em}})
                                                     </small>
@@ -173,7 +173,7 @@
                                             @else
                                                 <h4>
                                                     <span class="label label-danger" style="color:white;">
-                                                        <small style="color:white;">
+                                                        <small>
                                                         NÃO CONFIRMADO
                                                         </small>
                                                     </span>
@@ -181,7 +181,7 @@
                                                 @if ($unidade->convidado_em)
                                                     <h4>
                                                         <span class="label label-warning">
-                                                        <small style="color:white;">
+                                                        <small>
                                                             CONVIDADO
                                                             ({{$unidade->convidado_em}})
                                                         </small>

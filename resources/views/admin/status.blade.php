@@ -26,11 +26,11 @@
         <div class="box box-info">
             <div class="box-header with-border">                
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#health">Health</a></li>
-                    <li><a data-toggle="tab" href="#nodes">Nodes</a></li>
-                    <li><a data-toggle="tab" href="#indices">Indices</a></li>
-                    <li><a data-toggle="tab" href="#allocation">Allocation</a></li>
-                    <li><a data-toggle="tab" href="#shards">Shards</a></li>                    
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#health">Health</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#nodes">Nodes</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#indices">Indices</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#allocation">Allocation</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#shards">Shards</a></li>                    
                 </ul>                   
             </div><!-- end box-header -->
             

@@ -131,7 +131,7 @@
 
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div aria-label="...">
                                     <a href="{{route("unidade-edit",$user->unidade->id)}}" class="btn btn-primary btn-lg" value="Editar">Editar</a>
                         
                                   
@@ -192,7 +192,7 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div aria-label="...">
                                 @if (auth()->user()->id == $user->id || auth()->user()->isGestor() || auth()->user()->isAdmin())
                                     <a href="{{route('usuario-edit',$user->id)}}" class="btn btn-primary btn-lg ">Editar</a>    
                                 @endif
@@ -206,7 +206,7 @@
                                 @endif
 
                                 @if (!$user->isResponsavel() && !$user->trashed())
-                                    <a href="{{route('unidade-novo-responsavel',['unidadeId'=>$user->unidade->id, 'usuarioId'=>$user->id])}}" class="btn btn-primary">Tornar responsável</a>
+                                    <a href="{{route('unidade-novo-responsavel',['unidadeId'=>$user->unidade->id, 'usuarioId'=>$user->id])}}" class="btn btn-primary btn-lg">Tornar responsável</a>
                                 @endif
                             
                             </div>

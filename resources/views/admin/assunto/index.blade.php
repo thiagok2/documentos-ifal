@@ -13,12 +13,13 @@
             <li class="breadcrumb-item active"><a href="{{route('Assuntos')}}" class="active">Assuntos</a></li>
         </ol>
         <div class="page-header">
-            <small>Assuntos gerais abordados nos documentos</small>
+            <small style="margin-bottom: 10px">Assuntos gerais abordados nos documentos</small>
             <a href="{{route('assuntos-create')}}" class="btn btn-primary btn-lg">Novo Assunto</a>
         </div>
+        
 
         @include('admin.includes.alerts')
-        <div class="row">
+        <div class="row" style="margin-bottom: 10px">
             @forelse ($assuntos as $assunto)
                 <div class="col-lg-4">
                     <div class="panel panel-default">
@@ -28,7 +29,7 @@
                                 ({{$assunto->documentos_count}})
                             </span>
 
-                            <div class="pull-right">
+                            <div class="float-left" style="margin-right: 5px;">
                                 <a href="{{route('assunto-edit',$assunto->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>

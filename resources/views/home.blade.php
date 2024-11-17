@@ -246,7 +246,7 @@
                 <canvas id="chartConsConfirmados"></canvas>
             </div>
             <div class="box-footer">
-                <span class="text-muted pull-right">
+                <span class="text-muted float-right">
                     <a href="{{route('unidades')}}">
                         Consulte as unidades
                     </a>
@@ -263,8 +263,8 @@
             <div class="box-body">
                 @foreach ($documentosPorTipo as $v)
                     <div class="clearfix">
-                    <span class="pull-left">{{$v->nome}} ({{$v->total}})</span>
-                        <small class="pull-right">{{$v->percent}}%</small>
+                    <span class="float-left">{{$v->nome}} ({{$v->total}})</span>
+                        <small class="float-right">{{$v->percent}}%</small>
                     </div>
                     <div class="progress xs" style="margin-bottom: 8px;">
                         <div class="progress-bar progress-bar-blue" style="width: {{$v->percent}}%;"></div>
@@ -283,7 +283,7 @@
                 <canvas id="chartUploadsMeses"></canvas>
             </div>
             <div class="box-footer">
-                <span class="text-muted pull-right">
+                <span class="text-muted float-right">
                     <a href="{{route('documentos')}}">
                         Acesse os últimos uploads
                     </a>
@@ -409,7 +409,7 @@
                 </table>
             </div>
             <div class="box-footer">
-                <span class="text-muted pull-right">
+                <span class="text-muted float-right">
                     <a href="{{route('unidades')}}">
                         Pesquisar unidades
                     </a>
@@ -451,7 +451,7 @@
                 </table>
             </div>
             <div class="box-footer">
-                <span class="text-muted pull-left">
+                <span class="text-muted float-left">
 
                     Total de {{$unidades->total()}} unidades com documentos publicados
 

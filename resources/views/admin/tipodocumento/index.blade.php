@@ -32,7 +32,7 @@
                                 ({{$doc->documentos_count}})
                             </span>
                             @if(auth()->user()->isAdmin())
-                            <div class="pull-right">
+                            <div class="float-left" style="margin-right: 5px;">
                                 <a href="{{route('tiposdocumento-edit', $doc->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>

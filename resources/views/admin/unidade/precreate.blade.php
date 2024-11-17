@@ -78,7 +78,7 @@
                             </div>
                         
                             <button type="submit" class="btn btn-success btn-lg" value="Enviar convite">Enviar Convite</button>
-                            <a href="{{route('home')}}" class="btn btn-danger btn-lg" value="Fechar">FechaADO</a>
+                            <a href="{{route('home')}}" class="btn btn-danger btn-lg" value="Fechar">Fechado</a>
                         </form>
                     </div>
                 </div>

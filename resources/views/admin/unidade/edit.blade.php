@@ -172,7 +172,7 @@
                                 <a href="{{route('unidade-force-delete',$unidade->id)}}" class="btn btn-danger btn-lg" data-toggle="modal">Remoção Permanente</button></a>
                                 @endif
                             @endif
-                            <a href="{{route('home')}}" class="btn btn-info btn-lg" value="Fechar">Fechar</a>
+                            <a href="{{route('home')}}" class="btn btn-danger btn-lg" value="Fechar">Fechar</a>
                         </form>
 
                         <div class="modal fade" id="modalConfirmUnidade{{$unidade->id}}" tabindex="-1" role="dialog">

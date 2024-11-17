@@ -10485,3 +10485,7 @@ a.text-dark:focus {
   margin-bottom: 10px;
   
 }
+
+.label-info{
+  background-color: #00c2c8 !important;
+}

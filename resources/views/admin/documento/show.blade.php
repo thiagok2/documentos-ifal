@@ -31,8 +31,8 @@
                     <h4>Visualização de informações do arquivo</h4>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#general">Geral</a></li>
-                    <li><a data-toggle="tab" href="#extra">Outros detalhes</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#general">Geral</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#extra">Outros detalhes</a></li>
                 </ul>                    
             </div><!-- end box-header -->
             

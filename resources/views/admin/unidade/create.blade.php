@@ -49,7 +49,7 @@
                                     </div>
                                 </div><!-- end col estado-->
                                 <div class="col-sm-5">
-                                    <div class="form-group">
+                                    <div class="form-group" style="margin-bottom: 0">
                                         <label for="municipio">Município*</label>
         
                                         <select class="form-control" required id="municipio_id" name="municipio_id" required>

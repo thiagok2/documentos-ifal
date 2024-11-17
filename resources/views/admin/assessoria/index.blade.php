@@ -36,7 +36,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Filtrar</div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="margin-bottom: 25px">
                         <form class="form-inline" method="GET" action="{{route('assessoria')}}">                           
 
                             <select class="form-control" name="estado" id="estado">
@@ -56,11 +56,11 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="box box-info">
+                    <div class="box-header">
                             Resultados ({{$unidades->total()}})
                     </div>
-                    <div class="panel-body">
+                    <div class="box-body no-padding">
                         <table id="tbl-conselhos" class="table table-striped table-hover table-condensed">
                             <thead>
                                 <tr>

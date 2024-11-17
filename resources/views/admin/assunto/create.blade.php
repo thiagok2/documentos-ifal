@@ -56,7 +56,7 @@
                                     ({{$a->documentos_count}})
                                     </span>
 
-                                    <span class="pull-right">
+                                    <span class="float-right">
                                         <i class="fa fa-edit"></i>
                                     </span>
                                 </a>
