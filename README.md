@@ -3,32 +3,40 @@
 
 ### instalando o PHP;
 
-1. use o comando `sudo apt install php8.2 -y`, para instalar o php na versão 8.2.
+1. Precisamos adicionar o repositório 'ondrej/php' para instalar o php na versão 8.2
+    ```bash
+    sudo apt update
+    sudo apt install software-properties-common -y
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt update
+    ```
+2. Instale php e todas as extensões com:
+    ```bash
+    sudo apt install php8.2 php8.2-cli php8.2-fpm php8.2-pgsql php8.2-xml php8.2-mbstring php8.2-curl php8.2-gd php8.2-zip -y
+    ```
 
-2. instalar extensões php (curl, dom, etc) 
-
-3. verifique o a instalação com o comando `php -v`, se no seu terminal não mostrar informações da versão do php, veja o tutotial de instação [aqui](https://tilsonmat.medium.com/como-instalar-o-php8-2-na-sua-maquina-93ea127aac7f#:~:text=Instala%C3%A7%C3%A3o,dar%20sim%20e%20instalar%20logo).
+3. Verifique a instalação com o comando `php -v`.
 
 
 ### instalando o Composer;
 
 1. composer é um gerenciador de dependencias para um ambiente PHP, siga os passos do [site oficial](https://getcomposer.org/download/) para instalar o composer.
 
-2. cheque a instalação do composer com o comando `composer --version`, se as informações do composer não aparecer em seu terminal, repita os passos do site.
+2. Cheque a instalação do composer com o comando `composer --version`, se as informações do composer não aparecer em seu terminal, repita os passos do site.
 
-3. confimando a instação do composer, abra o projeto e execute os comandos: `composer install` e `composer update`
+3. Confimando a instação do composer, abra o projeto e execute os comandos: `composer install` e `composer update`
 
 ### instalando o postgresql 
 
-1. para instalar o postgresql em um ambiente linux/ubuntu rode o comando `sudo apt install postgresql`,
+1. Para instalar o postgresql em um ambiente linux/ubuntu rode o comando `sudo apt install postgresql`,
 
-2. logo após roda os comandos `sudo apt install -y postgresql-common
+2. Logo após roda os comandos `sudo apt install -y postgresql-common
 sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh`
 
 - se a instação do postgres pelo APT der errado tente instalar munualmente seguindo os [passos do site](https://www.postgresql.org/download/linux/ubuntu/).
 
-3. com o postgresql instalado, é hora de instalar o PGadmin, que vai fornecer uma interface grafica para gerenciar o banco, se utilze o [passo a passo](https://www.pgadmin.org/download/pgadmin-4-apt/) do site para isso.
-
+3. Com o postgresql instalado, é hora de instalar o PGadmin, que vai fornecer uma interface grafica para gerenciar o banco, se utilze o [passo a passo](https://www.pgadmin.org/download/pgadmin-4-apt/) do site para isso.
+    - caso "curl" não for encontradodo, basta rodar o comando `sudo snap install curl`
 
 
 ### Configuração do Ambiente e Banco de Dados
@@ -41,12 +49,13 @@ sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh`
 
 2. Modifique as variáveis de ambiente no arquivo `.env` para seu contexto local. **Observação:** Se estiver usando PostgreSQL como banco de dados, altere os valores das variáveis `SESSION_DRIVER` e `CACHE_STORE` para `"file"`.
 
-2.1. DB_CONNECTION=pgsql
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=nome_banco
-DB_USERNAME=postgres
-DB_PASSWORD=sua_senha
+    - um exemplo da parte de banco de dados .env
+        DB_CONNECTION=pgsql
+        DB_HOST=127.0.0.1
+        DB_PORT=5432
+        DB_DATABASE=nome_banco
+        DB_USERNAME=postgres
+        DB_PASSWORD=sua_senha
 
 3. Gere uma nova chave de aplicação com o comando:
 
@@ -59,7 +68,8 @@ DB_PASSWORD=sua_senha
     ```bash
     php artisan migrate
     ```
-    - na necessidade de refazer o migrate, voce pode forçar o migrate apagando as tabelas e criando novamente, com o comando `php artisan migrate:fresh` 
+    - caso ele não ache o driver basta rodar `sudo apt install php-pgsql php8.2-pgsql -y`
+    - na necessidade de refazer o migrate, voce pode forçar o migrate apagando as tabelas e criando novamente, com o comando `php artisan migrate:fresh`
 
 5. Execute o comando de seed para o banco de dados:
 
@@ -136,6 +146,7 @@ Agora vamos criar o índice `documentos_ifal` no Elasticsearch. Para isso, siga 
 2. Após a execução do script, analise os logs gerados. Se não houver nenhum log indicando erro, você pode prosseguir.
 
 3. Se os logs mostrarem algum erro, verifique novamente se o certificado SSL está desativado e tente reiniciar o Elasticsearch conforme mencionado anteriormente.
+    - se o jq não for encotrado rode `sudo apt update & sudo apt install jq`
 
 #### POSTMAN COLLECTION
 
