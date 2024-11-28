@@ -18,9 +18,9 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Novo Usuário/Conselho</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Novo Usuário/Conselho</div>
+                    <div class="card-body">
                     <form name="form" id="form" method="post" action="{{route('unidade-convidar')}}">
                             {!! csrf_field() !!}
                             <input type="hidden" name="tipo" id="tipo" value="Conselho"/>
@@ -87,6 +87,6 @@
     </div>
 @stop
 
-@push('scripts')
+@push('js')
 <script src="{{ asset('js/app-unidades-simple.js') }}"></script>
 @endpush

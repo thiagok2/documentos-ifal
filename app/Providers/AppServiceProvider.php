@@ -71,15 +71,15 @@ class AppServiceProvider extends ServiceProvider
                     ]
                 );
             }
-            if ($user->isAdmin()) {
-                $event->menu->add(
-                    [
-                        'text' => 'Assessorias',
-                        'icon' => 'unlock-alt',
-                        'url' => 'admin/unidades/assessorias',
-                    ]
-                );
-            }
+            //if ($user->isAdmin()) {
+            //    $event->menu->add(
+            //        [
+            //            'text' => 'Assessorias',
+            //            'icon' => 'unlock-alt',
+            //            'url' => 'admin/unidades/assessorias',
+            //        ]
+            //    );
+            //}
             $event->menu->add('Glossário');
             $event->menu->add(
                 [

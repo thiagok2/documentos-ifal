@@ -63,11 +63,10 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="data_publicacao">Data de Publicação</label>
-                                <div class='input-group date'>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar">
-                                        </span>
-                                    </span>
+                                <div class='input-group'>
+                                    <!--<span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>-->
                                     <input type='date' value="{{ old('data_publicacao') }}" required class="form-control" id="data_publicacao" name="data_publicacao"/>
                                 </div>
                             </div>
@@ -77,8 +76,8 @@
                                 <label for="url">URL</label>
                                 <small class=".text-muted">(Endereço do documento online - opcional)</small>
                                 <div class='input-group'>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-globe">
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-globe"></i>
                                         </span>
                                     </span>
                                     <input type='url' value="{{old('url')}}" class="form-control" id="url" name="url" placeholder="HTTP://..." maxlength="200"/>
@@ -158,6 +157,6 @@
     </div> <!--end container ALL 4332-->
 @stop
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-create.js') }}"></script>
 @endpush

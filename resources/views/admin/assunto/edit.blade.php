@@ -22,10 +22,10 @@
         
         <div class="row">
             @include('admin.includes.alerts')
-            <div class="col-lg-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><b>Editar Assunto:</b> Informe nome e descrição</div>
-                    <div class="panel-body">
+            <div class="col-lg-8" style="margin-bottom: 25px;">
+                <div class="card card-default">
+                    <div class="card-header"><b>Editar Assunto:</b> Informe nome e descrição</div>
+                    <div class="card-body">
                     @if (isset($assunto->deleted_at))
                         <div class="alert alert-warning">
                             Assunto desabilitado em {{date('d/m/Y H:i:s', strtotime($assunto->deleted_at))}}
@@ -69,8 +69,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title">Confirmação de exclusão</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             </div>
                                             <div class="modal-body">
                                                 <p>Tem certeza que deseja excluir este assunto?</p>
@@ -89,9 +89,9 @@
                 </div><!-- end panel-->
             </div><!-- end col-8 main-->
             <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Assuntos cadastrados</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Assuntos cadastrados</div>
+                    <div class="card-body">
                         <div class="list-group">
                             @foreach ($assuntos as $a)
                                 
@@ -115,9 +115,9 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                <div class="panel-heading">Documentos associados a {{$assunto->nome}} ({{$documentos->total()}})</div>
-                    <div class="panel-body">
+                <div class="box box-info">
+                <div class="box-header">Documentos associados a {{$assunto->nome}} ({{$documentos->total()}})</div>
+                    <div class="box-body">
                         <table class="table table-condensed table-hover">
                             <thead>
                                 <tr>
@@ -164,7 +164,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-footer">
+                    <div class="box-footer">
                         {{ $documentos->links() }}
                     </div>
                 </div>

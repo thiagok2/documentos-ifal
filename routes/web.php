@@ -96,7 +96,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('documentos/publicar',        [DocumentoController::class, 'create'])->name('publicar');
     Route::post('documentos/publicar',       [DocumentoController::class, 'store'])->name('enviar');
     Route::get('documentos/publicar-lote',   [LoteController::class, 'create'])->name('publicar-lote');
-    Route::post('docmentos/publicar-lote',   [LoteController::class, 'store'])->name('enviar-lote');
+    Route::post('documentos/publicar-lote',   [LoteController::class, 'store'])->name('enviar-lote');
     Route::post('documentos/upload-lote',    [LoteController::class, 'upload'])->name(('upload-lote'));
     Route::post('documentos/update-item-lote/{id}', [LoteController::class, 'updateItemLote'])->name('update-item-lote');
     Route::get('documentos/pendentes',       [LoteController::class, 'documentosPendentes'])->name('docs-pendeste');
@@ -110,12 +110,12 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('documento/{id}/indexar',     [DocumentoController::class, "indexar"])->name('documento-indexar');
     Route::get('usuarios/{id}/editar',       [UsuarioController::class, 'edit'])->name('usuario-edit');
     Route::get('usuarios',                   [UsuarioController::class, 'index'])->name('usuarios');
-    Route::get('usarios/convidar',           [UsuarioController::class, 'convidar'])->name('usuario-convidar');
+    Route::get('usuarios/convidar',           [UsuarioController::class, 'convidar'])->name('usuario-convidar');
     Route::get('usuarios/reenviar-convite/{id}', [UsuarioController::class, 'reenviarConvite'])->name('usuario-reconvidar');
     Route::post('usuarios',                  [UsuarioController::class, 'store'])->name('usuario-store');
     Route::post('usuarios/create',           [UsuarioController::class, 'create'])->name('usario-create');
     Route::get('usuarios/pesquisar',         [UsuarioController::class, 'search'])->name('usuario-search');
-    Route::post('usarios/pesquisar',         [UsuarioController::class, 'search'])->name('usuario-search');
+    Route::post('usuarios/pesquisar',         [UsuarioController::class, 'search'])->name('usuario-search');
     Route::get('usuarios/delete/{id}',       [UsuarioController::class, 'destroy'])->name('usuario-delete');
     Route::get('usuarios/force-delete/{id}', [UsuarioController::class, 'forceDelete'])->name('usuario-force-delete');
     Route::get('usuarios/restore/{id}',      [UsuarioController::class, 'restore'])->name('usuario-restore');

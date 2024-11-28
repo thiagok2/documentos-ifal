@@ -25,21 +25,21 @@
         <div class="row">
             @forelse ($tipodocumentos as $doc)
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card card-default">
+                        <div class="card-header">
                             <span class="lead">
                                 {{$doc->nome}}
                                 ({{$doc->documentos_count}})
                             </span>
                             @if(auth()->user()->isAdmin())
-                            <div class="float-left" style="margin-right: 5px;">
+                            <div class="float-right">
                                 <a href="{{route('tiposdocumento-edit', $doc->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </div>
                             @endif
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             {{$doc->descricao}}
                         </div>
                     </div>

@@ -24,8 +24,8 @@
             @endif    
 
             <div class="col-lg-8">
-                <div @if ($unidade->trashed()) class="panel panel-danger " @else class="panel panel-default" @endif>
-                    <div  class="panel-heading">
+                <div @if ($unidade->trashed()) class="card card-danger " @else class="card card-default" @endif>
+                    <div  class="card-header">
                         Atualizar dados da Unidade 
                         @if (isset($alerta))
                             <span class="align-middle pull-right label label-warning" style="font-size: 95%">
@@ -33,7 +33,7 @@
                             </span>                    
                         @endif    
                     </div>
-                    <div class="panel-body">                
+                    <div class="card-body">                
                         <form name="form" id="form" method="post" action="{{route('unidade-store')}}" disabled>
                             {!! csrf_field() !!}
                             <input type="hidden" value="{{ $unidade->id }}" name="id">
@@ -56,7 +56,7 @@
                                     <div class="form-group">
                                         <label for="tipo">Tipo*</label>
                                         <select class="form-control" required id="tipo" name="tipo">
-                                            <option value="Conselho" {{($unidade->tipo == 'Conselho' ? 'selected="selected"':'')}}>Conselho</option>
+                                            <option value="Unidade" {{($unidade->tipo == 'Unidade' ? 'selected="selected"':'')}}>Unidade</option>
                                             <option value="Assessoria" {{($unidade->tipo == 'Assessoria' ? 'selected="selected"':'')}}>Assessoria</option>
                                             <option value="Outros" {{($unidade->tipo == 'Outros' ? 'selected="selected"':'')}}>Outros</option>
                                         </select>
@@ -87,8 +87,9 @@
                                     <div class="form-group">
                                         <label for="friendly_url">URL Amigável*</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1">
-                                                <span class="glyphicon glyphicon-globe"></span>
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-globe"></i>
+                                                </span>
                                             </span>
                                             <input type="text" class="form-control" value="{{ $unidade->friendly_url }}" name="friendly_url" id="friendly_url" required>
                                         </div>
@@ -122,8 +123,8 @@
                                         <label for="url">Endereço na web</label>
                                         <small class="text-muted">(Site da unidade - opcional)</small>
                                         <div class='input-group'>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-globe">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-globe"></i>
                                                 </span>
                                             </span>
                                             <input type='url' class="form-control" id="url" name="url" value="{{ $unidade->url }}" 
@@ -179,8 +180,8 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title">Confirmação exclusão de Unidade</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     </div>
                                     <div class="modal-body">
                                         <p>Tem certeza que deseja desabilitar a unidade {{$unidade->nome}}?</p>
@@ -202,9 +203,9 @@
             </div> <!-- end col 8-->
 
         <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">Colaboradores</div>
-            <div class="panel-body">
+        <div class="card card-default">
+            <div class="card-header">Colaboradores</div>
+            <div class="card-body">
                 @if(!$unidade->trashed())
 
                     @if ( auth()->user()->isAdmin())
@@ -222,9 +223,9 @@
                 
                 @forelse ($users as $user)
                     
-                    <div @if($user->isResponsavel()) class="panel panel-primary" @else class="panel panel-default" @endif>
-                        <div class="panel-heading">{{ $user->name }}</div>
-                        <div class="panel-body">
+                    <div @if($user->isResponsavel()) class="card card-primary" @else class="card card-default" @endif>
+                        <div class="card-header">{{ $user->name }}</div>
+                        <div class="card-body">
                             @if ($user->trashed())
                                 <div class="badge badge-danger">DESABILITADO</div>
                                 <br/>
@@ -234,7 +235,7 @@
 
                             <br/>
                             @if ($user->isResponsavel())
-                                <span class="badge">RESPONSÁVEL</span>
+                                <span class="badge pl-0">RESPONSÁVEL</span>
                                 <br/>
                             @endif
                             {{ $user->tipo }}
@@ -249,7 +250,7 @@
                                 <span class="badge">Não confirmado</span>
                             @endif
                         </div>
-                        <div class="panel-footer">
+                        <div class="card-footer">
                             @if(!$unidade->trashed())
                                 @if (!$user->trashed() && auth()->user()->id != $user->id  &&
                                     (auth()->user()->isGestor() || auth()->user()->isAdmin()))                            
@@ -259,8 +260,8 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                     <h4 class="modal-title">Confirmação de exclusão</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>Tem certeza que deseja excluir este usuário?</p>
@@ -302,15 +303,15 @@
         </div><!-- end row-->
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Atos normativos cadastrados ({{$documentos->total()}})</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Atos normativos cadastrados ({{$documentos->total()}})</div>
+                    <div class="card-body">
                         <div class="row">
                             @forelse ($documentos as $doc)
                             <div class="col-lg-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">{{ $doc->titulo }}</div>
-                                    <div class="panel-body">
+                                <div class="card card-default">
+                                    <div class="card-header">{{ $doc->titulo }}</div>
+                                    <div class="card-body">
                                         {{ $doc->ementa }}
                                         <hr/>
                                         
@@ -321,7 +322,7 @@
                                         <br/>
                                         Número: {{ $doc->numero }}
                                     </div>
-                                    <div class="panel-footer">
+                                    <div class="card-footer">
                                             <a href="{{ route("pdfNormativa",$doc->arquivo) }}" target="_blank" class="btn btn-primary btn-lg">
                                                 Baixar
                                             </a>
@@ -330,18 +331,18 @@
                                             </a>
                                     </div>
                                 </div>   
-                            </div><!-- end panel-doc-->
+                            </div><!-- end card-doc-->
                             
                         @empty
                             <div class="col-lg-8">
                                 <div class="alert alert-warning">
-                                    <strong>Aviso!</strong> Nenhum documento foi enviado por esse conselho.
+                                    <strong>Aviso!</strong> Nenhum documento foi enviado por essa unidade.
                                 </div>
                             </div>
                         @endforelse  
                         </div>
-                    </div><!-- end panel body -->
-                </div> <!-- panel body-->
+                    </div><!-- end card body -->
+                </div> <!-- card body-->
                 <div class="box-footer">
                     {{ $documentos->links() }}
                 </div>
@@ -349,6 +350,6 @@
         </div>
     </div><!--end container-->
 @stop
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-unidades.js') }}"></script>
 @endpush

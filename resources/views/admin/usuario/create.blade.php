@@ -16,9 +16,9 @@
     @include('admin.includes.alerts')
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Criar novo usuário</div>
-                <div class="panel-body">
+            <div class="card card-default">
+                <div class="card-header">Criar novo usuário</div>
+                <div class="card-body">
                     <form name="form" id="form" method="post" action="{{route('usuario-create')}}">
                         {!! csrf_field() !!}
 
@@ -80,14 +80,14 @@
                         <button type="submit" class="btn btn-primary btn-lg" value="Convidar">Enviar convite</button>
                         
                     </form>
-                </div><!-- end panel-body-->
-            </div><!-- end panel-->
+                </div><!-- end card-body-->
+            </div><!-- end card-->
         </div><!-- end col-form-->
     
     </div><!-- end row container-->
 </div><!-- end container-->
 
 @stop
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-usuario.js') }}"></script>
 @endpush

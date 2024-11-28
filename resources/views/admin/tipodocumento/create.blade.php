@@ -17,9 +17,9 @@
         <div class="row">
             @include('admin.includes.alerts')
             <div class="col-lg-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Novo Tipo de documento: Informe nome e descrição</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Novo Tipo de documento: Informe nome e descrição</div>
+                    <div class="card-body">
                     <form  name="form" id="form" method="post" action="{{route('tiposdocumento-store')}}"> 
                         {!! csrf_field() !!}
                         <div class="col-sm-12">
@@ -44,9 +44,9 @@
                 </div><!-- end panel-->
             </div><!-- end col-8 main-->
             <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Tipos de Documentos cadastrados: Clique para editar</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Tipos de Documentos cadastrados: Clique para editar</div>
+                    <div class="card-body">
                         <div class="list-group">
                             @foreach ($tipodocumentos as $t)
                                 

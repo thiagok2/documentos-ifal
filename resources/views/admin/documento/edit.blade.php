@@ -96,8 +96,8 @@
                                         <label for="url">URL</label>
                                         <small class=".text-muted">(Endereço do documento online - opcional)</small>
                                         <div class='input-group'>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-globe">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-globe"></i>
                                                 </span>
                                             </span>
                                             <input type='url' value="{{$documento->url}}" class="form-control" id="url" name="url" placeholder="HTTP://..." maxlength="200"/>                                            
@@ -334,6 +334,6 @@
     </div><!-- end div container-->
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-edit.js') }}"></script>
 @endpush

@@ -22,9 +22,9 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Filtrar</div>
-                <div class="panel-body">
+            <div class="card card-default">
+                <div class="card-header">Filtrar</div>
+                <div class="card-body">
                     <form class="form" method="GET" action="{{route('documentos-pesquisar')}}">
 
 
@@ -38,7 +38,7 @@
                                         <label for="usuarioNome">Usuário:</label>
                                         <input type="text" id="usuarioNome" name="usuarioNome" class="form-control"  value="{{$queryParams['usuarioNome']}}"
                                             placeholder="Ex.: Maria, João..." aria-describedby="basic-addon1"/>
-                                        <small class="form-text text-muted">Nome/sigla do conselho e/ou nome do usuário</small>
+                                        <small class="form-text text-muted">Nome/sigla da unidade e/ou nome do usuário</small>
                                     </div>
                                 </div>
                            
@@ -145,7 +145,7 @@
                         <tbody>
 
                                 @forelse ($documentos as $key=>$doc)
-                                <tr @if ($doc->completed) class='bg-success' @else class='bg-warning' @endif>
+                                <tr @if ($doc->completed) class='table table-info' @else class='table table-warning' @endif>
                                     <td>
                                         {{ ($documentos->currentpage()-1) * $documentos->perpage() + $key + 1 }}
                                     </td>

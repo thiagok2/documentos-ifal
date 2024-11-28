@@ -1,4 +1,3 @@
-
 function deleteUpload(fileId){
     console.log('deleting::'+fileId);
 
@@ -56,6 +55,8 @@ $(function () {
     });
 
     $('.btn_salvar').click(function() {
+
+        console.log('salvandoooooo');
         var id = $(this).data('id');
         var ano = $('#ano_'+id).val().trim();
         var data_publicacao = $('#data_publicacao_'+id).val().trim();
@@ -125,8 +126,8 @@ $(function () {
 
 
     if ( $("#fileupload") ){
-
-        $('#fileupload').fileupload({
+        console.log('fileuploadfileuploadfileuploadfileuploadfileupload');
+        $('#fileupload').fileupload({fileupload,
             dataType: 'json',
             limitMultiFileUploads: 10,
             multipart:true,

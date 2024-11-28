@@ -72,9 +72,6 @@
                                         <div class="form-group">
                                             <label for="data_publicacao">Data de Publicação</label>
                                             <div class='input-group date'>
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
                                                 <input type='date' class="form-control" id="data_publicacao" name="data_publicacao"
                                                 value="{{ $documento->data_publicacao }}" readonly/>
                                             </div>
@@ -86,8 +83,8 @@
                                             <small class=".text-muted">({{$documento->url ? "Clique para acessar" : "Não informado"}})</small>
                                             <a href="{{$documento->url ? $documento->url : ""}}" {{$documento->url ? "target='_blank'" : ""}}>
                                                 <div class='input-group'>
-                                                    <span class="input-group-addon">
-                                                        <span class="glyphicon glyphicon-globe">
+                                                    <span class="input-group-prepend">
+                                                        <span class="input-group-text"> <i class="fa fa-globe"></i>
                                                         </span>
                                                     </span>
                                                     <input type='url' value="{{$documento->url}}" class="form-control" id="url" name="url" readonly style="cursor: pointer"/>

@@ -19,7 +19,8 @@
         -moz-appearance: textfield;
     }
 </style>
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="{{ asset('vendor/tagsinput/bootstrap-tagsinput.css') }}">
 @endpush
 
 @section('content')    
@@ -91,7 +92,7 @@
                             </div>
                             <p id="loading"></p>
                             <span class="btn btn-primary btn-bg fileinput-button">
-                                <i class="glyphicon glyphicon-plus"></i>
+                                <i class="fa fa-plus"></i>
                                 <span>Anexar documentos...</span>
                                 <!-- The file input field used as target for the file upload widget -->
                                 <input type="file" id="fileupload" name="documentos[]" data-url="{{route('upload-lote')}}" multiple="" accept="application/pdf">
@@ -120,10 +121,14 @@
     </div>
 
 @endsection
-@push('scripts')
-    <script src="{{ asset('js/app-lote.js') }}"></script>
-    <script src="{{ asset('js/jquery.ui.widget.js') }}"></script>
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('vendor/tagsinput/bootstrap-tagsinput.min.js') }}"></script>
 
+    <script src="{{ asset('js/jquery.ui.widget.js') }}"></script>
     <script src="{{ asset('js/jquery.iframe-transport.js') }}"></script>
+
+    
     <script src="{{ asset('js/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('js/app-lote.js') }}"></script>
 @endpush

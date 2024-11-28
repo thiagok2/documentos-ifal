@@ -16,7 +16,7 @@
             @if (auth()->user()->isAdmin() || auth()->user()->isAssessor())
                 
                 <div class="col-lg-2">
-                    <a href="{{route('unidade-create')}}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Adicionar Conselho</a>
+                    <a href="{{route('unidade-create')}}" class="btn btn-primary "><i class="fa fa-plus"></i> Adicionar Unidade</a>
         
                 </div>
                
@@ -29,16 +29,16 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Filtrar</div>
-                    <div class="panel-body" style="margin-bottom: 25px">
+            <div class="col-lg-12 mt-3  ">
+                <div class="card card-default">
+                    <div class="card-header">Filtrar</div>
+                    <div class="card-body">
                         <form class="form-inline" method="GET" action="{{route('unidades')}}">
 
                             <input type="text" id="nome" name="nome" class="form-control" value="{{$nome}}"
                                 placeholder="Nome da unidade" aria-describedby="basic-addon1">
 
-                            <select class="form-control" name="esfera" id="esfera">
+                            <!--<select class="form-control" name="esfera" id="esfera">
                                 <option value="0">Todas as Esferas</option>
                                 <option value="Municipal"   @if($esfera=="Municipal") selected @endif>Municipal</option>                                
                                 <option value="Estadual"    @if($esfera=="Estadual") selected @endif @if(auth()->user()->isAssessor()) disabled @endif>Estadual</option>                                
@@ -50,7 +50,7 @@
                                 @foreach ($estados as $e)
                                     <option value="{{$e->id}}" @if($estado==$e->id) selected @endif>{{$e->nome}}</option>
                                 @endforeach
-                            </select>
+                            </select> -->
 
                             
 
@@ -98,8 +98,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Esfera</th>
-                                    <th>Estado</th>
+                                    <!-- <th>Esfera</th>-->
+                                    <!-- <th>Estado</th>-->
                                     <th>Município</th>                                    
                                     <th>Nome da Unidade</th>
                                     <th>Criado/Atualizado</th>
@@ -110,35 +110,35 @@
                             </thead>
                             <tbody style="font-size: 110%">
                                 @forelse ($unidades as $key=>$unidade)                                                                                                                
-                                    <tr @if ($unidade->documentos_count > 0 && !$unidade->trashed()) class='bg-success' @endif
-                                        @if ($unidade->trashed()) class='danger' @endif>
+                                    <tr @if ($unidade->documentos_count > 0 && !$unidade->trashed()) class='table table-info' @endif}}
+                                        @if ($unidade->trashed()) class='danger' @endif --}}>
                                         <td class="text-bold">{{ ($unidades->currentpage()-1) * $unidades->perpage() + $key + 1 }}</td>
-                                        <td>{{ $unidade->esfera }}</td>
-                                        <td>Alagoas</td>
+                                        <!-- <td>{{ $unidade->esfera }}</td> -->
+                                        <!-- <td>Alagoas</td> -->
                                         <td>{{ $unidade->municipio ? $unidade->municipio['nome'] :  'NA' }}</td>
                                         <td>
                                             <a style="cursor: pointer;" href="{{route("unidade-show",$unidade->id)}}" data-conselho-id="{{ $unidade->id }}">{{ $unidade->nome}}</a>
                                         </td>
                                         <td>
-                                            <span class="label label-info">
+                                            <span>
                                                 CRIADO:
                                                 <small>({{$unidade->created_at}})</small>
                                             </span>
                                             @if($unidade->updated_at != $unidade->created_at)
                                             <br/>
-                                            <span class="label label-info">
+                                            <span>
                                                 ATUALIZADO:
                                                 <small>({{$unidade->updated_at}})</small>
                                             </span>
                                             @endif
                                             @if(!str_contains($unidade->email,'alterar_email'))
                                                 <br/>
-                                                <span class="label label-info">
+                                                <span>
                                                     <small>({{substr($unidade->email,0,40)}})</small>
                                                 </span>
                                             @else
                                                 <br/>
-                                                <span class="label label-danger">
+                                                <span>
                                                     <small>SEM EMAIL</small>
                                                 </span>
                                             @endif
@@ -146,15 +146,15 @@
 
                                         <td class="text-center">                                            
                                             @if($unidade->documentos_count > 0)
-                                                <h4><span class="label label-success">{{$unidade->documentos_count}} <i class="fa fa-file"></i></span></h4>
+                                                <h4><span>{{$unidade->documentos_count}} <i class="fa fa-file"></i></span></h4>
                                             @else
-                                                <h4><span class="label label-danger">{{$unidade->documentos_count}} <i class="fa fa-file"></i></span></h4>
+                                                <h4><span>{{$unidade->documentos_count}} <i class="fa fa-file"></i></span></h4>
                                             @endif                                                                                        
                                         </td>                                        
                                         <td class="text-center">   
                                             @if ($unidade->trashed())                                            
                                                 <h4>
-                                                    <span class="label label-default" style="color:white;">
+                                                    <span>
                                                     <small>
                                                     DESABILITADA
                                                     ({{$unidade->deleted_at}})
@@ -164,7 +164,7 @@
 
                                             @if (!$unidade->trashed() && ($unidade->responsavel && $unidade->responsavel->confirmado))                                            
                                                 <h4>
-                                                    <span class="label label-success" style="color:white;">
+                                                    <span>
                                                     <small>
                                                     CONFIRMADO
                                                     ({{$unidade->confirmado_em}})
@@ -172,7 +172,7 @@
                                                 </h4>
                                             @else
                                                 <h4>
-                                                    <span class="label label-danger" style="color:white;">
+                                                    <span>
                                                         <small>
                                                         NÃO CONFIRMADO
                                                         </small>
@@ -180,7 +180,7 @@
                                                 </h4>
                                                 @if ($unidade->convidado_em)
                                                     <h4>
-                                                        <span class="label label-warning">
+                                                        <span>
                                                         <small>
                                                             CONVIDADO
                                                             ({{$unidade->convidado_em}})
@@ -193,11 +193,11 @@
                                         <td class="text-center">   
                                             <h4>                                        
                                                 <a href="{{route("unidade-edit",$unidade->id)}}" title="Editar">
-                                                    <span class="label label-primary"><i class="fa fa-edit"></i></span>
+                                                    <span><i class="fa fa-edit"></i></span>
                                                 </a>                                                    
-                                                <a href="#" 
+                                                <a href="#modalAtualizarConvidar" data-toggle="modal"
                                                     title="Enviar convite" class="modal-unidade" data-conselho-id="{{ $unidade->id }}">
-                                                    <span class="label label-primary"><i class="glyphicon glyphicon-send"></i></span>
+                                                    <span><i class="fa fa-share-square"></i></span>
                                                 </a>
                                             </h4>                                                                 
                                         </td>
@@ -232,9 +232,9 @@
                 <input type="hidden" name="unidade_id" id="unidade_id">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="conselho_titulo"></h4>
                         <span class="help-text text-muted">Edite as informações do conselho e envie um convite para liberar o acesso.</span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
@@ -268,8 +268,9 @@
                                     <div class="form-group">
                                         <label for="gestor_email">Email</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1">
-                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-envelope"></i>
+                                                </span>
                                             </span>
                                             <input type="email" class="form-control" name="gestor_email" id="gestor_email" required maxlength="255" minlength="10">
                                         </div>
@@ -290,6 +291,6 @@
         </div>
     </div><!-- end modal-->
 @stop
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-unidades.js') }}"></script>
 @endpush

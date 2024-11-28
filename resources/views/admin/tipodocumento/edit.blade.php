@@ -24,9 +24,9 @@
         <div class="row">
             @include('admin.includes.alerts')
             <div class="col-lg-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><b>Editar Tipo de documento:</b> Informe nome e descrição</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header"><b>Editar Tipo de documento:</b> Informe nome e descrição</div>
+                    <div class="card-body">
                     @if (isset($tipodocumento->deleted_at))
                         <div class="alert alert-warning">
                             Tipo de documento desabilitado em {{date('d/m/Y H:i:s', strtotime($tipodocumento->deleted_at))}}
@@ -79,8 +79,8 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title">Confirmação de exclusão</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             </div>
                                             <div class="modal-body">
                                                 <p>Tem certeza que deseja excluir este tipo de documento?</p>
@@ -100,9 +100,9 @@
                 </div><!-- end panel-->
             </div><!-- end col-8 main-->
             <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Tipos de documento cadastrados</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Tipos de documento cadastrados</div>
+                    <div class="card-body">
                         <div class="list-group">
                             @foreach ($tipodocumentos as $t)
                                 
@@ -112,7 +112,7 @@
                                     ({{$t->documentos_count}})
                                     </span>
 
-                                    <span class="pull-right">
+                                    <span class="float-right">
                                         <i class="fa fa-edit"></i>
                                     </span>
                                 </a>
@@ -126,9 +126,9 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                <div class="panel-heading">Documentos associados a {{$tipodocumento->nome}} ({{$documentos->total()}})</div>
-                    <div class="panel-body">
+                <div class="box box-info">
+                <div class="box-header">Documentos associados a {{$tipodocumento->nome}} ({{$documentos->total()}})</div>
+                    <div class="box-body">
                         <table class="table table-condensed table-hover">
                             <thead>
                                 <tr>
@@ -175,7 +175,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-footer">
+                    <div class="box-footer">
                         {{ $documentos->links() }}
                     </div>
                 </div>

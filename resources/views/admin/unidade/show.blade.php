@@ -24,11 +24,11 @@
     
         <div class="row">
             <div class="col-lg-8">
-                <div @if ($unidade->trashed()) class="panel panel-danger " @else class="panel panel-default @endif">
-                    <div class="panel-heading">
+                <div @if ($unidade->trashed()) class="card card-danger " @else class="card card-default @endif">
+                    <div class="card-header">
                         Unidade - {{ $unidade->nome }}                                                         
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="row">                                        
                             <div class="col-sm-3">
                                 <div class="form-group">
@@ -199,9 +199,9 @@
                     </div>
                 </div>
                 @if (sizeof($statusExtrator) > 0 )
-                    <div class="panel panel-default box box-danger">
-                        <div class="panel-heading">Status Extrator</div>
-                        <div class="panel-body">
+                    <div class="card card-default box box-danger">
+                        <div class="card-header">Status Extrator</div>
+                        <div class="card-body">
                             <table class="table table-striped table-hover table-condensed">
                                 <thead>
                                     <tr>
@@ -222,16 +222,16 @@
                     </div>
                 @endif
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">Colaboradores</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Colaboradores</div>
+                    <div class="card-body">
                         @forelse ($users as $user)
                             
-                            <div @if($user->isResponsavel()) class="panel panel-primary" @else class="panel panel-default" @endif>
-                                <div class="panel-heading">
+                            <div @if($user->isResponsavel()) class="card card-primary" @else class="card card-default" @endif>
+                                <div class="card-header">
                                     {{ $user->name }}                                    
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     @if ($user->trashed())
                                     <span class="badge">DESABILITADO</span>
                                     <br/>
@@ -256,7 +256,7 @@
                                         <span class="badge">Não confirmado</span>
                                     @endif                                    
                                 </div>
-                                <div class="panel-footer">            
+                                <div class="card-footer">            
                                     @if(!$unidade->trashed())
                                         @if (auth()->user()->isResponsavel() || auth()->user()->isAdmin())
                                             <a href="{{route('usuario-edit',$user->id)}}" class="btn btn-primary">Editar</a>                                            

@@ -25,18 +25,18 @@
         <div class="row">
             @if (auth()->user()->isAdmin())
                 
-                <div class="col-lg-2">
-                    <a href="{{route('assessoria-create')}}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Adicionar Assessoria</a>
+                <div class="col-lg-2 mb-3">
+                    <a href="{{route('assessoria-create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Adicionar Assessoria</a>
                 </div>
                
             @endif
         </div>        
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Filtrar</div>
-                    <div class="panel-body" style="margin-bottom: 25px">
+            <div class="col-lg-12 ">
+                <div class="card card-default">
+                    <div class="card-header">Filtrar</div>
+                    <div class="card-body">
                         <form class="form-inline" method="GET" action="{{route('assessoria')}}">                           
 
                             <select class="form-control" name="estado" id="estado">
@@ -75,7 +75,7 @@
                             </thead>
                             <tbody style="font-size: 110%">
                                 @forelse ($unidades as $key=>$unidade)                                                                                                                
-                                    <tr @if ($unidade->documentos_count > 0 && $unidade->responsavel->confirmado) class='bg-success' @endif>
+                                    <tr @if ($unidade->documentos_count > 0 && $unidade->responsavel->confirmado) class='table table-info' @endif>
                                         <td class="text-bold">{{ ($unidades->currentpage()-1) * $unidades->perpage() + $key + 1 }}</td>
                                         <td>{{ $unidade->esfera }}</td>
                                         <td>{{ $unidade->estado['nome']}}</td>
@@ -201,6 +201,6 @@
         </div>
     </div>
 @stop
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-unidades.js') }}"></script>
 @endpush

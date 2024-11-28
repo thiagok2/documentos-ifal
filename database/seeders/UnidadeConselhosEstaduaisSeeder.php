@@ -221,7 +221,7 @@ class UnidadeConselhosEstaduaisSeeder extends Seeder
         ]);
 
         Unidade::create([
-            'nome' => 'IFAL - SATANA DE IPANEMA', 
+            'nome' => 'IFAL - SANTANA DE IPANEMA', 
             'tipo' => 'Campus', 
             'esfera' => 'Municipal',
             'email' => 'dg.santana@ifal.edu.br',

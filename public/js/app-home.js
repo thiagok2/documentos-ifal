@@ -23,27 +23,26 @@ $(function () {
                         label: 'Criados',
                         data: criados,
                         backgroundColor: 'rgba(36, 123, 160, 0.2)',
-                        borderColor: 'rgba(36, 123, 160, 1)'
+                        borderColor: 'rgba(36, 123, 160, 1)',
                     },
                     {
                         label: 'Confirmados',
                         data: confirmados,
-                        backgroundColor: ['rgba(112, 192, 179, 0.2)'],
-                        borderColor: ['rgba(112, 192, 179, 1)']
-
-                    }
-                ]
+                        backgroundColor: 'rgba(112, 192, 179, 0.2)',
+                        borderColor: 'rgba(112, 192, 179, 1)',
+                    },
+                ],
             },
             options: {
+                responsive: true,
                 scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
         });
+        ;
     });
     //fim unidades confirmados
 
@@ -75,13 +74,9 @@ $(function () {
             },
             options: {
                 scales: {
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }
-                    ]
+                    y:{
+                        beginAtZero: true
+                    }
                 }
             }
         });

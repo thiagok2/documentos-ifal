@@ -85,7 +85,7 @@
                                         <br/>
                                         <br/>
                                         <button type='button' onclick="deleteUpload({{$doc->id}})" value='Remover' class='btn btn-danger btn-sm'>
-                                            <span class="fa fa-trash-o fa-lg" aria-hidden="true"></span>
+                                            <span class="fa fa-trash fa-lg" aria-hidden="true"></span>
                                         </button>
                                     </td>
                                 </tr>
@@ -104,7 +104,7 @@
                         {{ $documentos->links() }}
                     </div>
                 </div><!--end box -->
-                <a href="{{route('home')}}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-remove"></span> Fechar</a>
+                <a href="{{route('home')}}" class="btn btn-primary btn-lg"><span class="fa fa-times mr-2"></span> Fechar</a>
             </div>
             
         </div><!-- end row -->
@@ -121,7 +121,7 @@
     </div>
 
 @endsection
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-lote.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.widget.js') }}"></script>
 

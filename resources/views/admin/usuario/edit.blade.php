@@ -28,9 +28,9 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Atualizar cadastro de usuário</div>
-                <div class="panel-body">
+            <div class="card card-default">
+                <div class="card-header">Atualizar cadastro de usuário</div>
+                <div class="card-body">
                     <form name="form" id="form" method="post" action="{{route('usuario-store')}}">
                         {!! csrf_field() !!}
                         <input type="hidden" value="{{ $user->id }}" name="id">
@@ -147,8 +147,8 @@
                             </div>
                         </div>
                     </form>
-                </div><!-- end panel-body-->
-            </div><!-- end panel-->
+                </div><!-- end card-body-->
+            </div><!-- end card-->
         </div><!-- end col-form-->
     
     </div><!-- end row container-->
@@ -174,6 +174,6 @@
 
 @stop
 
-@push('scripts')
+@push('js')
 <script src="{{ asset('js/app-usuarios.js') }}"></script>
 @endpush

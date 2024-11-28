@@ -21,23 +21,23 @@
         <div class="row">
             @forelse ($tipodocumentos as $t)
                 <div class="col-lg-12">
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
+                    <div class="card card-danger">
+                        <div class="card-header">
                             <span class="lead">
                                 {{$t->nome}}
                                 ({{$t->documentos_count}})
                             </span>
 
-                            <div class="pull-right">
+                            <div class="float-right">
                                 <a href="{{route('tiposdocumento-edit',$t->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             {{$t->descricao}}
                         </div>
-                        <div class="panel-footer">
+                        <div class="card-footer">
                             Tipo de documento desabilitado em {{date('d/m/Y H:i:s', strtotime($t->deleted_at))}}        
                         </div>
                     </div>

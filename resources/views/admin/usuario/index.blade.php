@@ -12,8 +12,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Confirmação de exclusão</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <p>Tem certeza que deseja excluir este usuário?</p>
@@ -45,31 +45,26 @@
         @endif 
 
         @if (auth()->user()->isAdmin() || auth()->user()->isGestor())
-            
-            <div class="col-lg-2">
-            <a href="{{route('usuario-convidar')}}" class="btn btn-primary btn-block btn-lg">Novo colaborador</a>
-                <p>
-            </div>
-        
+            <div class="col-lg-2 d-flex flex-row">
+                <a href="{{route('usuario-convidar')}}" class="btn btn-primary btn-lg">Novo colaborador</a>
         @endif
         @if (auth()->user()->isAdmin())
-            
-            <div class="col-lg-2">
-                <a href="{{route('usuario-search')}}" class="btn btn-primary btn-block btn-lg">Pesquisar</a>
-                    <p>
+                <a href="{{route('usuario-search')}}" class="btn btn-primary btn-lg ml-1">Pesquisar</a>
             </div>
             
         @endif
     </div>
+    <p>
+
 
     
     <div class="row">
         <div class="col-lg-8">
-                <div @if ($user->unidade->trashed()) class="panel panel-danger" @else class="panel panel-primary" @endif>
-                    <div class="panel-heading">
+                <div @if ($user->unidade->trashed()) class="card card-danger" @else class="card card-info" @endif>
+                    <div class="card-header">
                         <h4>{{ $user->unidade->nome }}</h4>                                                                                
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-group">
@@ -143,11 +138,11 @@
                     </div>
                 </div>    
 
-            <div class="panel panel-primary">
-                <div class="panel-heading">
+            <div class="card card-info" style="margin-bottom: 25px">
+                <div class="card-header">
                     <h4>{{ $user->name }}</h4>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-sm-8">
                             <div class="form-group">
@@ -212,16 +207,16 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- end panel-body-->
-            </div><!-- end panel-->
+                </div><!-- end card-body-->
+            </div><!-- end card-->
         </div><!-- end col-form-->
 
         <div class="col-lg-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
+            <div class="card card-info">
+                <div class="card-header">
                     <h4>Usuários</h4>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="list-group" role="tablist">
                         @foreach ($usuarios as $u)
                             <div @if ($u->isResponsavel()) class="list-group-item list-group-item-action list-group-item-success" @elseif($user->id === $u->id) class="list-group-item list-group-item-action active" @else class="list-group-item list-group-item-action" @endif  role="tab">
@@ -231,23 +226,23 @@
                                     <p class="list-group-item-text">
                                         {{$u->email}}
 
-                                        <span class="badge pull-right">{{$u->tipo}}</span>
+                                        <span class="badge float-right">{{$u->tipo}}</span>
 
                                         @if (!$u->confirmado)  
-                                            <span class="badge pull-right">Não confirmado</span>
+                                            <span class="badge float-right">Não confirmado</span>
                                             @if ($u->convidado_em)
-                                                <span class="badge pull-right">Convidado em {{$u->convidado_em}}</span> 
+                                                <span class="badge float-right">Convidado em {{$u->convidado_em}}</span> 
                                             @endif     
                                         @endif
 
                                        
 
                                         @if ($u->isResponsavel())
-                                            <span class="badge pull-right">Responsável</span>
+                                            <span class="badge float-right">Responsável</span>
                                         @endif
 
                                         @if ($u->trashed())
-                                            <span class="badge pull-right">REMOVIDO</span>
+                                            <span class="badge float-right">REMOVIDO</span>
                                         @endif
                                     </p>
 
@@ -262,14 +257,14 @@
 
     <div class="row">
         <div class="container-fluid">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
+            <div class="box box-primary">
+                <div class="box-header">
                     <h4>Documentos enviados por {{$user->name}} ({{$documentos->count()}})</h4>
                 </div>
-                <div class="panel-body">
+                <div class="box-body no-padding">
                     <table class="table table-hover">
                         <thead>
-                            <tr >
+                            <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 2%">Ano</th>
                                 <th style="width: 4%">Número</th>
@@ -285,7 +280,7 @@
                         <tbody>
                             
                                 @forelse ($documentos as $doc)
-                                <tr  @if ($doc->completed) class='bg-success' @else class='bg-warning' @endif>
+                                <tr  @if ($doc->completed) class='table-info' @else class='table-warning' @endif>
                                     <td>{{$loop->index + 1}}</td>
                                     <td>{{$doc->ano}}</td>
                                     <td>{{$doc->numero}}</td>

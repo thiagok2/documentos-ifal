@@ -42,8 +42,8 @@
                 </div>
                 <div class="icon">
                 
-                    <i class="fa fa-university"></i>
-                    <i class="ion ion-person-add"></i>
+                    <!-- <i class="fa fa-university"></i>-->
+                    <i class="fa fa-user-plus"></i>
                 </div>
                 <div class="small-box-footer">
                     Convidar novos usuários/unidades
@@ -85,7 +85,7 @@
                     <p>Publique um novo documento</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-document-text"></i>
+                    <i class="fa fa-file"></i>
                 </div>
                 <div class="small-box-footer">
                     Enviar um novo documento
@@ -109,7 +109,7 @@
                 </div>
                 <div class="icon">
 
-                    <i class="ion ion-search"></i>
+                    <i class="fa fa-search"></i>
                 </div>
                 <div class="small-box-footer">
                     Veja os documentos do seu conselho
@@ -130,7 +130,7 @@
                     <p>Colaboradores na sua unidade</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="fa fa-users"></i>
                 </div>
                 <div class="small-box-footer">
                     Acesse a lista de Colaboradores
@@ -317,7 +317,7 @@
                     </thead>
                     <tbody>
                         @foreach ($documentos as $doc)
-                            <tr  @if ($doc->completed) class='bg-success' @else class='bg-warning' @endif>
+                            <tr  @if ($doc->completed) class='table table-info' @else class='table table-warning' @endif>
                                 <td>
                                     {{$loop->index+1}}
                                 </td>
@@ -329,7 +329,7 @@
                                     <span class="badge bg-secondary">{{$doc->tipo_entrada}}</span>
                                 </td>
                                 <td>
-                                    {{$doc->unidade ? $doc->unidade->nome : 'Sem unidade'}}
+                                    <span>{{$doc->unidade ? $doc->unidade->nome : 'Sem unidade'}}!!!!!
                                 </td>
                                 <td>
                                     <span class="badge bg-info">
@@ -345,7 +345,7 @@
                                             <i class="fa fa-external-link"></i>
                                         </a>
                                 
-                                        <a  target="_blank"  href="{{route('pdfNormativa',$doc->arquivo)}}" title="Download">
+                                        <a target="_blank"  href="{{route('pdfNormativa',$doc->arquivo)}}" title="Download">
                                             <i class="fa fa-cloud-download"></i>
                                         </a>
                                     @elseif ($doc->isBaixado())
@@ -437,7 +437,7 @@
                                 <td style="text-align:right;">
                                     {{ $unidade->documentos_count }}
                                     <i class="fa fa-file {{$unidade->documentos_count > 0 ? 'icon-success':'icon-danger'}}"></i>
-                                    <i class="glyphicon glyphicon-user {{$unidade->responsavel->confirmado ? 'icon-success':'icon-danger'}}"></i>
+                                    <i class="fa fa-user {{$unidade->responsavel->confirmado ? 'icon-success':'icon-danger'}}"></i>
                                 </td>
                             </tr>
                         @empty
@@ -472,7 +472,7 @@
 
             <div class="box-body no-padding">
                 <div id="myCanvasContainer" class="text-center" style="position:relative;">
-                    <canvas width="600" height="300"  id="myCanvas">
+                    <canvas width="600" height="300" id="chartTipos">
                         <ul>
                             @foreach ($tags as $t)
                                 <li><a href=/?query={{$t->tag}}" target="_blank" data-weight="{{$t->tag_count}}">{{$t->tag}}</a></li>
@@ -495,7 +495,7 @@
 
             <div class="box-body no-padding">
                 <div id="myCanvasContainer2" class="text-center" style="position:relative;">
-                    <canvas width="600" height="300"  id="myCanvas2">
+                    <canvas width="600" height="300"  id="chartAssuntos">
                         <ul>
                             @foreach ($topConsultas as $t)
                                 <li><a href=/?query={{$t->termos}}" target="_blank" data-weight="{{$t->total}}">{{$t->termos}}</a></li>
@@ -516,6 +516,7 @@
 
 @endsection
 
-@push('scripts')
+@push('js')
     <script src="{{ asset('js/app-home.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @endpush

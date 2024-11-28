@@ -21,24 +21,24 @@
         <div class="row">
             @forelse ($assuntos as $assunto)
                 <div class="col-lg-12">
-                    <div class="panel panel-danger">
-                        <div class="panel-heading">
+                    <div class="card card-danger">
+                        <div class="card-header">
                             <span class="lead">
                                 {{$assunto->nome}}
                                 ({{$assunto->documentos_count}})
                             
                             </span>
 
-                            <div class="pull-right">
+                            <div class="float-right">
                                 <a href="{{route('assunto-edit',$assunto->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             {{$assunto->descricao}}
                         </div>
-                        <div class="panel-footer">
+                        <div class="card-footer">
                             Assunto desabilitado em {{date('d/m/Y H:i:s', strtotime($assunto->deleted_at))}}        
                         </div>
                     </div>

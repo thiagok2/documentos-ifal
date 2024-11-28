@@ -18,15 +18,15 @@
 
   <div class="row">
     <div class="col-lg-2">
-      <a href="{{route('consultasMes')}}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i>Consultas por mês</a>
+      <a href="{{route('consultasMes')}}" class="btn btn-primary"><i class="fa fa-plus"></i>Consultas por mês</a>
     </div>
   </div>
   
   <div class="row">
-    <div class="col-lg-12" style="margin-bottom: 25px">
-        <div class="panel panel-default">
-            <div class="panel-heading">Filtrar</div>
-            <div class="panel-body">
+    <div class="col-lg-12 mt-3">
+        <div class="card card-default">
+            <div class="card-header">Filtrar</div>
+            <div class="card-body">
               <form class="form-inline" method="GET" action="{{route('consultas')}}">
                 <input type="text" id="q" name="q" class="form-control" value="{{$q}}"
                     placeholder="Termo de pesquisa" aria-describedby="basic-addon1">

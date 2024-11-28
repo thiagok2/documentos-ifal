@@ -19,11 +19,11 @@
 
         <div class="row">
             <div class="col-lg-10">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="card card-default">
+                    <div class="card-header">
                         Nova Unidade de Assessoria
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <form name="form" id="form" method="post" action="{{route('assessoria-store')}}">
                             {!! csrf_field() !!}
                             <input type="hidden" name="tipo" id="tipo" value="Assessoria"/>
@@ -97,7 +97,7 @@
                             <a href="{{route('home')}}" class="btn btn-danger" value="Fechar">Fechar</a>
                         </form>
                     </div>
-                    <div class="panel-footer">
+                    <div class="card-footer">
 
                     </div>
                 </div>
@@ -106,6 +106,6 @@
     </div>
 @stop
 
-@push('scripts')
+@push('js')
 <script src="{{ asset('js/app-assessoria.js') }}"></script>
 @endpush

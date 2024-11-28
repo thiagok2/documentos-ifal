@@ -15,11 +15,11 @@
         </ol>
 
         <div class="row">
-            @include('admin.includes.alerts')
             <div class="col-lg-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Novo Assunto: Informe nome e descrição</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    @include('admin.includes.alerts')
+                    <div class="card-header">Novo Assunto: Informe nome e descrição</div>
+                    <div class="card-body">
                     <form  name="form" id="form" method="post" action="{{route('assunto-store')}}"> 
                         {!! csrf_field() !!}
                         <div class="col-sm-12">
@@ -44,9 +44,9 @@
                 </div><!-- end panel-->
             </div><!-- end col-8 main-->
             <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Assuntos cadastrados</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Assuntos cadastrados</div>
+                    <div class="card-body">
                         <div class="list-group">
                             @foreach ($assuntos as $a)
                                 

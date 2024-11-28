@@ -10,17 +10,17 @@
     <div class="container-fluid">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
-            <li class="breadcrumb-item active"> <a href="{{route('unidades')}}" >Conselho</a></li>
-            <li class="breadcrumb-item active"> <a href="#" ><a href="#">Novo Conselho</a></li>
+            <li class="breadcrumb-item active"> <a href="{{route('unidades')}}" >Unidade</a></li>
+            <li class="breadcrumb-item active"> <a href="#" ><a href="#">Nova Unidade</a></li>
         </ol>
 
         @include('admin.includes.alerts')
 
         <div class="row">
             <div class="col-lg-10">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Nova Unidade</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-header">Nova Unidade</div>
+                    <div class="card-body">
                     <form name="form" id="form" method="post" action="{{route('unidade-save')}}">
                             {!! csrf_field() !!}
                             <input type="hidden" name="tipo" id="tipo" value="Conselho"/>
@@ -56,7 +56,7 @@
                                             <option>Selecione</option>                                            
                                         </select>
 
-                                        <span class="help-text small text-muted">* Apenas municípios sem conselho criado.</span>
+                                        <span class="help-text small text-muted">* Apenas municípios sem unidade criado.</span>
                                     </div>
                                 </div>
                             </div><!-- end estados/municipios-->
@@ -83,12 +83,13 @@
                                     <div class="form-group">
                                         <label for="friendly_url">URL Amigável</label>
                                         <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1">
-                                                <span class="glyphicon glyphicon-globe"></span>
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-globe"></i>
+                                                </span>
                                             </span>
                                             <input type="text" class="form-control" name="friendly_url" id="friendly_url" readonly required>                                            
-                                            <span class="input-group-addon" id="btn-edit" style="cursor:pointer" title="Editar URL" onclick="$('#friendly_url').attr('readonly', !$('#friendly_url').attr('readonly'))"> 
-                                                <span class="glyphicon glyphicon-edit"></span>                                        
+                                            <span class="input-group-append" id="btn-edit" style="cursor:pointer" title="Editar URL" onclick="$('#friendly_url').attr('readonly', !$('#friendly_url').attr('readonly'))"> 
+                                                <span class="input-group-text"> <i class="fa fa-edit"></i></span>                                        
                                             </span>
                                         </div>
                                         
@@ -124,8 +125,8 @@
                                         <label for="url">Endereço na Web</label>
                                         <small class="text-muted">(Site da unidade - opcional)</small>
                                         <div class='input-group'>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-globe">
+                                            <span class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fa fa-globe"></i>
                                                 </span>
                                             </span>
                                             <input type='url' class="form-control" id="url" name="url" value="{{ $unidade->url }}" 
@@ -166,7 +167,7 @@
                                 </div>
                             </div><!--end row -->
 
-                            <button type="submit" class="btn btn-success" value="Criar unidade">Criar Conselho</button>
+                            <button type="submit" class="btn btn-success" value="Criar unidade">Criar Unidade</button>
                             <a href="{{route('home')}}" class="btn btn-danger" value="Fechar">Fechar</a>
                         </form>
                     </div>
@@ -176,6 +177,6 @@
     </div>
 @stop
 
-@push('scripts')
+@push('js')
 <script src="{{ asset('js/app-unidades.js') }}"></script>
 @endpush

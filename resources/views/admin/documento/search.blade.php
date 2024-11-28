@@ -125,7 +125,7 @@
                             </li>
                             <li class="list-group-item">
                                 Extrator: 
-                                <span class="small text-muted">Extração do site do conselho via Robô (documentos antigos)</span>
+                                <span class="small text-muted">Extração do site do unidade via Robô (documentos antigos)</span>
                             </li>
                         </ul>   
                     </div><!-- end col-->
@@ -174,7 +174,7 @@
                         <tbody>
 
                                 @forelse ($documentos as $key=>$doc)
-                                <tr @if ($doc->isIndexado()) class='bg-success' @else class='bg-danger' @endif>
+                                <tr @if ($doc->isIndexado()) class='table table-info' @else class='table table-danger' @endif>
                                     <td>
                                         {{ ($documentos->currentpage()-1) * $documentos->perpage() + $key + 1 }}
                                     </td>

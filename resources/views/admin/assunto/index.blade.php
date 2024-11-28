@@ -22,20 +22,20 @@
         <div class="row" style="margin-bottom: 10px">
             @forelse ($assuntos as $assunto)
                 <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
+                    <div class="card card-default">
+                        <div class="card-header">
                             <span class="lead">
                                 {{$assunto->nome}}
                                 ({{$assunto->documentos_count}})
                             </span>
 
-                            <div class="float-left" style="margin-right: 5px;">
+                            <div class="float-right">
                                 <a href="{{route('assunto-edit',$assunto->id)}}">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             {{$assunto->descricao}}
                         </div>
                     </div>
