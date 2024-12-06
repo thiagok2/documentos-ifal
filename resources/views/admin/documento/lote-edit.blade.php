@@ -6,6 +6,13 @@
 
 @stop
 
+@push('css')
+
+<link href="{{ asset('css/select2.min.css')}}" rel="stylesheet"/>
+<link rel="stylesheet" href="{{ asset('vendor/tagsinput/bootstrap-tagsinput.css') }}">
+
+@endpush
+
 @section('content')
     <div class="container-fluid">
         <ol class="breadcrumb">
@@ -40,25 +47,25 @@
                                 <tr id="tr_doc_{{$doc->id}}">
     
                                     <td>
-                                        <input type="text" class="form-control"  name="ano_{{$doc->id}}" id="ano_{{$doc->id}}" value="{{$doc->ano}}" required/>
+                                        <input style="width: 60px" type="text" class="form-control"  name="ano_{{$doc->id}}" id="ano_{{$doc->id}}" value="{{$doc->ano}}" required/>
                                     </td>
                                     <td>
     
                                         <input type='date' class="form-control" id="data_publicacao_{{$doc->id}}" name="data_publicacao_{{$doc->id}}" required/>
                                         <br/>
-                                        <input type="text" class="form-control"  name="numero_{{$doc->id}}" id="numero_{{$doc->id}}" value="{{$doc->numero}}" placeholder="Número: Ex.: 123/2019" required/>
+                                        <input type="text" class="form-control" maxlength="20" name="numero_{{$doc->id}}" id="numero_{{$doc->id}}" value="{{$doc->numero}}" placeholder="Número: Ex.: 123/2019" required/>
     
                                     </td>
     
                                     <td>
     
-                                        <select class="form-control" required id="assunto_id_{{$doc->id}}" name="assunto_id_{{$doc->id}}">
+                                        <select style="width: 120px" class="form-control" required id="assunto_id_{{$doc->id}}" name="assunto_id_{{$doc->id}}">
                                             @foreach ($assuntos as $ass)
                                                 <option value="{{$ass->id}}" {{($doc->assunto->id == $ass->id ? 'selected="selected"':'')}}>{{$ass->nome}}</option>
                                             @endforeach
                                         </select>
                                         <br/>
-                                        <select class="form-control" required id="tipo_documento_id_{{$doc->id}}" name="tipo_documento_id_{{$doc->id}}">
+                                        <select style="width: 120px" class="form-control" required id="tipo_documento_id_{{$doc->id}}" name="tipo_documento_id_{{$doc->id}}">
                                             @foreach ($tiposDocumento as $tipo)
                                                 <option value="{{$tipo->id}}" {{($doc->tipoDocumento->id == $tipo->id ? 'selected="selected"':'')}}>{{$tipo->nome}}</option>
                                             @endforeach
@@ -69,7 +76,7 @@
                                     <td>
                                         <input type="text" class="form-control"  name="titulo_{{$doc->id}}" id="titulo_{{$doc->id}}" value="{{$doc->titulo}}" placeholder="Título do ato normativo" required/>
                                         <br/>
-                                        <a href='{{ Storage::url("uploads/$doc->arquivo")}}' target="_blank">
+                                        <a href='{{ Storage::url("uploads/$doc->arquivo")}}' target="_blank" class="d-flex justify-content-start">
                                             {{$doc->nomeOriginal()}}
                                             <i class="fa fa-download fa-2x"></i>
                                         </a>
@@ -79,12 +86,12 @@
                                     </td>
     
                                     <td>
-                                        <button type="button" class="btn btn-primary  btn-sm btn_salvar" id="btn_{{$doc->id}}" data-id="{{$doc->id}}" >
+                                        <button type="button" class="btn btn-primary btn_salvar" id="btn_{{$doc->id}}" data-id="{{$doc->id}}" >
                                             <span class="fa fa-save fa-lg" aria-hidden="true"></span>
                                         </button>
                                         <br/>
                                         <br/>
-                                        <button type='button' onclick="deleteUpload({{$doc->id}})" value='Remover' class='btn btn-danger btn-sm'>
+                                        <button type='button' onclick="deleteUpload({{$doc->id}})" value='Remover' class='btn btn-danger btn'>
                                             <span class="fa fa-trash fa-lg" aria-hidden="true"></span>
                                         </button>
                                     </td>
@@ -122,6 +129,9 @@
 
 @endsection
 @push('js')
+    <script src="{{ asset('js/select2.full.min.js')}}"></script>
+    <script src="{{ asset('vendor/tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+
     <script src="{{ asset('js/app-lote.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.widget.js') }}"></script>
 

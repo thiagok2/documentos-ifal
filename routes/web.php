@@ -34,6 +34,7 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::get('/',          [IndexController::class, 'index'])->name('index');
+
 Route::get('/consultas', [ConsultaController::class, 'public'])->name('consultas-public');
 Route::get('/downloads', [IndexController::class, 'downloads'])->name('downloads-public');
 Route::get('/conselhos', [UnidadeController::class, 'search'])->name('unidades-search');

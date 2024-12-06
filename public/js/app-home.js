@@ -176,6 +176,8 @@ $(function () {
     }
 
   } catch (e) {
+    console.log(e);
+    
     document.getElementById('myCanvasContainer').style.display = 'none';
     document.getElementById('myCanvasContainer2').style.display = 'none';
   }

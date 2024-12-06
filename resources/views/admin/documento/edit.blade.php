@@ -19,6 +19,7 @@
         -moz-appearance: textfield;
     }
 </style>
+<link rel="stylesheet" href="{{ asset('vendor/tagsinput/bootstrap-tagsinput.css') }}">
 
 @endpush
 
@@ -45,7 +46,7 @@
                     </div>
 
                     @if (!$documento->completed)
-                        <div class="alert alert-warning fade in">
+                        <div class="alert alert-warning">
                             <a class="close" data-dismiss="alert" href="#">&times;</a>
                             O documento ainda não foi indexado para a busca. Complete as informações.
                         </div>
@@ -59,7 +60,7 @@
                 
                 <div class="box-body">                
                     <div class="tab-content">
-                        <div id="general" class="tab-pane fade in active">                                
+                        <div id="general" class="tab-pane active">                                
                             <div class="row">
                             <div class="col-md-12">
                                     <div class="form-group">
@@ -253,20 +254,20 @@
                         </div><!--end tab-pane extra -->
                     </div><!--end tab-content -->                                                                           
                 </div><!-- end box-body -->      
+                <div class="box-footer">
+                    <div class="float-right">
+                        <button type="submit" class="btn btn-primary btn-lg" value="Enviar">Atualizar</button>
+                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalConfirm">Excluir</button>
+                        <a href="{{route('documentos')}}" class="btn btn-warning btn-lg">Fechar</a>                
+                        @if($documento->completed)
+                        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalConfirmOcultar">Ocultar</button>
+                        @else
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalConfirmIndexar">Publicar</button>
+                        @endif
+                    </div>                                              
+                </div>        
             </div><!-- end box-->    
             
-            <div class="col-md-12">
-                <div class="pull-right">
-                    <button type="submit" class="btn btn-primary btn-lg" value="Enviar">Atualizar</button>
-                    <a href="{{route('documentos')}}" class="btn btn-warning btn-lg">Fechar</a>                
-                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modalConfirm">Excluir</button>
-                    @if($documento->completed)
-                    <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalConfirmOcultar">Ocultar</button>
-                    @else
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalConfirmIndexar">Publicar</button>
-                    @endif
-                </div>                                              
-            </div>        
         </form>         
 
         <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
@@ -335,5 +336,6 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset('vendor/tagsinput/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('js/app-edit.js') }}"></script>
 @endpush

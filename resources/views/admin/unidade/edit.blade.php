@@ -351,5 +351,6 @@
     </div><!--end container-->
 @stop
 @push('js')
+    <script src="{{ asset('vendor/mask/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/app-unidades.js') }}"></script>
 @endpush

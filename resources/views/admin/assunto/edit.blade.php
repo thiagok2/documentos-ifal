@@ -22,7 +22,7 @@
         
         <div class="row">
             @include('admin.includes.alerts')
-            <div class="col-lg-8" style="margin-bottom: 25px;">
+            <div class="col-lg-8 mb-4">
                 <div class="card card-default">
                     <div class="card-header"><b>Editar Assunto:</b> Informe nome e descrição</div>
                     <div class="card-body">
@@ -57,13 +57,13 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg " value="Salvar">Salvar</button>
+                        <button type="submit" class="btn btn-primary btn-lg float-right ml-2" value="Salvar">Salvar</button>
 
                         @if(auth()->user()->isAdmin())
                             @if (isset($assunto->deleted_at))
-                                <a href="{{route('assunto-restore', $assunto->id)}}" class="btn btn-warning btn-lg pull-right" value="Habilitar">Habilitar</a>
+                                <a href="{{route('assunto-restore', $assunto->id)}}" class="btn btn-warning btn-lg float-right" value="Habilitar">Habilitar</a>
                             @else                            
-                                <a href="#modalConfirm" class="btn btn-danger btn-lg pull-right" data-toggle="modal">Excluir</button></a>                                                                                                    
+                                <a href="#modalConfirm" class="btn btn-danger btn-lg float-right" data-toggle="modal">Excluir</button></a>                                                                                                    
 
                                 <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">

@@ -199,7 +199,7 @@
                     </div>
                 </div>
                 @if (sizeof($statusExtrator) > 0 )
-                    <div class="card card-default box box-danger">
+                    <div class="card card-default  box box-danger">
                         <div class="card-header">Status Extrator</div>
                         <div class="card-body">
                             <table class="table table-striped table-hover table-condensed">
@@ -240,7 +240,7 @@
                                     Email: {{ $user->email }}
                                     <br/>
                                     @if ($user->isResponsavel())
-                                        <span class="badge">RESPONSÁVEL</span>
+                                        <span class="badge pl-0">RESPONSÁVEL</span>
                                         <br/>
                                     @endif
                                     
@@ -263,7 +263,7 @@
                                         @endif  
 
                                         @if (!$user->isResponsavel())
-                                            <a href="{{route('unidade-novo-responsavel',['unidadeId'=>$user->unidade->id, 'usuarioId'=>$user->id])}}" class="btn btn-info">Tornar responsável</a>
+                                            <a href="{{route('unidade-novo-responsavel',['unidadeId'=>$user->unidade->id, 'usuarioId'=>$user->id])}}" class="btn btn-primary">Tornar responsável</a>
                                         @endif
 
                                         @if (!$user->trashed())

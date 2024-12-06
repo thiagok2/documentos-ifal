@@ -19,7 +19,7 @@
         -moz-appearance: textfield;
     }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+<link href="{{ asset('css/select2.min.css')}}" rel="stylesheet"/>
 <link rel="stylesheet" href="{{ asset('vendor/tagsinput/bootstrap-tagsinput.css') }}">
 @endpush
 
@@ -122,13 +122,12 @@
 
 @endsection
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('js/select2.full.min.js')}}"></script>
     <script src="{{ asset('vendor/tagsinput/bootstrap-tagsinput.min.js') }}"></script>
 
     <script src="{{ asset('js/jquery.ui.widget.js') }}"></script>
     <script src="{{ asset('js/jquery.iframe-transport.js') }}"></script>
 
-    
     <script src="{{ asset('js/jquery.fileupload.js') }}"></script>
     <script src="{{ asset('js/app-lote.js') }}"></script>
 @endpush

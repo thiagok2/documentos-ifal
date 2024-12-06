@@ -175,5 +175,6 @@
 @stop
 
 @push('js')
+<script src="{{ asset('vendor/mask/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/app-usuarios.js') }}"></script>
 @endpush

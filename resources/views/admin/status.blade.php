@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-sm-12">            
                         <div class="tab-content">
-                            <div id="health" class="tab-pane fade in active">
+                            <div id="health" class="tab-pane active">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <table class="table table-striped table-hover">

@@ -14,6 +14,8 @@
         padding: 5px 5px;       
     }
 </style>
+<link rel="stylesheet" href="{{ asset('vendor/tagsinput/bootstrap-tagsinput.css') }}">
+
 
 @endpush
 

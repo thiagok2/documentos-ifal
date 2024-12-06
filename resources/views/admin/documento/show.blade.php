@@ -6,6 +6,11 @@
    
 @stop
 
+@push('css')
+<link rel="stylesheet" href="{{ asset('vendor/tagsinput/bootstrap-tagsinput.css') }}">
+
+@endpush
+
 @section('content')
     <div class="container-fluid">        
         <div class="row">
@@ -40,7 +45,7 @@
                 <div class="row">
                     <div class="col-sm-12">            
                         <div class="tab-content">
-                            <div id="general" class="tab-pane fade in active">
+                            <div id="general" class="tab-pane active">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -134,10 +139,10 @@
                                             <div class="col-sm-12"> 
                                                 <div class="form-group">
                                                     <label for="palavras_chave">Palavras chave</label>
-                                                    <ul class="list-inline">
+                                                    <ul class="list-group list-group-horizontal d-flex flex-row flex-wrap">
                                                         @foreach ($documento->palavrasChaves as $p)
-                                                            <li>
-                                                                <span class="label label-primary">{{$p->tag}}</span>
+                                                            <li class="bootstrap-tagsinput list-group-item mb-1" style="border: 0; width: fit-content;">
+                                                                <span class="tag label label-info">{{$p->tag}}</span>
                                                             </li>
                                                         @endforeach
                                                     </ul>         
@@ -165,7 +170,7 @@
                                 </div><!--end row -->                                                    
                             </div><!--end tab-pane general -->
         
-                            <div id="extra" class="tab-pane fade">
+                            <div id="extra" class="tab-pane">
                                 <div class="extra_fields">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -239,97 +244,90 @@
                     </div><!--end col -->
                 </div><!--end row -->               
             </div><!-- end box-body -->  
+            <div class="box-footer">                                    
+                <div class="col-sm-12">
+                    <form method="post" action="{{route('delete',['id' => $documento->id])}}">
+                        {{ method_field('DELETE') }}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="button" class="btn btn-danger btn-lg float-right ml-1" data-toggle="modal" data-target="#modalConfirm" title="Excluir documento fisicamente">Excluir</button>
+    
+                        <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Confirmação de exclusão</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Tem certeza que deseja excluir este documento de forma permanente?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Excluir</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->                                        
+                    </form>
+    
+                @if($documento->completed)
+                    <form method="get" action="{{route('documento-ocultar',['id' => $documento->id])}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="button" class="btn btn-warning btn-lg float-right" data-toggle="modal" data-target="#modalConfirm2" title="Não exibir o documento dos resultados">Ocultar</button>
+    
+                        <div class="modal fade" id="modalConfirm2" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Confirmação da exclusão dos resultados</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Tem certeza que deseja excluir este documento dos possíveis resultados?</p>
+                                        <p>
+                                        <p class="alert alert-warning" role="alert">
+                                            Posteriormente ele poderá ser 'reindenxado', e disponível para busca.
+                                        </p>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-warning">Ocultar</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->                                        
+                    </form>
+                @else
+                    <form method="get" action="{{route('documento-indexar',['id' => $documento->id])}}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="button" class="btn btn-info btn-lg flaot-right" data-toggle="modal" data-target="#modalConfirm3" title="Publicar documento">Indexar</button>
+    
+                        <div class="modal fade" id="modalConfirm3" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Confirmação publicação do documento</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Tem certeza que deseja inserir este documento nos possíveis resultados?</p>
+                                        <em class="alert alert-warning" role="alert">
+                                            O documento estará novamente acessível a partir das novas buscas.
+                                        </em>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-danger">Publicar</button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->                                        
+                    </form>
+                </div>
+                @endif                                 
+            </div><!--end row -->
         </div><!-- end box-->
 
-        <div class="row">                                    
-            <div class="col-sm-10">
-                <form method="post" action="{{route('delete',['id' => $documento->id])}}">
-                    {{ method_field('DELETE') }}
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="modal" data-target="#modalConfirm" title="Excluir documento fisicamente">Excluir</button>
-
-                    <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Confirmação de exclusão</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Tem certeza que deseja excluir este documento de forma permanente?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-danger">Excluir</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->                                        
-                </form>
-            </div> 
-
-            @if($documento->completed)
-            <div class="col-sm-1">
-                <form method="get" action="{{route('documento-ocultar',['id' => $documento->id])}}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="button" class="btn btn-warning btn-lg pull-right" data-toggle="modal" data-target="#modalConfirm2" title="Não exibir o documento dos resultados">Ocultar</button>
-
-                    <div class="modal fade" id="modalConfirm2" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Confirmação da exclusão dos resultados</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Tem certeza que deseja excluir este documento dos possíveis resultados?</p>
-                                    <p>
-                                    <em class="alert alert-warning" role="alert">
-                                        Posteriormente ele poderá ser 'reindenxado', e disponível para busca.
-                                    </em>
-                                    </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-warning">Ocultar</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->                                        
-                </form>
-            </div> 
-            @else
-            <div class="col-sm-1">
-                <form method="get" action="{{route('documento-indexar',['id' => $documento->id])}}">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#modalConfirm3" title="Publicar documento">Indexar</button>
-
-                    <div class="modal fade" id="modalConfirm3" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">Confirmação publicação do documento</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Tem certeza que deseja inserir este documento nos possíveis resultados?</p>
-                                    <em class="alert alert-warning" role="alert">
-                                        O documento estará novamente acessível a partir das novas buscas.
-                                    </em>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-danger">Publicar</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->                                        
-                </form>
-            </div>
-            @endif
-            
-
-                                            
-        </div><!--end row -->
     </div><!--end container -->
 @stop

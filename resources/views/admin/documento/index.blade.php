@@ -127,7 +127,7 @@
                 </div>
                     <!-- /.box-header -->
                 <div class="box-body no-padding">
-                    <table class="table table-condensed table-hover">
+                    <table class="table table-condensed table-hover table-responsive">
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
@@ -165,11 +165,11 @@
                                     </td>
                                     <td>{{date('d-m-Y', strtotime($doc->data_publicacao))}}</td>
                                     
-                                    <td>{{date('d-m-Y', strtotime($doc->data_envio))}}</td>
+                                    <td>{{date('d/m/Y', strtotime($doc->data_envio))}}</td>
                                     
                                     <td>{{$doc->unidade->sigla}} - {{$doc->user->firstName()}}</td>
                                     <td>
-                                        <div>
+                                        <div class="d-flex flex-row">
                                             @if ($doc->arquivo)
                                                 <a href="/normativa/view/{{ $doc['arquivo'] }}" target="_blank" title="Abrir no Documentos IFAL">
                                                     <i class="fa fa-external-link"></i>

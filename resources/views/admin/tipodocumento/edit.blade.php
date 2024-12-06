@@ -176,7 +176,9 @@
                         </table>
                     </div>
                     <div class="box-footer">
-                        {{ $documentos->links() }}
+                        <div class="float-right">
+                            {{ $documentos->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

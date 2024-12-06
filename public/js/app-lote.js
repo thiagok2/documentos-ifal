@@ -127,7 +127,7 @@ $(function () {
 
     if ( $("#fileupload") ){
         console.log('fileuploadfileuploadfileuploadfileuploadfileupload');
-        $('#fileupload').fileupload({fileupload,
+        $('#fileupload').fileupload({//fileupload,
             dataType: 'json',
             limitMultiFileUploads: 10,
             multipart:true,
@@ -164,7 +164,7 @@ $(function () {
                             '<td>'  +   file.name   + '</td>'+
                             '<td>'  +   tags   + '</td>'+
                             '<td class="text-muted">('  +   file.size + ' KB)'+ '</td>'+
-                            "<td><button type='button' onclick='deleteUpload("+file.id+")' value='Remover' class='btn btn-danger btn-sm' style='margin:5px;'><span class='fa fa-trash-o fa-lg' aria-hidden='true'></span></button>"
+                            "<td><button type='button' onclick='deleteUpload("+file.id+")' value='Remover' class='btn btn-danger btn-sm' style='margin:5px;'><span class='fa fa-trash fa-lg' aria-hidden='true'></span></button>"
                             )
 
                             .appendTo($('#files_list'));
