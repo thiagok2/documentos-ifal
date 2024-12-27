@@ -12,7 +12,7 @@ class Unidade extends Model
 
     public const TIPO_CONSELHO = 'Conselho';
     public const TIPO_ASSESSORIA = 'Assessoria';
-    public const ESFERA_MUNICIPAL = 'Municipal';
+    public const ESFERA_MUNICIPAL = 'Municipal'; ////Duvida_caio-> traduzo pro novo sistema de Departamento, Campus e Coordenação? Perguntar ao Thiago
     public const ESFERA_ESTADUAL = 'Estadual';
     public const ESFERA_FEDERAL = 'Federal';
 
@@ -31,7 +31,7 @@ class Unidade extends Model
     }
 
     protected $fillable = [
-        'nome', 'tipo', 'esfera','sigla','url','email','contato','telefone','endereco','contato2','friendly_url','estado_id', 'municipio_id','user_id','responsavel_id'
+        'nome', 'tipo', 'esfera','sigla','url','email','contato','telefone','endereco','contato2','friendly_url','estado_id', 'municipio_id','user_id','responsavel_id', 'pai_id'
     ];
 
     public $timestamps = true;
@@ -72,6 +72,10 @@ class Unidade extends Model
 
     public function usuarios(){
         return $this->hasMany(User::class);
+    }
+
+    public function pai(){
+        return $this->belongsTo(Unidade::class, 'pai_id');
     }
 
     public function local(){

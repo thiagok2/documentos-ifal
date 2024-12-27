@@ -21,7 +21,7 @@
                 <div class="card card-default">
                     <div class="card-header">Nova Unidade</div>
                     <div class="card-body">
-                    <form name="form" id="form" method="post" action="{{route('unidade-save')}}">
+                        <form name="form" id="form" method="post" action="{{route('unidade-save')}}">
                             {!! csrf_field() !!}
                             <input type="hidden" name="tipo" id="tipo" value="Conselho"/>
                             <div class="row">
@@ -29,13 +29,29 @@
                                     <div class="form-group">
                                         <label for="tipo">Esfera*</label>
                                         <select class="form-control" required id="esfera" name="esfera" required>
-                                            <option value="Municipal" selected>Municipal</option>
-                                            <option value="Estadual">Estadual</option>
-                                            <option value="Federal">Federal</option>
+                                            <option value="Campus" selected>Campus</option>
+                                            <option value="Departamento">Departamento</option>
+                                            <option value="Coordenação">Coordenação</option>
                                         </select>
                                     </div>
                                 </div>
-                            
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="pai_id">Unidade Pai</label>
+                                        <small class="text-muted">(opcional)</small>
+
+                                        <select class="form-control" id="pai_id" name="pai_id">
+                                            <option>Selecione</option>
+                                            @foreach ($unidades as $u)
+                                                @if ($u->esfera == 'Campus')
+                                                <option value="{{$u->id}}">{{$u->nome}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div><!-- end col unidadepai-->
+                                
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="estado_id">Estado*</label>
@@ -49,7 +65,7 @@
                                     </div>
                                 </div><!-- end col estado-->
                                 <div class="col-sm-5">
-                                    <div class="form-group" style="margin-bottom: 0">
+                                    <div class="form-group" >
                                         <label for="municipio">Município*</label>
         
                                         <select class="form-control" required id="municipio_id" name="municipio_id" required>

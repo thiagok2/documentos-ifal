@@ -66,14 +66,14 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-lg" value="Salvar" @if(!auth()->user()->isAdmin()) disabled @endif>Salvar</button>
+                        <button type="submit" class="btn btn-primary btn-lg float-right ml-2" value="Salvar" @if(!auth()->user()->isAdmin()) disabled @endif>Salvar</button>
                         
                         @if(auth()->user()->isAdmin())
                         
                             @if (isset($tipodocumento->deleted_at))
-                                <a href="{{route('tiposdocumento-restore', $tipodocumento->id)}}" class="btn btn-warning btn-lg pull-right" value="Habilitar">Habilitar</a>
+                                <a href="{{route('tiposdocumento-restore', $tipodocumento->id)}}" class="btn btn-warning btn-lg float-right" value="Habilitar">Habilitar</a>
                             @else
-                                <a href="#modalConfirm" class="btn btn-danger btn-lg pull-right" data-toggle="modal">Excluir</button></a>                                                                                                    
+                                <a href="#modalConfirm" class="btn btn-danger btn-lg float-right" data-toggle="modal">Excluir</button></a>                                                                                                    
 
                                 <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" role="document">

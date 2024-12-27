@@ -32,6 +32,7 @@ class UnidadeController extends Controller
             $esfera = $request->query('esfera');
             $estado = $request->query('estado');
             $nome = $request->query('nome');
+            $paiNome = $request->query('pai_nome'); 
 
             $clausulas = [];
             //$clausulas[] = ['tipo',Unidade::TIPO_CONSELHO];
@@ -55,6 +56,13 @@ class UnidadeController extends Controller
                 $clausulas[] = ['email','not like','alterar_email%'];
             }
 
+            if ($paiNome) {
+                $pai = Unidade::where('nome', 'ilike', '%' . ($paiNome) . '%')->first   ();
+                if ($pai) {
+                    $clausulas[] = ['pai_id', '=', $pai->id];
+                }
+            }
+
             if($incluirDesabilitados)
                 $unidadesQuery = Unidade::withTrashed()->where($clausulas);
             else
@@ -63,7 +71,7 @@ class UnidadeController extends Controller
             $unidades = $unidadesQuery->with('estado','municipio' ,'responsavel')->orderBy($ordenarPor, 'desc')->paginate(25);
             $estados = Estado::orderBy('nome', 'asc')->get();
 
-            return view('admin.unidade.index', compact('estados','unidades','esfera','estado','nome','emailCadastrado','statusConvite','ordenarPor','incluirDesabilitados'));
+            return view('admin.unidade.index', compact('paiNome','estados','unidades','esfera','estado','nome','emailCadastrado','statusConvite','ordenarPor','incluirDesabilitados'));
 
         }
         else if($user->isAssessor()){            
@@ -80,7 +88,7 @@ class UnidadeController extends Controller
 
             $clausulas = [];
             //$clausulas[] = ['tipo',Unidade::TIPO_CONSELHO];            
-            $esfera = "Municipal";
+            $esfera = "Municipal"; //Duvida_caio-> Por que quando user é assessor a esfera é setada "Municipal" e como isso se traduz pro novo sistema de Departamento, Campus e Coordenação 
             $clausulas[] = ['esfera', '=', $esfera];
 
             if($nome){
@@ -152,13 +160,15 @@ class UnidadeController extends Controller
         }
         $unidade = new Unidade();
 
-        return view('admin.unidade.create', compact('estados','unidade'));
+        $unidades = Unidade::all();
+
+        return view('admin.unidade.create', compact('estados','unidade', 'unidades'));
     }
 
 
     public function edit($id){
         $unidade = Unidade::withTrashed()->find($id);
-
+        $unidades = Unidade::all();
         $alerta = null;
         if (!$unidade->confirmado){
             $alerta = "Dados do conselho ainda não foram confirmados pelo seu gestor.";
@@ -170,7 +180,7 @@ class UnidadeController extends Controller
             ->orderBy('ano', 'desc')
             ->paginate(10);
 
-        return view('admin.unidade.edit', compact('unidade','users', 'documentos','alerta'));
+        return view('admin.unidade.edit', compact('unidade','unidades','users', 'documentos','alerta'));
     }
 
     public function save(Request $request, Unidade $unidade){
@@ -187,7 +197,8 @@ class UnidadeController extends Controller
         $data = $request->all();                
         $unidade->fill($data);
         $unidade->estado_id = Estado::where("sigla", $unidade->estado_id)->first()->id;        
-        $unidade->user()->associate(auth()->user()->id);        
+        $unidade->user()->associate(auth()->user()->id);
+
 
         if ($request->municipio_id != 99999) {
             $municipio = Municipio::find($request->municipio_id);
@@ -267,17 +278,18 @@ class UnidadeController extends Controller
         $q = $request->q;
         $federal = Unidade::where('sigla', '#')->first();
 
-        $query = Unidade::with('estado')->whereIn('esfera',['Estadual','Municipal'])->whereNotIn('tipo',[Unidade::TIPO_ASSESSORIA]);
+        $query = Unidade::query();//with('estado')->whereIn('esfera',['Campus','Departamento'])->whereNotIn('tipo',[Unidade::TIPO_ASSESSORIA]);
 
         if($request->has('q')){
             $this->q = $q;
-            $query->whereHas('estado', function($query){
-                $query->where('nome', 'ilike', '%'.$this->q.'%');
-                $query->orWhere('sigla', 'ilike', '%'.$this->q.'%');
-            });
-        }    
+            $query->whereRaw('nome ilike ?', ['%' . $this->q . '%'])->get();
 
-        $unidades = $query->orderBy('nome', 'asc')->paginate(10);
+            //$query->whereHas('estado', function($query){
+            //    $query->where('nome', 'ilike', '%'.$this->q.'%');
+            //    $query->orWhere('sigla', 'ilike', '%'.$this->q.'%');
+            //});
+        } 
+        $unidades = $query->orderBy('nome', 'asc')->paginate(9);
 
         $page = $request->query('page', 1);        
         $total_pages = $unidades->lastPage();
@@ -359,7 +371,7 @@ class UnidadeController extends Controller
                 DB::commit();
 
                 return redirect()->route('unidades')
-                            ->with(['success'=> "Unidade".$unidade->nome." desabilitada com sucesso"]);
+                            ->with(['success'=> "Unidade ".$unidade->nome." desabilitada com sucesso"]);
             }else{
                 return redirect()
                     ->back()

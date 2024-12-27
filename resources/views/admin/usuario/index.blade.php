@@ -36,7 +36,7 @@
     <div class="row">
         @if ($user->trashed())
             <div class="col-lg-12 alert alert-danger" style="font-size: 120%">
-                Usuário desabilitado! Volte a habilitá-lo para edição.
+                Usuário desabilitado! Volte a habilitá-lo pafra edição.
                 @if ($user->isResponsavel())
                     <br/>
                     Usuário é o responsável pela unidade desabilitada. Remova a unidade permanentemente caso deseje a remoção definitiva.
@@ -55,8 +55,6 @@
         @endif
     </div>
     <p>
-
-
     
     <div class="row">
         <div class="col-lg-8">
@@ -138,7 +136,7 @@
                     </div>
                 </div>    
 
-            <div class="card card-info" style="margin-bottom: 25px">
+            <div class="card card-info mb-4">
                 <div class="card-header">
                     <h4>{{ $user->name }}</h4>
                 </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
-class UnidadesConselhosMunicipaisCapitaisSeeder extends Seeder
+class UnidadesConselhosMunicipaisCapitaisSeeder extends Seeder//Duvida_caio-> como isso se traduz pro novo sistema de Departamento, Campus e Coordenação 
 {
     /**
      * Run the database seeds.

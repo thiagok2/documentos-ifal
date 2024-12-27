@@ -15,7 +15,7 @@ class UpdateCriadoMunicipioEstado extends Migration
     public function up()
     {
         DB::statement("UPDATE municipios SET criado = true WHERE (SELECT count(*) FROM unidades WHERE unidades.municipio_id = municipios.id and esfera = 'Municipal') >= 1;");
-    
+        //Duvida_caio-> Como isso se traduz pro novo sistema de Departamento, Campus e Coordenação 
         DB::statement("UPDATE estados SET criado = true WHERE (SELECT count(*) FROM unidades WHERE unidades.estado_id = estados.id and esfera = 'Estadual') >= 1");
     }
 

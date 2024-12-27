@@ -34,9 +34,9 @@
                                 <div class="form-group">
                                     <label for="esfera">Esfera</label>
                                     <select class="form-control" id="esfera" name="esfera" disabled>
-                                        <option {{($unidade->esfera == 'Municipal' ? 'selected="selected"':'')}}>Municipal</option>
-                                        <option {{($unidade->esfera == 'Estadual' ? 'selected="selected"':'')}}>Estadual</option>
-                                        <option {{($unidade->esfera == 'Federal' ? 'selected="selected"':'')}}>Federal</option>
+                                        <option {{($unidade->esfera == 'Campus' ? 'selected="selected"':'')}}>Campus</option>
+                                        <option {{($unidade->esfera == 'Departamento' ? 'selected="selected"':'')}}>Departamento</option>
+                                        <option {{($unidade->esfera == 'Coordenação' ? 'selected="selected"':'')}}>Coordenação</option>
                                     </select>
                                 </div>
                             </div>
@@ -60,15 +60,21 @@
                         </div> 
 
                         <div class="row">
-                            <div class="col-sm-9">
+                            <div class="col-sm-5">
                                 <div class="form-group">
                                     <label for="nome">Nome</label>
                                     <input type="text" class="form-control" value="{{ $unidade->nome }}" name="nome"
                                         readonly>
                                 </div>
                             </div>
-            
-                            <div class="col-sm-3">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label for="nome">Unidade Pai</label>
+                                    <input type="text" class="form-control" value="{{ $unidade->pai->nome ?? 'Nenhum'}}" name="pai"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
                                 <div class="form-group">
                                     <label for="sigla">Sigla</label>
                                     <input type="text" class="form-control" value="{{ $unidade->sigla }}" name="sigla"
@@ -84,7 +90,7 @@
                             </div>
                         </div>                                             
 
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label for="friendly_url">URL Amigável</label>

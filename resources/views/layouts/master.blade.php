@@ -27,10 +27,21 @@
         <link href="/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css"/>
         <link href="/css/theme.min.css" media="all" rel="stylesheet" type="text/css"/>
         <link href="/css/app-search.css" media="all" rel="stylesheet" type="text/css"/>
+        <link href="/vendor/tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
 
         <link href="/img/favicon.ico" rel="shortcut icon">
 
     </head>
+    <style>
+    a{
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+
+    .card-primary:not(.card-outline)>.card-header{
+        background-color: #45a050;
+    }
+    </style>
 
      <body>
         <div id="barra-brasil" style="background:#7F7F7F; height: 20px; padding:0 0 0 10px;display:block;">
@@ -68,14 +79,14 @@
         <script defer="defer" src="//barra.brasil.gov.br/barra.js" type="text/javascript"></script>
         <!-- fim app  scripts -->
 
-        <footer style="height: 100vh; background-color: #45a050">
+        <!--<footer style="background-color: #45a050">
 
-            <div class="container" style="height: 100%;>
+            <div class="container" style="height: 100%;">
                 <div class="col-lg-12">
               
                 </div>
             </div>
-        </footer>
+        </footer>-->
 
 
     </body>

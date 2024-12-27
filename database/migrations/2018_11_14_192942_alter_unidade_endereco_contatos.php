@@ -15,7 +15,7 @@ class AlterUnidadeEnderecoContatos extends Migration
     {
         Schema::table('unidades', function($table) {
             $table->string('endereco',255)->nullable();
-            $table->string('contato', 255)->change();
+            $table->string('contato', 255)->nullable()->change();
             
             $table->string('contato2', 255)->nullable();
 

@@ -3149,7 +3149,7 @@ body #results .rating-container .caption {
 body .pagination .page-item .page-link {
   background-color: #189200;
   border-color: #116600;
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 body .pagination .page-item .page-link:hover, body .pagination .page-item .page-link:focus, body .pagination .page-item .page-link.active {

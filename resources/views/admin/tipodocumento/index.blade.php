@@ -17,7 +17,7 @@
                 <small>Tipos de documentos a serem enviados</small>
             </h2>
             @if(auth()->user()->isAdmin())
-            <a href="{{route('tiposdocumento-create')}}" class="btn btn-primary btn-lg"  style="margin-top: 10px;">Novo Tipo de Documento</a>
+            <a href="{{route('tiposdocumento-create')}}" class="btn btn-primary btn-lg my-2">Novo Tipo de Documento</a>
             @endif
         </div>
 

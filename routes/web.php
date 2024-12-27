@@ -37,8 +37,8 @@ Route::get('/',          [IndexController::class, 'index'])->name('index');
 
 Route::get('/consultas', [ConsultaController::class, 'public'])->name('consultas-public');
 Route::get('/downloads', [IndexController::class, 'downloads'])->name('downloads-public');
-Route::get('/conselhos', [UnidadeController::class, 'search'])->name('unidades-search');
-Route::get('/conselhos/{url}', [UnidadeController::class, 'page'])->name('unidades-page');
+Route::get('/unidades', [UnidadeController::class, 'search'])->name('unidades-search');
+Route::get('/unidades/{url}', [UnidadeController::class, 'page'])->name('unidades-page');
 Route::get('/login',           [LoginController::class, 'login']);
 Route::get('/normativa/pdf/{normativaId}',  [PDFController::class, 'pdfNormativa'])->name('pdfNormativa');
 Route::get('/normativa/view/{normativaId}', [IndexController::class, 'viewNormativa'])->name('viewNormativa');
@@ -114,7 +114,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('usuarios/convidar',           [UsuarioController::class, 'convidar'])->name('usuario-convidar');
     Route::get('usuarios/reenviar-convite/{id}', [UsuarioController::class, 'reenviarConvite'])->name('usuario-reconvidar');
     Route::post('usuarios',                  [UsuarioController::class, 'store'])->name('usuario-store');
-    Route::post('usuarios/create',           [UsuarioController::class, 'create'])->name('usario-create');
+    Route::post('usuarios/create',           [UsuarioController::class, 'create'])->name('usuario-create');
     Route::get('usuarios/pesquisar',         [UsuarioController::class, 'search'])->name('usuario-search');
     Route::post('usuarios/pesquisar',         [UsuarioController::class, 'search'])->name('usuario-search');
     Route::get('usuarios/delete/{id}',       [UsuarioController::class, 'destroy'])->name('usuario-delete');

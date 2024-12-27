@@ -37,22 +37,23 @@
 
                             <input type="text" id="nome" name="nome" class="form-control" value="{{$nome}}"
                                 placeholder="Nome da unidade" aria-describedby="basic-addon1">
-
-                            <!--<select class="form-control" name="esfera" id="esfera">
+                            
+                            <input type="text" name="pai_nome" class="form-control" value="{{ request()->query('pai_nome') }}" placeholder="Nome do pai" aria-describedby="basic-addon1">
+                            
+                            <select class="form-control" name="esfera" id="esfera">
                                 <option value="0">Todas as Esferas</option>
-                                <option value="Municipal"   @if($esfera=="Municipal") selected @endif>Municipal</option>                                
-                                <option value="Estadual"    @if($esfera=="Estadual") selected @endif @if(auth()->user()->isAssessor()) disabled @endif>Estadual</option>                                
-                                <option value="Federal"     @if($esfera=="Federal") selected @endif @if(auth()->user()->isAssessor()) disabled @endif>Federal</option>
+                                <option value="Departamento"   @if($esfera=="Departamento") selected @endif>Departamento</option>                                
+                                <option value="Campus"    @if($esfera=="Campus") selected @endif @if(auth()->user()->isAssessor()) disabled @endif>Campus</option>                                
+                                <option value="Coordenação"     @if($esfera=="Coordenação") selected @endif @if(auth()->user()->isAssessor()) disabled @endif>Coordenação</option>
                             </select>
 
-                            <select class="form-control" name="estado" id="estado">
+                            <!--<select class="form-control" name="estado" id="estado">
                                 <option value=0>Todos os Estados</option>
                                 @foreach ($estados as $e)
                                     <option value="{{$e->id}}" @if($estado==$e->id) selected @endif>{{$e->nome}}</option>
                                 @endforeach
                             </select> -->
 
-                            
 
                             <select class="form-control" name="statusConvite" id="statusConvite">
                                 <option value="0" @if($statusConvite ===0) selected @endif>Convite ?</option>
@@ -98,10 +99,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <!-- <th>Esfera</th>-->
+                                    <th>Esfera</th>
                                     <!-- <th>Estado</th>-->
-                                    <th>Município</th>                                    
+                                    <!--<th>Município</th>-->
                                     <th>Nome da Unidade</th>
+                                    <th>Unidade Pai</th>
                                     <th>Criado/Atualizado</th>
                                     <th class="col-md-1 text-center">Documentos</th>                                                                        
                                     <th class="col-md-1 text-center">Status</th>
@@ -110,15 +112,16 @@
                             </thead>
                             <tbody style="font-size: 110%">
                                 @forelse ($unidades as $key=>$unidade)                                                                                                                
-                                    <tr @if ($unidade->documentos_count > 0 && !$unidade->trashed()) class='table table-info' @endif}}
-                                        @if ($unidade->trashed()) class='danger' @endif --}}>
+                                    <tr @if ($unidade->documentos_count > 0 && !$unidade->trashed()) class='table table-info' @endif
+                                        @if ($unidade->trashed()) class='danger' @endif>
                                         <td class="text-bold">{{ ($unidades->currentpage()-1) * $unidades->perpage() + $key + 1 }}</td>
-                                        <!-- <td>{{ $unidade->esfera }}</td> -->
+                                        <td>{{ $unidade->esfera }}</td>
                                         <!-- <td>Alagoas</td> -->
-                                        <td>{{ $unidade->municipio ? $unidade->municipio['nome'] :  'NA' }}</td>
+                                        <!--<td>{{ $unidade->municipio ? $unidade->municipio['nome'] :  'NA' }}</td>-->
                                         <td>
                                             <a style="cursor: pointer;" href="{{route("unidade-show",$unidade->id)}}" data-conselho-id="{{ $unidade->id }}">{{ $unidade->nome}}</a>
                                         </td>
+                                        <td> @if ($unidade->pai) {{$unidade->pai->nome}}@else Sem Pai @endif
                                         <td>
                                             <span>
                                                 CRIADO:
@@ -166,8 +169,7 @@
                                                 <h4>
                                                     <span>
                                                     <small>
-                                                    CONFIRMADO
-                                                    ({{$unidade->confirmado_em}})
+                                                    CONFIRMADO {{$unidade->confirmado_em}}
                                                     </small>
                                                 </h4>
                                             @else
@@ -210,8 +212,8 @@
                             </tbody>
                         </table>
                         <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-6 no-padding">
+                            <div class="row float-right">
+                                <div class="mt-3">
                                     {{ $unidades->appends(request()->query())->links() }}
                                 </div>                                
                             </div>

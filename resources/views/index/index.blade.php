@@ -44,6 +44,14 @@
 </script>
 
 <style>
+    a{
+        text-decoration: none !important;
+        color: inherit;
+    }
+
+    .card-primary:not(.card-outline)>.card-header{
+        background-color: #45a050;
+    }
     .tooltip-custom {
         position: relative;        
     }
@@ -115,8 +123,8 @@
                 <div class="input-group">
                     <input type="text" name="query" class="form-control form-control-sm" placeholder="Digite os termos da consulta" value="{{ $query }}" />
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-mobile btn-primary btn-sm"><i class="fa fa-search"></i> Pesquisar</button>
-                        <button type="button" class="btn btn-mobile btn-info btn-sm" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
+                        <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+                        <!--<button type="button" class="btn btn-mobile btn-info btn-sm" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>-->
                     </div>
                 </div>
                 </div>
@@ -149,15 +157,15 @@
 <!-- fim mini-header -->
 
 <!-- header -->
-<header id="header">
+<header id="header" style="background-image: radial-gradient(ellipse at center, #19882c 1%, #025310 100%);">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 offset-lg-2 text-right p-0 ">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-pill btn-login m-1 mt-2">Home <i class="fa fa-user badge-info"></i></a>
+                        <a href="{{ route('home') }}" style="color: aliceblue !important" class="btn btn-outline-secondary btn-pill btn-login m-1 mt-2">Home <i class="fa fa-user badge-info"></i></a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-pill btn-login m-1 mt-2">Entrar <i class="fa fa-user badge-info"></i></a>
+                        <a href="{{ route('login') }}" style="color: aliceblue !important" class="btn btn-outline-secondary btn-pill btn-login m-1 mt-2">Entrar <i class="fa fa-user badge-info"></i></a>
                     @endauth
                 @endif
             </div>
@@ -165,12 +173,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <hr class="split">
-                <h1>
                     <a  href="{{route('index')}}">
                         <!-- <img src="/img/" srcset="/img/normativos-logo@2x.png 2x" alt="Documentos IFAL" /> -->
-                        <h1 style="color: gray" >Documentos <strong style="color: #189200">  IFAL </strong></h1>
+                        <h1 style="color: aliceblue" >Documentos <strong style="color: limegreen">  IFAL </strong></h1>
                     </a>
-                </h1>
                 <hr class="split">
             </div>
         </div>
@@ -218,11 +224,11 @@
                     </div>
                     <div class="row">
                         <div class="col text-center mt-3 mb-3">
-                            <button type="submit" class="btn btn-mobile btn-primary mr-1"><i class="fa fa-search"></i>Pesquisar</button>
-                            <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
+                            <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search mr-1"></i>Pesquisar</button>
+                            <!--<button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>-->
                         </div>
                     </div>
-                    <div id="filters-menu" class="collapse <?php if($filters){ echo 'show'; }  else {echo 'hidden';}?>">
+                    <!--<div id="filters-menu" class="collapse <?php if($filters){ echo 'show'; }  else {echo 'hidden';}?>">
                         <div class="row">
                             <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
                                 <select class="form-control" name="esfera" >
@@ -241,7 +247,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </form>
             </div>
         </div>
@@ -337,10 +343,10 @@
             @foreach ($documentos as $doc)
                 <article class="row">
                     <div class="col-lg-10 offset-lg-1">
-                        <div class="card mb-3">
+                        <div class="card card-primary mb-3">
                             <div class="card-header">
                                 <h6>
-                                <a id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
+                                <a style="color: white !important" id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
                                     <i class="fa fa-external-link"></i>                                      
                                     {{ $doc['titulo'] }}                   
                                 </a>
@@ -415,19 +421,19 @@
                                     <i class="fa fa-quote-right"></i> Trechos encontrados
                                 </button>
 
-                                <a href="/normativa/pdf/{{ $doc['id'] }}" class="btn btn-primary" target="_blank">
+                                <a style="color: white !important" href="/normativa/pdf/{{ $doc['id'] }}" class="btn btn-primary" target="_blank">
                                     <i class="fa fa-download"></i> Baixar
                                 </a>
 
                                 @auth
                                     @if ((auth()->user()->isAdmin() || auth()->user()->unidade->sigla === $doc['fonte']['sigla'])
                                     && isset($doc['id_persisted']) && isset($doc['persisted']))
-                                        <a href="{{ route("documento-edit", $doc['id_persisted']) }}" title="Editar" class="btn btn-primary pull-right m-1">
+                                        <a style="color: white !important" href="{{ route("documento-edit", $doc['id_persisted']) }}" title="Editar" class="btn btn-primary pull-right m-1">
                                             <i class="fa fa-edit" ></i>
                                         </a>
 
                                         @if (auth()->user()->isAdmin() && !$doc['persisted'])
-                                            <a href="{{route('delete-elastic',$doc['id'])}}" class="btn btn-danger pull-right m-1" >
+                                            <a style="color: white !important" href="{{route('delete-elastic',$doc['id'])}}" class="btn btn-danger pull-right m-1" >
                                                 <i class="fa fa-trash" ></i>
                                             </a>
                                         @endif

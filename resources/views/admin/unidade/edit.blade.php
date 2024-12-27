@@ -27,11 +27,11 @@
                 <div @if ($unidade->trashed()) class="card card-danger " @else class="card card-default" @endif>
                     <div  class="card-header">
                         Atualizar dados da Unidade 
-                        @if (isset($alerta))
+                        <!--@if (isset($alerta))
                             <span class="align-middle pull-right label label-warning" style="font-size: 95%">
                                 {{$alerta}}
                             </span>                    
-                        @endif    
+                        @endif--> 
                     </div>
                     <div class="card-body">                
                         <form name="form" id="form" method="post" action="{{route('unidade-store')}}" disabled>
@@ -51,14 +51,30 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-sm-6">
+                                <input type="hidden" value="Unidade" name="tipo">
+                                <!--<div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="tipo">Tipo*</label>
                                         <select class="form-control" required id="tipo" name="tipo">
                                             <option value="Unidade" {{($unidade->tipo == 'Unidade' ? 'selected="selected"':'')}}>Unidade</option>
                                             <option value="Assessoria" {{($unidade->tipo == 'Assessoria' ? 'selected="selected"':'')}}>Assessoria</option>
                                             <option value="Outros" {{($unidade->tipo == 'Outros' ? 'selected="selected"':'')}}>Outros</option>
+                                        </select>
+                                    </div>
+                                </div>-->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                         <label for="pai_id">Unidade Pai</label>
+                                         <small class="text-muted">(opcional)</small>
+
+        
+                                        <select class="form-control" id="pai_id" name="pai_id">
+                                            <option>Sem pai</option>
+                                            @foreach ($unidades as $u)
+                                                @if ($u->esfera == 'Campus')
+                                                <option value="{{$u->id}}">{{$u->nome}}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

@@ -33,10 +33,11 @@ class Convite extends Model
         $to_name = $userNovo->name;
         
         if(getenv('APP_ENV') == 'local'){
-            $to_email = getenv('MAIL_USERNAME');
+            $to_email = $userNovo->email;//getenv('MAIL_USERNAME');
         }else {
             $to_email = $userNovo->email;
         }
+
 
         $tipoLabel = "";
         if($userNovo->isAdmin()){

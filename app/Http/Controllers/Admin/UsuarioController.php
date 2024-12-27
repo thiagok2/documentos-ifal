@@ -163,7 +163,6 @@ class UsuarioController extends Controller
 
     public function create(Request $request, User $user){
         try{
-
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'tipo' => 'required|string|max:20',
@@ -173,6 +172,7 @@ class UsuarioController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+            $validated = $validator->validated();
             
             DB::beginTransaction();
             $user = new User();
@@ -190,7 +190,7 @@ class UsuarioController extends Controller
             }
             
             $convite = new Convite();
-
+            
             $convite->enviarNovoUsuario($user, $passwordRandom);
             $user->convidado_em = date("Y-m-d H:i:s");
             $user->save();
@@ -209,6 +209,7 @@ class UsuarioController extends Controller
             }
 
             DB::commit();
+
 
             return redirect()->route('unidade-show', ['id' => $user->unidade_id])
                 ->with(['success'=> "Usuário ".$user->name." (".$user->email.") convidado!"]);

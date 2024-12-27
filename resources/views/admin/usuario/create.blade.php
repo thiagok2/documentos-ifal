@@ -70,7 +70,7 @@
                                             <span class="fa fa-envelope-o">
                                             </span>
                                         </span>
-                                        <input type='email' class="form-control" id="email" name="email"  maxlength="255"
+                                        <input type="email" class="form-control" id="email" name="email" maxlength="255"
                                                 required value="{{$usuario->email}}"/>
                                     </div>
                                 </div>
@@ -89,5 +89,7 @@
 
 @stop
 @push('js')
-    <script src="{{ asset('js/app-usuario.js') }}"></script>
+    <script src="{{ asset('js/app-usuarios.js') }}"></script>
+    <script src="{{ asset('vendor/mask/jquery.mask.min.js') }}"></script>
+
 @endpush

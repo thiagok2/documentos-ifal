@@ -74,7 +74,7 @@
             </table>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6 no-padding">
+                    <div class="col-lg-6 no-padding mt-2">
                         {{ $consultas->appends(request()->query())->links() }}
                     </div>                                
                 </div>

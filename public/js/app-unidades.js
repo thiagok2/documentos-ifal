@@ -50,7 +50,7 @@ $(document).ready(function () {
         } else {
             $("select[id=municipio_id]").empty();
             $("select[id=municipio_id]").append(
-                '<option value="99999">Especial</option>'
+                '<option value="15">Especial</option>'
             );
         }
     });

@@ -19,7 +19,7 @@ class UnidadeDefaultTableSeeder extends Seeder
         $unidadeAdmin = Unidade::create([
             'nome' => 'Reitoria IFAL', 
             'tipo' => 'Reitoria', 
-            'esfera' => 'Estadual',
+            'esfera' => 'Coordenação',
             'admin' => true,
             'email' => 'ifal@email.com.br',
             'url' => 'https://www2.ifal.edu.br/',

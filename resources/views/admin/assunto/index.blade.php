@@ -13,13 +13,13 @@
             <li class="breadcrumb-item active"><a href="{{route('Assuntos')}}" class="active">Assuntos</a></li>
         </ol>
         <div class="page-header">
-            <small style="margin-bottom: 10px">Assuntos gerais abordados nos documentos</small>
-            <a href="{{route('assuntos-create')}}" class="btn btn-primary btn-lg">Novo Assunto</a>
+            <h2><small>Assuntos gerais abordados nos documentos</small></h2>
+            <a href="{{route('assuntos-create')}}" class="btn btn-primary btn-lg my-2">Novo Assunto</a>
         </div>
         
 
         @include('admin.includes.alerts')
-        <div class="row" style="margin-bottom: 10px">
+        <div class="row">
             @forelse ($assuntos as $assunto)
                 <div class="col-lg-4">
                     <div class="card card-default">

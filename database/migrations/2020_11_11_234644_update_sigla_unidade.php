@@ -16,7 +16,7 @@ class UpdateSiglaUnidade extends Migration
      * @return void
      */
     public function up()
-    {
+    {//Duvida_caio-> como isso se traduz pro novo sistema de Departamento, Campus e Coordenação 
         $unidadesMunicipais = Unidade::where('tipo', '=', 'Conselho')
                 ->where('esfera', '=', 'Municipal')->with('estado')->with('municipio')
                 ->get();

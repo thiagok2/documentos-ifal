@@ -175,9 +175,9 @@
                                     <th>
                                         <strong>Palavras-Chave: </strong>
                                     </th>
-                                    <td>
+                                    <td class="bootstrap-tagsinput mt-2" style="border: 0;">
                                         @foreach ($normativa['ato']['tags'] as $tag)
-                                            <span class="badge badge-primary tags">{{ $tag }}</span>
+                                            <span class="tag label label-info">{{ $tag }}</span>
                                         @endforeach
                                     </td>                                        
                                 </tr>        
@@ -236,3 +236,7 @@
 
 <hr class="split">
 @endsection
+
+@push('js')
+    
+@endpush

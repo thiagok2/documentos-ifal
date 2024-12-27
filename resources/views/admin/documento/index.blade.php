@@ -165,7 +165,7 @@
                                     </td>
                                     <td>{{date('d-m-Y', strtotime($doc->data_publicacao))}}</td>
                                     
-                                    <td>{{date('d/m/Y', strtotime($doc->data_envio))}}</td>
+                                    <td>{{date('d-m-Y', strtotime($doc->data_envio))}}</td>
                                     
                                     <td>{{$doc->unidade->sigla}} - {{$doc->user->firstName()}}</td>
                                     <td>

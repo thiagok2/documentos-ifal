@@ -17,7 +17,7 @@ class UserConselhosEstaduaisSeeder extends Seeder
     public function run()
     {
         $unidades = Unidade::where('tipo', '=', 'Campus')
-                ->where('esfera', '=', 'Municipal')
+                ->where('esfera', '=', 'Municipal') //Duvida_caio-> como isso se traduz pro novo sistema de Departamento, Campus e Coordenação 
                 ->get();
 
         foreach($unidades as $unidade){

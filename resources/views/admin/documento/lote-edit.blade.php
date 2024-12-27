@@ -36,7 +36,7 @@
                                 <tr>
                                     <th style="width: 7%">Ano</th>
                                     <th style="width: 10%">Publicação/Número</th>
-                                    <th style="width: 25%">Tipo/Assunto</th>
+                                    <th style="width: 1 %">Tipo/Assunto</th>
                                     <th style="width: 25%">Título</th>
                                     <th style="width: 20%">Ementa</th>
                                     <th style="width: 5%"></th>

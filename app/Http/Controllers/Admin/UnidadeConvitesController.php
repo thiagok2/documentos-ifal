@@ -63,7 +63,7 @@ class UnidadeConvitesController extends Controller
                 $unidade = Unidade::create([
                     'nome' => 'CONSELHO MUNICIPAL DE EDUCAÇÃO DE '.strtoupper($municipio->nome), 
                     'tipo' => 'Conselho', 
-                    'esfera' => 'Municipal',
+                    'esfera' => 'Municipal', //Duvida_caio-> Como isso se traduz pro novo sistema de Departamento, Campus e Coordenação 
                     'contato' => $data['nome'],
                     'email' => $data['email'],
                     //'url' => null,
@@ -75,7 +75,7 @@ class UnidadeConvitesController extends Controller
                     'confirmado' => false
                 ]);
                 
-                $gestorMunicipal = User::create([
+                $gestorMunicipal = User::create([ //Duvida_caio-> Como isso se traduz pro novo sistema de Departamento, Campus e Coordenação 
                     'name' => $data['nome'],
                     'email' => $data['email'],
                     'password' =>  Hash::make($passwordRandom),
