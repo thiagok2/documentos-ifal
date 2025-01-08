@@ -339,8 +339,12 @@
                     <div class="col-lg-10 offset-lg-1">
                         <div class="card mb-3">
                             <div class="card-header">
+<<<<<<< Updated upstream
                                 <h6>
                                 <a id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
+=======
+                                <a style="color: white !important" id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
+>>>>>>> Stashed changes
                                     <i class="fa fa-external-link"></i>                                      
                                     {{ $doc['titulo'] }}                   
                                 </a>
@@ -355,7 +359,6 @@
                                         required title="">
                                 </div>
                                 
-                                </h6>
                             </div>
 
                             <div class="card-body">
