@@ -35,7 +35,7 @@ def extrair_titulo(pdf_path):
     return titulo if titulo else "Título não encontrado"
 
 # Caminho para o arquivo PDF
-pdf_path = "./pdfs/edital-2024-IFAL-rio-largo/SeleodeMonitoresEspao4.0RioLargo2024assinado.pdf"  # Substitua pelo caminho do seu arquivo PDF
+pdf_path = "./pdfs/PIBIC20232024.pdf"  # Substitua pelo caminho do seu arquivo PDF
 
 titulo = extrair_titulo(pdf_path)
 print("Título do PDF:", titulo)

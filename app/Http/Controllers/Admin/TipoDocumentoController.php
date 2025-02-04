@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\Validator;
 class TipoDocumentoController extends Controller
 {
     public function index(){
-        $tipodocumentos = TipoDocumento::withCount('documentos')->get()->sortByDesc("documentos_count");
+        //$tipodocumentos = TipoDocumento::withCount('documentos')->get()->sortByDesc("documentos_count");
+        
+        $tipodocumentos = TipoDocumento::all();
+        //Usa o eloquent da model TipoDocumento para pegar dados da tabela e guarda num objeto
 
         return view('admin.tipodocumento.index', compact('tipodocumentos'));
+        // retorna a view(Arquivo que contém o html) e manda pra ela a variavel.
     }
 
     public function trashed(){

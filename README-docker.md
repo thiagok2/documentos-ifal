@@ -5,7 +5,6 @@
 1. Precisamos instalar as dependencias do laravel sail no seu repositório local
     ```
     docker run --rm \
-    -u "1000:1000" \
     -v "$(pwd):/var/www/html" \
     -w /var/www/html \
     laravelsail/php82-composer:latest \
@@ -44,4 +43,11 @@
 ### configurando o elastic;
 
 1. Ainda dentro do container da aplicação rode `apt-get update && apt-get install -y jq` para poder excutar o script de configuraçã0 `./config_elastic.sh`
+
+2. Caso tenha algum problema de host nulo depois, entre novamente no container de aplicação e rode o comandos
+    ```
+    php artisan config:clear
+    php artisan cache:clear
+
+    ```
 

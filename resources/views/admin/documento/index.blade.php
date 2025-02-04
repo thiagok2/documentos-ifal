@@ -149,25 +149,25 @@
                                     <td>
                                         {{ ($documentos->currentpage()-1) * $documentos->perpage() + $key + 1 }}
                                     </td>
-                                    <td>{{$doc->ano}}</td>
-                                    <td>{{$doc->numero}}</td>
-                                    <td>{{$doc->tipoDocumento->nome}}</td>
-                                    <td>{{$doc->titulo}}</td>
+                                    <td>{{$doc->ano ?? 'Nenhum informado'}}</td>
+                                    <td>{{$doc->numero ?? 'Nenhum informado'}}</td>
+                                    <td>{{$doc->tipoDocumento->nome ?? 'Nenhum informado'}}</td>
+                                    <td>{{$doc->titulo ?? 'Nenhum informado'}}</td>
                                     <td>
                                         {{-- 
                                         @foreach ($doc->palavrasChaves as $p)
                                             <span class="badge bg-secondary">{{$p->tag}}</span>
                                         @endforeach
                                         --}}
-                                        <span class="badge bg-secondary">{{$doc->formato}}</span>
-                                        <span class="badge bg-secondary">{{$doc->tipo_entrada}}</span>
-                                        <span class="badge bg-secondary">{{$doc->status()}}</span>
+                                        <span class="badge bg-secondary">{{$doc->formato ?? 'Nenhum informado'}}</span>
+                                        <span class="badge bg-secondary">{{$doc->tipo_entrada ?? 'Nenhum informado'}}</span>
+                                        <span class="badge bg-secondary">{{$doc->status() ?? 'Nenhum informado'}}</span>
                                     </td>
-                                    <td>{{date('d-m-Y', strtotime($doc->data_publicacao))}}</td>
+                                    <td>{{date('d-m-Y', strtotime($doc->data_publicacao)) ?? 'Nenhum informado'}}</td>
                                     
-                                    <td>{{date('d-m-Y', strtotime($doc->data_envio))}}</td>
+                                    <td>{{date('d-m-Y', strtotime($doc->data_envio)) ?? 'Nenhum informado'}}</td>
                                     
-                                    <td>{{$doc->unidade->sigla}} - {{$doc->user->firstName()}}</td>
+                                    <td>{{$doc->unidade->sigla}} - {{$doc->user->firstName() ?? 'Nenhum informado'}}</td>
                                     <td>
                                         <div class="d-flex flex-row">
                                             @if ($doc->arquivo)

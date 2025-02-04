@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TipoDocumento extends Model
 {
-    protected $fillable = [
+    protected $fillable = [ //Campos Preenchiveis
         'nome','descricao','sigla'
+        //Colunas da tabela
     ];
 
     public $timestamps = true;

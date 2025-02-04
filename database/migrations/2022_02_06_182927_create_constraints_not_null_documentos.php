@@ -14,10 +14,10 @@ class CreateConstraintsNotNullDocumentos extends Migration
     public function up()
     {
         Schema::table('documentos', function ($table) {
-            $table->integer('unidade_id')->nullable(false)->change();
-            $table->integer('user_id')->nullable(false)->change();
-            $table->integer('tipo_documento_id')->nullable(false)->change();
-            $table->integer('assunto_id')->nullable(false)->change();
+            $table->integer('unidade_id')->nullable()->change();
+            $table->integer('user_id')->nullable()->change();
+            $table->integer('tipo_documento_id')->nullable()->change();
+            $table->integer('assunto_id')->nullable()->change();
         });
     }
 

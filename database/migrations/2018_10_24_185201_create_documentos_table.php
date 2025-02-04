@@ -20,7 +20,7 @@ class CreateDocumentosTable extends Migration
             $table->integer('ano');
             $table->string('titulo', 255);
             $table->string('numero', 20);
-            $table->mediumText('ementa');
+            $table->text('ementa');
             $table->string('arquivo', 200);
             $table->string('url', 200)->nullable();
             $table->date('data_publicacao');

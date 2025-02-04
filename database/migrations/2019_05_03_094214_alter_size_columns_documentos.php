@@ -15,7 +15,7 @@ class AlterSizeColumnsDocumentos extends Migration
     {
         Schema::table('documentos', function ($table) {
             $table->string('titulo', 400)->change();
-            $table->string('nome_original', 400)->change();
+            $table->string('nome_original', 400)->nullable()->change();
         });
     }
 
