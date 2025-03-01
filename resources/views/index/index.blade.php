@@ -121,7 +121,7 @@
                 <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                 <div class="input-group">
-                    <input type="text" name="query" class="form-control form-control-sm" placeholder="Digite os termos da consulta" value="{{ $query }}" />
+                    <input type="text" name="query" class="form-control " placeholder="Digite os termos da consulta" value="{{ $query }}" />
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
                         <!--<button type="button" class="btn btn-mobile btn-info btn-sm" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>-->
@@ -365,12 +365,16 @@
                             </div>
 
                             <div class="card-body">
-                                @if ( isset($doc['ementa']) && 
+                                
+                                {{-- Funcionalidade imterrompida por causa do CRAWLER
+                                 @if ( isset($doc['ementa']) && 
                                     (substr( $doc['ementa'] , -10) !=  substr($doc['titulo'], -10))
                                     )
                                     <strong>Ementa:&nbsp;&nbsp;</strong>{{ $doc['ementa'] }}
                                     <hr/>
-                                @endif
+                                @endif --}}
+                                <strong>Ementa:&nbsp;&nbsp;</strong>{{ $doc['ementa'] }}
+                                <hr/>
                                 
 
                                 <div class="row">

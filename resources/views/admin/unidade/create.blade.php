@@ -44,7 +44,7 @@
                                         <select class="form-control" id="pai_id" name="pai_id">
                                             <option>Selecione</option>
                                             @foreach ($unidades as $u)
-                                                @if ($u->esfera == 'Campus')
+                                                @if ($u->esfera != 'Departamento')
                                                 <option value="{{$u->id}}">{{$u->nome}}</option>
                                                 @endif
                                             @endforeach

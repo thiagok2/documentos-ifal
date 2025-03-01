@@ -1,6 +1,5 @@
 # TODO
-# separar o crawler num diretorio próprio
-# Preencer as lacunas no ato e na query do bd
+# adicionar as pro retitorias
 # raspagem de dados em massa
 
 import requests
@@ -11,8 +10,8 @@ import os
 import base64
 from itertools import zip_longest
 
-# Configurações
-DOWNLOAD_DIR = "crawler/pdfs"
+# Variaveis de Configuração
+DOWNLOAD_DIR = "./crawler/pdfs"
 ELASTIC_URL = "http://elasticsearch:9200"
 INDEX_NAME = "documentos_ifal"
 DB_CONFIG = {
@@ -25,17 +24,9 @@ DB_CONFIG = {
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
 
 ##########################################################################################
-BASE_URL = "https://www2.ifal.edu.br/o-ifal/ensino/editais/2024"  # URL da página com PDFs
-ANO = 2024
-TAGS = ["Ensino", "Processo Seletivo", "Seleção", "Projeto de Ensino"]
-ASSUNTO = 1
-# 0 - ASSUNTO DESCONHECIDO;
-# 1 - ENSINO;
-# 2 - PESQUISA;
-# 3 - EXTENSÃO;
-# 4 - RECURSOS HUMANOS;
-# 5 - BIBLIOTECA;
-# 6 - MONITORIA E AÇÕES INTEGRADAS
+TAGS = ["PROEX", "Extensão", "Estagiário", "Prestação de Serviço", "Proex", "Monitoria", "Inclusão Social", "Ação Extensionista"]
+ASSUNTO_ID = 3
+UNIDADE_ID = 20
 ##########################################################################################
 
 # Conexões
@@ -43,17 +34,14 @@ es = Elasticsearch(ELASTIC_URL)
 conn = psycopg2.connect(**DB_CONFIG)
 cursor = conn.cursor()
 
-def create_ato_documento(filename, titulo):
-    """
-    Função para criar os metadados associados ao documento.
-    """
-    # Personalize os valores abaixo de acordo com os requisitos
+# Função para criar os metadados associados ao documento.
+def create_ato_documento(filename, titulo, ANO, BASE_URL):
     return {
         "ano": ANO,
         "arquivo": filename,
         "ato_id": "A002",
         "data_publicacao": f"{ANO}-01-11",
-        "ementa": "Descrição do documento",
+        "ementa": titulo,
         "fonte": {
             "esfera": "Campus",
             "orgao": "Instituto Federal de Alagoas",
@@ -69,7 +57,10 @@ def create_ato_documento(filename, titulo):
     }
 
 # Fluxo Principal
-def main():
+def main(ANO):
+# URL da página com PDFs
+    BASE_URL = f"https://www2.ifal.edu.br/o-ifal/extensao/editais/editais-{ANO}"
+
     print("Iniciando processo...")
 
     # Etapa 1: Raspagem dos PDFs
@@ -88,10 +79,12 @@ def main():
     print(f"Encontrados {len(pdf_links)} PDFs.")
 
     # Etapa 2: Processamento de cada PDF
-    for pdf_url, titulo_doc in zip_longest(pdf_links, titulo_links, fillvalue='Sem-Titulo') :
+    for pdf_url, titulo_doc in zip_longest(pdf_links, titulo_links, fillvalue='Sem-Titulo'):
         try:
             # Verificar e criar o diretório para downloads
             os.makedirs(DOWNLOAD_DIR, exist_ok=True)
+
+            # Pega o último nome da url que é o titulo do pdf
             filename = os.path.join(DOWNLOAD_DIR, pdf_url.split("/")[-1])
 
             # Baixar PDF se não existir
@@ -104,7 +97,7 @@ def main():
                 print(f"Arquivo já existe: {filename}. Pulando download.")
 
             # Criar ato_documento
-            ato_documento = create_ato_documento(os.path.basename(filename), titulo_doc)
+            ato_documento = create_ato_documento(os.path.basename(filename), titulo_doc, ANO, BASE_URL)
             print(f"Ato Documento criado: {ato_documento}")
 
             # Indexar no Elasticsearch
@@ -120,16 +113,16 @@ def main():
             }
             response = es.index(index=INDEX_NAME, pipeline="attachment", body=doc)
             elastic_id = response["_id"]
-            print(f"Documento indexado no Elasticsearch: {elastic_id}")
+            print(f"DOCUMENTO INDEXADO NO Elasticsearch: {elastic_id}")
 
             # Salvar no banco de dados
             query = f"""
-                INSERT INTO documentos (ano, titulo, arquivo, tipo_documento_id, user_id, assunto_id, unidade_id)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO documentos (ano, titulo, ementa, arquivo, tipo_documento_id, user_id, assunto_id, unidade_id)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(query, (ANO, titulo_doc, elastic_id, 1, 1, ASSUNTO, 1))
+            cursor.execute(query, (ANO, titulo_doc, titulo_doc, elastic_id, 1, 1, ASSUNTO_ID, UNIDADE_ID))
             conn.commit()
-            print(f"Salvo no banco de dados: {os.path.basename(filename)}")
+            print(f"SALVO NO BANCO DE DADOS: {os.path.basename(filename)}")
 
         except Exception as e:
             print(f"Erro ao processar {pdf_url}: {e}")
@@ -137,4 +130,5 @@ def main():
     print("Processo concluído.")
 
 if __name__ == "__main__":
-    main()
+    #for ano in range(2025, 2019, -1):  # De 2025 até 2020
+    main(2024)

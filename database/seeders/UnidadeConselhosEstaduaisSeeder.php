@@ -323,5 +323,59 @@ class UnidadeConselhosEstaduaisSeeder extends Seeder
             'confirmado' => true,
             'pai_id' => '1'
         ]);
+        Unidade::create([
+            'nome' => 'Pró-Reitoria de Ensino', 
+            'tipo' => 'Pró-Reitoria', 
+            'esfera' => 'Coordenação',
+            'email' => 'proen@ifal.edu.br',
+            'url' => 'https://www2.ifal.edu.br/o-ifal/ensino/equipe/equipe',
+            'sigla' => 'PROEN',
+            'contato' => 'João PROEN',
+            'contato2' => '',
+            'endereco' => 'Rua Dr. Odilon Vasconcelos, 103 (esquina com a Av. Dr. Júlio Marques Luz, antiga Av. Jatiúca) – Jatiúca – Maceió/AL', 
+            'telefone' => null,
+            'responsavel_id' => '1',
+            'user_id' => '1',
+            'estado_id' => 1,
+            'friendly_url' => '',
+            'confirmado' => true,
+            'pai_id' => '1'
+        ]);
+        Unidade::create([
+            'nome' => 'Pró-Reitoria de Extensão', 
+            'tipo' => 'Pró-Reitoria', 
+            'esfera' => 'Coordenação',
+            'email' => 'proex@ifal.edu.br',
+            'url' => 'https://www2.ifal.edu.br/o-ifal/extensao/equipe/equipe',
+            'sigla' => 'PROEX',
+            'contato' => 'João PROEX',
+            'contato2' => '',
+            'endereco' => 'Rua Dr. Odilon Vasconcelos, 103 (esquina com a Av. Dr. Júlio Marques Luz, antiga Av. Jatiúca) – Jatiúca – Maceió/AL', 
+            'telefone' => null,
+            'responsavel_id' => '1',
+            'user_id' => '1',
+            'estado_id' => 1,
+            'friendly_url' => '',
+            'confirmado' => true,
+            'pai_id' => '1'
+        ]);
+        Unidade::create([
+            'nome' => 'Pró-Reitoria de Pesquisa, Pós-Graduação e Inovação', 
+            'tipo' => 'Pró-Reitoria', 
+            'esfera' => 'Coordenação',
+            'email' => 'prppi@ifal.edu.br',
+            'url' => 'https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/',
+            'sigla' => 'PRPPI',
+            'contato' => 'João PRPPI',
+            'contato2' => '',
+            'endereco' => 'Rua Dr. Odilon Vasconcelos, 103 (esquina com a Av. Dr. Júlio Marques Luz, antiga Av. Jatiúca) – Jatiúca – Maceió/AL', 
+            'telefone' => null,
+            'responsavel_id' => '1',
+            'user_id' => '1',
+            'estado_id' => 1,
+            'friendly_url' => '',
+            'confirmado' => true,
+            'pai_id' => '1'
+        ]);
     }
 }

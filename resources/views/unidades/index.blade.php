@@ -145,27 +145,27 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-11 d-flex flex-column">
-                                    <strong class="mb-1"><i class="fa fa-asterisk pull-left pt-1"></i>
+                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-asterisk pull-left"></i>
                                         {{$u->esfera}}
                                     </strong>
                     
-                                    <strong class="mb-1"><i class="fa fa-envelope pull-left pt-1"></i>
+                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-envelope pull-left"></i>
                                         {{$u->email}}
                                     </strong>
                     
-                                    <strong class="mb-1"><i class="fa fa-external-link-square pull-left pt-1"></i>
+                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-external-link-square pull-left"></i>
                                         <a class="form-value" href="{{$u->url}}" target="_blank">{{$u->url}}</a>
                                     </strong>
                     
-                                    <strong class="mb-1"><i class="fa fa-phone-square pull-left pt-1"></i>
+                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-phone-square pull-left"></i>
                                         @if($u->telefone)<a href="tel:{{$u->telefone}}">{{$u->telefone}}</a>@else 0000-0000 @endif
                                     </strong>
                     
-                                    <strong class="mb-1">
-                                        <i class="fa fa-user-circle pull-left pt-1"></i>
+                                    <strong class="mb-1 d-flex align-items-center">
+                                        <i class="fa fa-user-circle pull-left"></i>
                                         <span class="form-value">{{$u->contato}}</span>
                                         @if($u->contato2)
-                                        <i class="fa fa-user-circle pull-left pt-1"></i>
+                                        <i class="fa fa-user-circle pull-left"></i>
                                         <span class="form-value">{{$u->contato2}}</span>
                                         @endif
                                     </strong>

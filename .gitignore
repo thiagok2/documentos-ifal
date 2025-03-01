@@ -19,3 +19,5 @@ yarn-error.log
 /.idea
 /.vscode
 /data
+/crawler/pdfs
+crawler/pdfs/5-resultado-preliminar-inscricoes-deferidas.pdf
