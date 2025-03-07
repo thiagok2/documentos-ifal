@@ -9,6 +9,7 @@ import psycopg2
 import os
 import base64
 from itertools import zip_longest
+from crawler.utils import config_geral, KEYWORDS_TO_TAGS, map_keywords_to_tags
 
 # Variaveis de Configuração
 DOWNLOAD_DIR = "./crawler/pdfs"
@@ -24,9 +25,12 @@ DB_CONFIG = {
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
 
 ##########################################################################################
-TAGS = ["PROEX", "Extensão", "Estagiário", "Prestação de Serviço", "Proex", "Monitoria", "Inclusão Social", "Ação Extensionista"]
-ASSUNTO_ID = 3
-UNIDADE_ID = 20
+ASSUNTO = 'extensao'
+configurado = config_geral()[ASSUNTO]
+TAGS = configurado['TAGS']
+ASSUNTO_ID = configurado['ASSUNTO_ID']
+UNIDADE_ID = configurado['UNIDADE_ID']
+palavras_chave = KEYWORDS_TO_TAGS
 ##########################################################################################
 
 # Conexões
@@ -36,6 +40,8 @@ cursor = conn.cursor()
 
 # Função para criar os metadados associados ao documento.
 def create_ato_documento(filename, titulo, ANO, BASE_URL):
+    tags_novas = map_keywords_to_tags(titulo, palavras_chave)
+    tags_combinadas = set(TAGS) | set(tags_novas)  # União dos conjuntos de tags
     return {
         "ano": ANO,
         "arquivo": filename,
@@ -51,15 +57,14 @@ def create_ato_documento(filename, titulo, ANO, BASE_URL):
             "url": BASE_URL
         },
         "numero": f"01/{ANO}",
-        "tags": TAGS,
+        "tags": list(tags_combinadas),
         "tipo_doc": "edital",
         "titulo": titulo
     }
 
 # Fluxo Principal
 def main(ANO):
-# URL da página com PDFs
-    BASE_URL = f"https://www2.ifal.edu.br/o-ifal/extensao/editais/editais-{ANO}"
+    BASE_URL = config_geral(ANO)[ASSUNTO]['BASE_URL']
 
     print("Iniciando processo...")
 
@@ -73,11 +78,14 @@ def main(ANO):
     for link in soup.find_all("a", href=True):
         href = link["href"]
         if href.endswith(".pdf"):
-            titulo_links.append(link.text)
+            p_tag = link.find_parent("p")  # Pega o pai <p> como título
+            titulo = p_tag.get_text(strip=True) if p_tag else link.parent.get_text(strip=True)
+            titulo_links.append(titulo)
+
             pdf_links.append(href if href.startswith("http") else BASE_URL + href)
 
     print(f"Encontrados {len(pdf_links)} PDFs.")
-
+    
     # Etapa 2: Processamento de cada PDF
     for pdf_url, titulo_doc in zip_longest(pdf_links, titulo_links, fillvalue='Sem-Titulo'):
         try:
@@ -115,6 +123,7 @@ def main(ANO):
             elastic_id = response["_id"]
             print(f"DOCUMENTO INDEXADO NO Elasticsearch: {elastic_id}")
 
+
             # Salvar no banco de dados
             query = f"""
                 INSERT INTO documentos (ano, titulo, ementa, arquivo, tipo_documento_id, user_id, assunto_id, unidade_id)
@@ -131,4 +140,4 @@ def main(ANO):
 
 if __name__ == "__main__":
     #for ano in range(2025, 2019, -1):  # De 2025 até 2020
-    main(2024)
+    main(2025)
