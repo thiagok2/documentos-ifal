@@ -77,8 +77,7 @@ def main(ANO):
                 'tipo_id': tipo_doc,
                 'tipo_nome': tipo_nome,
             })
-        print(numero_doc)
-    input()
+
     for pdf in pdfs:
         PDF_URL = pdf['url']
         TITULO_DOC = pdf['titulo']

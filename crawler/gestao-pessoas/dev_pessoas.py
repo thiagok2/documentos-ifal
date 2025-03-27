@@ -10,7 +10,6 @@ soup = BeautifulSoup(response.content, "html.parser")
 
 pdfs = []
 def main():
-    input()
     for callout in soup.find_all('p', class_='callout'):
         link_tag = callout.find('a')
         if link_tag:

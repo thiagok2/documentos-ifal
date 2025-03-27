@@ -2,11 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import *
+from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, config_geral, ASSUNTO, ASSUNTO_ID, UNIDADE_ID
 
-# Fluxo Principal
+# DEPOIS E ANTES DE RASPAR VERIFICAR CREATE_TAGS
+
 def main(ANO):
-    BASE_URL = config_geral(ANO)[ASSUNTO]['ANTIGOS_URL']
+    BASE_URL = config_geral(ANO)[ASSUNTO]['BASE_URL']
 
     print("Iniciando processo...")
 
@@ -73,10 +74,10 @@ def main(ANO):
 
             # Salvar no banco de dados
             query = """
-                INSERT INTO documentos (ano, titulo, ementa, arquivo, tipo_documento_id, user_id, assunto_id, unidade_id)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO documentos (ano, titulo, ementa, arquivo, url, tipo_documento_id, user_id, assunto_id, unidade_id)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(query, (ANO, titulo_doc, titulo_doc, elastic_id, 1, 1, ASSUNTO_ID, UNIDADE_ID))
+            cursor.execute(query, (ANO, titulo_doc, titulo_doc, elastic_id, pdf_url, 1, 1, ASSUNTO_ID, UNIDADE_ID))
             conn.commit()
             print(f"SALVO NO BANCO DE DADOS: {os.path.basename(filename)}")
 

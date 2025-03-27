@@ -377,5 +377,23 @@ class UnidadeConselhosEstaduaisSeeder extends Seeder
             'confirmado' => true,
             'pai_id' => '1'
         ]);
+        Unidade::create([
+            'nome' => 'Pró-Reitoria de Administração', 
+            'tipo' => 'Pró-Reitoria', 
+            'esfera' => 'Coordenação',
+            'email' => 'proad@ifal.edu.br',
+            'url' => 'https://www2.ifal.edu.br/o-ifal/administracao',
+            'sigla' => 'PROAD',
+            'contato' => 'João PROAD',
+            'contato2' => '',
+            'endereco' => 'Rua Dr. Odilon Vasconcelos, 103 (esquina com a Av. Dr. Júlio Marques Luz, antiga Av. Jatiúca) – Jatiúca – Maceió/AL', 
+            'telefone' => null,
+            'responsavel_id' => '1',
+            'user_id' => '1',
+            'estado_id' => 1,
+            'friendly_url' => '',
+            'confirmado' => true,
+            'pai_id' => '1'
+        ]);
     }
 }

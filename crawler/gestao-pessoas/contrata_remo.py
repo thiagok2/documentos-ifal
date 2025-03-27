@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS
+from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, CONTRATA_REMOVE_TAGS_URLS
 
 # URL da página com os PDFs
 UNIDADE_ID = 1
@@ -104,5 +104,5 @@ def main_ruins(TAG_TITULO, URL):
             print(f"Erro ao processar {pdf_url}: {e}")
             
 
-for key, value in RUINS_TAGS_URLS.items():
+for key, value in CONTRATA_REMOVE_TAGS_URLS.items():
     main_ruins(value[0], value[1])

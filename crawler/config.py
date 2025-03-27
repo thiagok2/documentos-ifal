@@ -157,9 +157,18 @@ KEYWORDS_TO_TAGS = {
     "PDI":[
         'PDI'
     ],
+    "proen":[
+        'PROEN'
+    ],
+    "proex":[
+        'PROEX'
+    ],
+    "prppi":[
+        'PRPPI'
+    ],
 }
 
-RUINS_TAGS_URLS = {
+CONTRATA_REMOVE_TAGS_URLS = {
     1: [
         'Professor Efetivo',
         'https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/concursos/editais/professor-efetivo'
@@ -178,9 +187,21 @@ RUINS_TAGS_URLS = {
     ],
     5: [
         'Remoção Técnico',
-        'https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/remocao/professor'
+        'https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/remocao/tecnico'
     ],
 }
+
+NORMAS_URLS = [
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/compras",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/arquivo-e-protocolo",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/contratos",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/delegacao-de-competencias-aos-diretores-gerais-dos-campi",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/cimt",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/diarias-e-passagens",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/envio-das-informacoes-dos-campi-para-a-pro-reitoria-de-administracao",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/orcamento",
+    "https://www2.ifal.edu.br/o-ifal/administracao/normas/patrimonio",
+]
 
 DOWNLOAD_DIR = "./crawler/pdfs"
 ELASTIC_URL = "http://elasticsearch:9200"
@@ -195,7 +216,7 @@ DB_CONFIG = {
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
 
 ##########################################################################################
-ASSUNTO = 'pesquisa'
+ASSUNTO = 'ensino'
 configurado = config_geral()[ASSUNTO]
 TAGS = configurado['TAGS']
 ASSUNTO_ID = configurado['ASSUNTO_ID']
@@ -209,7 +230,7 @@ cursor = conn.cursor()
 
 def create_tags(titulo):
     tags_novas = map_keywords_to_tags(titulo, KEYWORDS_TO_TAGS)
-    #tags_combinadas = set(TAGS) | set(tags_novas)  # União dos conjuntos de tags
+    # tags_combinadas = set(TAGS) | set(tags_novas)  # União dos conjuntos de tags
     return tags_novas
 
 def create_ato_documento(filename, titulo, tags, ANO, BASE_URL, numero='00', tipo='Edital', ementa='nada', data='nada'):
