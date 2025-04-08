@@ -398,8 +398,17 @@
 
 
                                         <br/>
-                                        <strong>Publicação:</strong> {{ date('d/m/Y', strtotime($doc['data_publicacao'] )) }}
-                                        @if($doc['tags'])                                            
+                                        <strong>Publicação:</strong>
+                                            @php
+                                                $ano = date('Y', strtotime($doc['data_publicacao']));
+                                            @endphp
+
+                                            @if($ano != '1800')
+                                                {{ date('d/m/Y', strtotime($doc['data_publicacao'])) }}
+                                            @else
+                                                Não informado
+                                            @endif
+                                            @if($doc['tags'])                                            
                                             <br />
                                             <strong>Palavras-Chave:</strong>
                                             @foreach ($doc['tags'] as $tag)

@@ -136,8 +136,20 @@ KEYWORDS_TO_TAGS = {
     "Relatório":[
         'Relatório'
     ],
+    "Plano":[
+        'Plano'
+    ],
     "Regularmento":[
         'Regularmento'
+    ],
+    "Decreto": [
+        'Decreto'
+    ],
+    "Instrução Normativa": [
+        'Instrução Normativa'
+    ],
+    "Parecer": [
+        'Parecer'
     ],
     "Aprova":[
         'Aprova'
@@ -233,11 +245,11 @@ def create_tags(titulo):
     # tags_combinadas = set(TAGS) | set(tags_novas)  # União dos conjuntos de tags
     return tags_novas
 
-def create_ato_documento(filename, titulo, tags, ANO, BASE_URL, numero='00', tipo='Edital', ementa='nada', data='nada'):
+def create_ato_documento(filename, titulo, tags, ANO, BASE_URL, numero='00', tipo='Edital', ementa='nada', data='Não Informada'):
     if ementa == 'nada':
         ementa = titulo
-    if data == 'nada':
-        data = f"{ANO}-01-01"
+    if data == 'Não Informada':
+        data = f"1800-01-01"
     
     return {
         "ano": ANO,

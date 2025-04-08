@@ -163,7 +163,7 @@
                                         <span class="badge bg-secondary">{{$doc->tipo_entrada ?? 'Nenhum informado'}}</span>
                                         <span class="badge bg-secondary">{{$doc->status() ?? 'Nenhum informado'}}</span>
                                     </td>
-                                    <td>{{date('d-m-Y', strtotime($doc->data_publicacao)) ?? 'Nenhum informado'}}</td>
+                                    <td>{{ $doc->data_publicacao ? date('d-m-Y', strtotime($doc->data_publicacao)) : 'Nenhuma informada' }}</td>
                                     
                                     <td>{{date('d-m-Y', strtotime($doc->data_envio)) ?? 'Nenhum informado'}}</td>
                                     
