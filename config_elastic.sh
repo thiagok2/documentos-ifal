@@ -27,20 +27,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
   "settings": {
     "analysis": {
       "filter": {
-        "synonym_test": {
+        "synonyms_filter": {
           "type": "synonym", 
-          "synonyms": [
-            "9394/96, 9.394/96, Diretrizes e Bases da Educação, Diretrizes e Bases  => LDB",
-            "Educação para Jovens e Adultos, Jovens e Adultos => EJA",
-            "Educação a Distância => EAD",
-            "Técnico => Profissionalizante",
-            "Profissional => Profissionalizante",
-            "Ensino Técnico, Curso FIC => PRONATEC",
-            "Capacitação => Qualificação",
-            "infância => criança",
-            "diversidade, deficiência, surdo, cego, síndrome de down, autismo, educação Especial,  dificuldades auditivas => inclusiva",
-            "13.146,  Lei Brasileira de Inclusão => Inclusão"
-          ]
+          "synonyms_path": "analysis/sinonimos_elastic.txt",
+          "updateable": true
         },
         "brazilian_stop": {
           "type": "stop",
@@ -52,7 +42,7 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
         },
         "brazilian_stemmer": {
           "type": "stemmer",
-          "language":   "brazilian"
+          "language": "brazilian"
         }
       },
       "analyzer": {
@@ -60,7 +50,7 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "synonym_test",
+            "synonyms_filter",
             "brazilian_stop",
             "brazilian_keywords",
             "brazilian_stemmer"
@@ -201,5 +191,6 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal/_mapping/" \
   --insecure | jq '.acknowledged' && echo "Mapeamento do índice 'documentos_ifal' atualizado com sucesso." || echo "Falha ao atualizar o mapeamento do índice 'documentos_ifal'."
 
 echo -e "\nObtendo o mapeamento do índice 'documentos_ifal'..."
+
 curl -s -X GET "http://elasticsearch:9200/documentos_ifal/_mapping" \
   --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."

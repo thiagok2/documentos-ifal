@@ -49,7 +49,7 @@ services:
             retries: 3
             timeout: 5s
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.17.4
         environment:
             - discovery.type=single-node
             - xpack.security.enabled=false
@@ -58,6 +58,8 @@ services:
             - 9300:9300
         volumes:
             - sailelasticsearch:/usr/share/elasticsearch/data
+            - ./sinonimos_elastic.txt:/usr/share/elasticsearch/config/analysis/sinonimos_elastic.txt
+
         networks:
             - sail
     pgadmin:
