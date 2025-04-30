@@ -44,6 +44,9 @@
 </script>
 
 <style>
+    .caio{
+        visibility: hidden;
+    }
     a{
         text-decoration: none !important;
         color: inherit;
@@ -219,9 +222,13 @@
                 @endif
 
                 <form action="/" method="GET" class="">
-                    <div class="input-group">
-                        <input type="text" name="query" class="form-control" placeholder="Digite os termos da consulta" value="{{ $query }}" />
+                <div class="input-group tooltip-custom" onclick="showTooltip()">
+                    <input type="text" name="query" class="form-control" placeholder="Digite os termos da consulta" value="{{ $query }}" />
+                    <div class="tooltiptext" id="tooltip">
+                        Copiado!
                     </div>
+                </div>
+
                     <div class="row">
                         <div class="col text-center mt-3 mb-3">
                             <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search mr-1"></i>Pesquisar</button>

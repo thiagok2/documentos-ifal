@@ -107,7 +107,9 @@ def main():
                     "content": encoded_pdf
                 }
             }
+            print(doc)
             response = es.index(index=INDEX_NAME, pipeline="attachment", body=doc)
+            
             elastic_id = response["_id"]
             print(f"DOCUMENTO INDEXADO NO Elasticsearch: {elastic_id}")
             # Salvar no banco de dados

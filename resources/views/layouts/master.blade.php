@@ -33,6 +33,35 @@
 
     </head>
     <style>
+    .tooltip-custom .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-custom .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
     a{
         text-decoration: none !important;
         color: inherit !important;
@@ -67,6 +96,22 @@
         <script src="/js/normativas-search.js" type="text/javascript"></script>
 
         <script>
+            function showTooltip() {
+        const tooltip = document.getElementById('tooltip');
+        tooltip.style.visibility = 'visible';
+        tooltip.style.opacity = '1';
+
+        // Simulate copy to clipboard
+        navigator.clipboard.writeText('Pesquise!').then(function() {
+            // After a short delay, hide the tooltip
+            setTimeout(function() {
+                tooltip.style.opacity = '0';
+                setTimeout(function() {
+                    tooltip.style.visibility = 'hidden';
+                }, 300);
+            }, 15000);
+        });
+    }
             $(document).on('ready', function () {
 
                 $('.kv-fa').rating({

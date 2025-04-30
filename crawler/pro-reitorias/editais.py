@@ -2,11 +2,37 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, config_geral, ASSUNTO, ASSUNTO_ID, UNIDADE_ID
+from crawler.config import DOWNLOAD_DIR, es, create_tags_pro, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, ASSUNTO, ASSUNTO_ID, UNIDADE_ID
 
-# DEPOIS E ANTES DE RASPAR VERIFICAR CREATE_TAGS
+def config_geral(ANO=None):
+  assuntos = {
+    'ensino': {
+      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/ensino/editais/{ANO}",
+      'TAGS': ['PROEN'],
+      'ASSUNTO_ID': 1,
+      'UNIDADE_ID': 19
+    },
+    'pesquisa': {
+      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/editais-{ANO}",
+      'ANTIGOS_URL': f"https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/editais-{ANO}",
+      'TAGS': ["PRPPI"],
+      'ASSUNTO_ID': 2,
+      'UNIDADE_ID': 21
+    },
+    'extensao': {
+      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/extensao/editais/editais-{ANO}",
+      'TAGS': ["PROEX"],
+      'ASSUNTO_ID': 3,
+      'UNIDADE_ID': 20
+    },
+  }
+  return assuntos
 
 def main(ANO):
+    ASSUNTO = ''
+    TAGS = config_geral()[ASSUNTO]['TAGS']
+    ASSUNTO_ID = config_geral()[ASSUNTO]['ASSUNTO_ID']
+    UNIDADE_ID = config_geral()[ASSUNTO]['UNIDADE_ID']
     BASE_URL = config_geral(ANO)[ASSUNTO]['BASE_URL']
 
     print("Iniciando processo...")
@@ -53,7 +79,7 @@ def main(ANO):
                 print(f"Arquivo já existe: {filename}. Pulando download.")
 
             # Criar ato_documento
-            tags = create_tags(titulo_doc)
+            tags = create_tags_pro(titulo_doc, TAGS)
             ato_documento = create_ato_documento(os.path.basename(filename), titulo_doc, tags, ANO, BASE_URL)
             print(f"Ato Documento criado: {ato_documento}")
 

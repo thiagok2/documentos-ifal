@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\nCriando o pipeline de ingestão..."
-curl -s -X PUT "http://elasticsearch:9200/_ingest/pipeline/attachment" \
+curl -s -X PUT "http://localhost:9200/_ingest/pipeline/attachment" \
   -H "Content-Type: application/json" \
   -d '{
            "description": "Extract attachment information",
@@ -17,20 +17,30 @@ curl -s -X PUT "http://elasticsearch:9200/_ingest/pipeline/attachment" \
   --insecure | jq '.acknowledged' && echo "Pipeline de ingestão criado com sucesso." || echo "Falha ao criar o pipeline de ingestão."
 
 echo -e "\nDeletando o índice 'documentos_ifal'..."
-curl -s -X DELETE "http://elasticsearch:9200/documentos_ifal" \
+curl -s -X DELETE "http://localhost:9200/documentos_ifal" \
   --insecure | jq '.acknowledged' && echo "Índice 'documentos_ifal' deletado com sucesso." || echo "Falha ao deletar o índice 'documentos_ifal'."
 
 echo -e "\nCriando o índice 'documentos_ifal' com configurações específicas..."
-curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
+curl -s -X PUT "http://localhost:9200/documentos_ifal" \
      -H "Content-Type: application/json" \
      -d '{
   "settings": {
     "analysis": {
       "filter": {
-        "synonyms_filter": {
+        "synonym_test": {
           "type": "synonym", 
-          "synonyms_path": "analysis/sinonimos_elastic.txt",
-          "updateable": true
+          "synonyms": [
+            "9394/96, 9.394/96, Diretrizes e Bases da Educação, Diretrizes e Bases  => LDB",
+            "Educação para Jovens e Adultos, Jovens e Adultos => EJA",
+            "Educação a Distância => EAD",
+            "Técnico => Profissionalizante",
+            "Profissional => Profissionalizante",
+            "Ensino Técnico, Curso FIC => PRONATEC",
+            "Capacitação => Qualificação",
+            "infância => criança",
+            "diversidade, deficiência, surdo, cego, síndrome de down, autismo, educação Especial,  dificuldades auditivas => inclusiva",
+            "13.146,  Lei Brasileira de Inclusão => Inclusão"
+          ]
         },
         "brazilian_stop": {
           "type": "stop",
@@ -42,7 +52,7 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
         },
         "brazilian_stemmer": {
           "type": "stemmer",
-          "language": "brazilian"
+          "language":   "brazilian"
         }
       },
       "analyzer": {
@@ -50,7 +60,7 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "synonyms_filter",
+            "synonym_test",
             "brazilian_stop",
             "brazilian_keywords",
             "brazilian_stemmer"
@@ -173,7 +183,7 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
 ' --insecure | jq '.acknowledged' && echo "Índice 'documentos_ifal' criado com sucesso." || echo "Falha ao criar o índice 'documentos_ifal'."
 
 echo -e "\nAtualizando o mapeamento do índice 'documentos_ifal'..."
-curl -s -X PUT "http://elasticsearch:9200/documentos_ifal/_mapping/" \
+curl -s -X PUT "http://localhost:9200/documentos_ifal/_mapping/" \
   -H "Content-Type: application/json" \
   -d '{  
      "properties": {
@@ -191,6 +201,5 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal/_mapping/" \
   --insecure | jq '.acknowledged' && echo "Mapeamento do índice 'documentos_ifal' atualizado com sucesso." || echo "Falha ao atualizar o mapeamento do índice 'documentos_ifal'."
 
 echo -e "\nObtendo o mapeamento do índice 'documentos_ifal'..."
-
-curl -s -X GET "http://elasticsearch:9200/documentos_ifal/_mapping" \
+curl -s -X GET "http://localhost:9200/documentos_ifal/_mapping" \
   --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."
