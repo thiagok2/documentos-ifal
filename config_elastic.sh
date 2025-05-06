@@ -27,11 +27,6 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
   "settings": {
     "analysis": {
       "filter": {
-        "synonyms_filter": {
-          "type": "synonym", 
-          "synonyms_path": "analysis/sinonimos_elastic.txt",
-          "updateable": true
-        },
         "brazilian_stop": {
           "type": "stop",
           "stopwords":  "_brazilian_" 
@@ -50,7 +45,6 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-            "synonyms_filter",
             "brazilian_stop",
             "brazilian_keywords",
             "brazilian_stemmer"
@@ -68,6 +62,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -76,6 +74,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -107,6 +109,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -121,6 +127,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
               "keyword": {
                 "type": "keyword",
                 "ignore_above": 256
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -184,6 +194,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal/_mapping/" \
                 "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
+                },
+                "raw": {
+                  "type": "text",
+                  "analyzer": "whitespace"
                 }
             }
         }

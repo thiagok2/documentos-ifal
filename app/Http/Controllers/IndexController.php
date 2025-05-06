@@ -16,6 +16,7 @@ use App\Models\TipoDocumento;
 use App\Models\Unidade;
 use App\Services\SearchComponent;
 use App\Searches\Commands\SearchCommandA1;
+use App\Searches\Commands\SearchCommandA0;
 
 use App\Services\DocumentoQuery;
 
@@ -96,53 +97,76 @@ class IndexController extends Controller
 
                 if ($page == 1) //cadastrar consulta apenas no primeiro acesso
                     SearchComponent::logging($query, $request);
-
-                $from = (($page - 1) * $size_page);
-                    $searchCommand = new SearchCommandA1('documentos_ifal', 'ato');
-                    $result = $searchCommand->search($query, $queryFilters, $from, $size_page);
-                    $total = $result->totalResults;
-             
-                    $max_score = $result->maxScore;
+                
+                    $from = (($page - 1) * $size_page);
+                
+                    // Executa A0 e A1
+                    $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato');
+                    $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000); // recupera até 1000 resultados para evitar paginação fragmentada
                     
-                    $total_pages = $result->totalPages;
-
-                    $documentos = $result->documentsResult;
-                    $aggregations = $result->aggResults;
+                    $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato');
+                    $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
+                    
+                // Primeira fonte: A0
+                foreach ($resultA0->documentsResult as $doc) {
+                    $docId = $doc['id'] ?? null;
+                    if ($docId !== null) {
+                        $docIdsA0[$docId] = true;
+                        $finalResults[] = $doc;
+                    }
                 }
-
-            return view(
-                'index.index',
-                compact(
-                    'query',
-                    'conselho',
-                    'tiposDocumento',
-                    'tipo_doc',
-                    'esfera',
-                    'periodo',
-                    'ano',
-                    'fonte',
-                    'filters',
-                    'page',
-                    'total',
-                    'size_page',
-                    'total_pages',
-                    'max_score',
-                    'documentos',
-                    'aggregations'
-                )
-            );
-
-
+                
+                // Segunda fonte: A1 (adiciona apenas se não estava no A0)
+                foreach ($resultA1->documentsResult as $doc) {
+                    $docId = $doc['id'] ?? null;
+                    if ($docId !== null && !isset($docIdsA0[$docId])) {
+                        $finalResults[] = $doc;
+                    }
+                }
+                    
+                    // Pagina manualmente os resultados combinados
+                    $total = count($finalResults);
+                    $total_pages = $resultA1->totalPages;
+                    $documentos = array_slice($finalResults, $from, $size_page);
+                    
+                    // Calcula max_score dos dois resultados
+                    $max_score = max($resultA0->maxScore ?? 0, $resultA1->maxScore ?? 0);
+                    
+                    // Agregações: escolha uma ou combine (aqui pegamos do A1 como base)
+                    $aggregations = $resultA1->aggResults;
+                }
+                return view(
+                    'index.index',
+                    compact(
+                        'query',
+                        'conselho',
+                        'tiposDocumento',
+                        'tipo_doc',
+                        'esfera',
+                        'periodo',
+                        'ano',
+                        'fonte',
+                        'filters',
+                        'page',
+                        'total',
+                        'size_page',
+                        'total_pages',
+                        'max_score',
+                        'documentos',
+                        'aggregations'
+                    )
+                );
+            
         } catch (\Exception $e) {
             $erro['titulo'] = getenv('APP_DEBUG') ? "DEBUG:: " . $e->getMessage() : 'Plataforma de busca indisponível';
             $erro['local'] = $e->getFile() . " #" . $e->getLine();
             $erro['trace'] = $e->getTraceAsString();
-
+        
             Log::error($e->getFile() . ' - Linha ' . $e->getLine() . ' - search::' . $e->getMessage());
-
+        
             throw $e;
         }
-
+    
     }
 
     public function viewNormativa($normativaId)
