@@ -400,10 +400,10 @@
                                         <br/>
                                         <strong>Publicação:</strong>
                                             @php
-                                                $ano = date('Y', strtotime($doc['data_publicacao']));
+                                                $anoDocumento = date('Y', strtotime($doc['data_publicacao']));
                                             @endphp
 
-                                            @if($ano != '1800')
+                                            @if($anoDocumento != '1800')
                                                 {{ date('d/m/Y', strtotime($doc['data_publicacao'])) }}
                                             @else
                                                 Não informado

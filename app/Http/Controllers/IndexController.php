@@ -98,42 +98,68 @@ class IndexController extends Controller
                 if ($page == 1) //cadastrar consulta apenas no primeiro acesso
                     SearchComponent::logging($query, $request);
                 
+                $from = (($page - 1) * $size_page);
+            
+                if(str_ends_with($query, '"') && str_starts_with($query, '"')){
                     $from = (($page - 1) * $size_page);
-                
+                    $searchCommand = new SearchCommandA0('documentos_ifal', 'ato');
+                    $result = $searchCommand->search($query, $queryFilters, $from, $size_page);
+                    $total = $result->totalResults;
+                    
+                    $max_score = $result->maxScore;
+                    
+                    $total_pages = $result->totalPages;
+                    
+                    $documentos = $result->documentsResult;
+                    $aggregations = $result->aggResults;                
+                }
+                else{
                     // Executa A0 e A1
+
                     $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato');
                     $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000); // recupera até 1000 resultados para evitar paginação fragmentada
                     
                     $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato');
                     $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
+                        
+                    // Primeira fonte: A0
+                    $docIdsA0 = [];
+                    $finalResults = [];
                     
-                // Primeira fonte: A0
-                foreach ($resultA0->documentsResult as $doc) {
-                    $docId = $doc['id'] ?? null;
-                    if ($docId !== null) {
-                        $docIdsA0[$docId] = true;
-                        $finalResults[] = $doc;
+                    // Verifica se existe documentos em resultA0
+                    if (is_array($resultA0->documentsResult) || is_object($resultA0->documentsResult)) {
+                        foreach ($resultA0->documentsResult as $doc) {
+                            $docId = $doc['id'] ?? null;
+                            if ($docId !== null) {
+                                $docIdsA0[$docId] = true;
+                                $finalResults[] = $doc;
+                            }
+                        }
                     }
-                }
-                
-                // Segunda fonte: A1 (adiciona apenas se não estava no A0)
-                foreach ($resultA1->documentsResult as $doc) {
-                    $docId = $doc['id'] ?? null;
-                    if ($docId !== null && !isset($docIdsA0[$docId])) {
-                        $finalResults[] = $doc;
+                    
+                    // Agora, verifica e adiciona documentos do A1
+                    if (is_array($resultA1->documentsResult) || is_object($resultA1->documentsResult)) {
+                        foreach ($resultA1->documentsResult as $doc) {
+                            $docId = $doc['id'] ?? null;
+                            if ($docId !== null && !isset($docIdsA0[$docId])) {
+                                $finalResults[] = $doc;
+                            }
+                        }
                     }
-                }
                     
                     // Pagina manualmente os resultados combinados
                     $total = count($finalResults);
-                    $total_pages = $resultA1->totalPages;
+                    $total_pages = ceil($total / $size_page);
+                    $from = (($page - 1) * $size_page);     
                     $documentos = array_slice($finalResults, $from, $size_page);
                     
-                    // Calcula max_score dos dois resultados
+                    // Calcula o max_score dos dois resultados
                     $max_score = max($resultA0->maxScore ?? 0, $resultA1->maxScore ?? 0);
                     
                     // Agregações: escolha uma ou combine (aqui pegamos do A1 como base)
                     $aggregations = $resultA1->aggResults;
+                }
+                
                 }
                 return view(
                     'index.index',
