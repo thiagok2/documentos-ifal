@@ -127,25 +127,22 @@ class IndexController extends Controller
                     $finalResults = [];
                     
                     // Verifica se existe documentos em resultA0
-                    if (is_array($resultA0->documentsResult) || is_object($resultA0->documentsResult)) {
-                        foreach ($resultA0->documentsResult as $doc) {
-                            $docId = $doc['id'] ?? null;
-                            if ($docId !== null) {
-                                $docIdsA0[$docId] = true;
-                                $finalResults[] = $doc;
-                            }
-                        }
-                    }
+                    $docsA0 = (array) $resultA0->documentsResult;
+                    $docsA1 = (array) $resultA1->documentsResult;
                     
-                    // Agora, verifica e adiciona documentos do A1
-                    if (is_array($resultA1->documentsResult) || is_object($resultA1->documentsResult)) {
-                        foreach ($resultA1->documentsResult as $doc) {
-                            $docId = $doc['id'] ?? null;
-                            if ($docId !== null && !isset($docIdsA0[$docId])) {
-                                $finalResults[] = $doc;
-                            }
+                    $merged = array_merge($docsA0, $docsA1);
+                    
+                    // Usa array_reduce para eliminar duplicados com base no 'id'
+                    $finalResultsAssoc = array_reduce($merged, function ($carry, $doc) {
+                        $id = $doc['id'] ?? null;
+                        if ($id !== null && !isset($carry[$id])) {
+                            $carry[$id] = $doc;
                         }
-                    }
+                        return $carry;
+                    }, []);
+                    
+                    // Reindexa para array simples
+                    $finalResults = array_values($finalResultsAssoc);                    
                     
                     // Pagina manualmente os resultados combinados
                     $total = count($finalResults);

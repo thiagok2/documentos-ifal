@@ -2,8 +2,8 @@
 
 # Implementar no IndexController -feito
 
-# Arrumar paginação -ok
+# Arrumar paginação -feito
 
-# Implementar a pesquisa por aspas
+# Implementar a pesquisa por aspas -feito
 
-# Achar uma alternativa dos laços pra remover duplicados - pra fazer 
+# Achar uma alternativa dos laços pra remover duplicados -feito
