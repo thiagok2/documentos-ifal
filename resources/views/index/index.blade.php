@@ -44,9 +44,6 @@
 </script>
 
 <style>
-    .caio{
-        visibility: hidden;
-    }
     a{
         text-decoration: none !important;
         color: inherit;
@@ -95,6 +92,57 @@
         pointer-events: none;
     }
 </style>
+
+@push('estilos-caio')
+    <style>
+        /*Estilos de tooltip na index*/
+    .caio-tooltiptext i {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .caio-tooltiptext i:hover {
+        color: #f1f1f1;
+    }
+    .caio-tooltip-custom .caio-tooltiptext {
+        visibility: hidden;
+        width: 750px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: 100%; /* Faz a tooltip aparecer abaixo do elemento */
+        left: 50%;
+        transform: translateX(-50%); /* Centraliza dinamicamente */
+        margin-top: 75px; /* Aumenta o afastamento da tooltip */
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+
+    }
+
+    .caio-tooltip-custom .caio-tooltiptext::after {
+        content: "";
+        position: absolute;
+        bottom: 100%; /* Faz a seta ficar em cima da tooltip */
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent #555 transparent; /* Seta apontando para cima */
+    }
+    /* fim estilos tooltip */
+
+    </style>
+@endpush
 
 <section id="mini-header">
     <div class="container-fluid">
@@ -222,10 +270,12 @@
                 @endif
 
                 <form action="/" method="GET" class="">
-                <div class="input-group tooltip-custom" onclick="showTooltip()">
-                    <input type="text" name="query" class="form-control" placeholder="Digite os termos da consulta" value="{{ $query }}" />
-                    <div class="tooltiptext" id="tooltip">
-                        Copiado!
+                <div class="input-group caio-tooltip-custom">
+                    <input type="text" name="query" class="form-control" placeholder="Digite os termos da consulta" value="{{ $query }}" id='tooltip-ativar' />
+                    <div class="caio-tooltiptext" id="tooltip">
+                        Caso queira procurar um termo composto adicione "" na pesquisa. ex: "Processo Seletivo" </br>
+                        Pra procurar também pelo tipo do documento basta mencioná-lo. ex: "Edital PIBIC"
+                        <i id='hide-tooltip' class="fa fa-close mr-1"></i>
                     </div>
                 </div>
 
@@ -556,5 +606,39 @@
 </section>
 <!-- results -->
 <hr class="split">
+@push('scripts-caio')
+<script>
+
+document.querySelector('#tooltip-ativar').addEventListener('focus', (e) => {
+    e.preventDefault();
+
+    const tooltip = document.querySelector('#tooltip');
+    tooltip.style.visibility = 'visible';
+    tooltip.style.opacity = '1';
+
+});
+document.querySelector('#tooltip-ativar').addEventListener('blur', (e) => {
+    e.preventDefault();
+
+    const tooltip = document.querySelector('#tooltip');
+    tooltip.style.opacity = '0';
+    setTimeout(() => {
+        tooltip.style.visibility = 'hidden';
+    }, 10);
+
+});
+document.querySelector('#hide-tooltip').addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    const tooltip = document.querySelector('#tooltip');
+    tooltip.style.opacity = '0';
+    setTimeout(() => {
+        tooltip.style.visibility = 'hidden';
+    }, 10);
+});
+</script>
+
+
+@endpush
 @endsection
 
