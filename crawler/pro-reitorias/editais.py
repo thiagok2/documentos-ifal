@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-import os
 import base64
+<<<<<<< HEAD
 from crawler.config import DOWNLOAD_DIR, es, create_tags_pro, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, ASSUNTO, ASSUNTO_ID, UNIDADE_ID
 
 def config_geral(ANO=None):
@@ -27,6 +27,9 @@ def config_geral(ANO=None):
     },
   }
   return assuntos
+=======
+from crawler.config import es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, config_geral, ASSUNTO, ASSUNTO_ID, UNIDADE_ID
+>>>>>>> feat-SearchCommandA0
 
 def main(ANO):
     ASSUNTO = ''
@@ -34,7 +37,6 @@ def main(ANO):
     ASSUNTO_ID = config_geral()[ASSUNTO]['ASSUNTO_ID']
     UNIDADE_ID = config_geral()[ASSUNTO]['UNIDADE_ID']
     BASE_URL = config_geral(ANO)[ASSUNTO]['BASE_URL']
-
     print("Iniciando processo...")
 
     # Etapa 1: Raspagem dos PDFs
@@ -48,7 +50,7 @@ def main(ANO):
         if pdf_link.endswith("/view"):
             pdf_link = pdf_link[:-5]
         if pdf_link.endswith(".pdf"):
-            p_tag = link.find_parent("p")  # Pega o pai <p> como título
+            p_tag = link.find_parent("p")
             titulo = p_tag.get_text(strip=True) if p_tag else link.parent.get_text(strip=True)
             pdf_link = pdf_link if pdf_link.startswith("http") else BASE_URL + pdf_link
 
@@ -56,38 +58,34 @@ def main(ANO):
                 "titulo": titulo,
                 "url": pdf_link
             })
-    
 
-    # Etapa 2: Processamento de cada PDF
+    # Etapa 2: Processamento dos PDFs em memória
     for pdf in pdfs:
         pdf_url = pdf['url']
         titulo_doc = pdf['titulo']
         try:
-            # Verificar e criar o diretório para downloads
-            os.makedirs(DOWNLOAD_DIR, exist_ok=True)
+            print(f"Baixando e processando {pdf_url}...")
+            pdf_response = requests.get(pdf_url)
 
-            # Pega o último nome da url que é o titulo do pdf
-            filename = os.path.join(DOWNLOAD_DIR, pdf_url.split("/")[-1])
+            if pdf_response.status_code != 200 or "application/pdf" not in pdf_response.headers.get("Content-Type", ""):
+                print(f"Arquivo inválido ou não é PDF: {pdf_url}")
+                continue
 
-            # Baixar PDF se não existir
-            if not os.path.exists(filename):
-                print(f"Baixando {pdf_url}...")
-                pdf_response = requests.get(pdf_url)
-                with open(filename, "wb") as f:
-                    f.write(pdf_response.content)
-            else:
-                print(f"Arquivo já existe: {filename}. Pulando download.")
+            pdf_content = pdf_response.content
+            encoded_pdf = base64.b64encode(pdf_content).decode("utf-8")
 
+<<<<<<< HEAD
             # Criar ato_documento
             tags = create_tags_pro(titulo_doc, TAGS)
             ato_documento = create_ato_documento(os.path.basename(filename), titulo_doc, tags, ANO, BASE_URL)
+=======
+            tags = create_tags(titulo_doc)
+            ato_documento = create_ato_documento(pdf_url.split("/")[-1], titulo_doc, tags, ANO, BASE_URL)
+>>>>>>> feat-SearchCommandA0
             print(f"Ato Documento criado: {ato_documento}")
 
-            # Indexar no Elasticsearch
-            with open(filename, "rb") as f:
-                encoded_pdf = base64.b64encode(f.read()).decode("utf-8")
             doc = {
-                "filename": os.path.basename(filename),
+                "filename": pdf_url.split("/")[-1],
                 "data": encoded_pdf,
                 "ato": ato_documento,
                 "attachment": {
@@ -98,19 +96,18 @@ def main(ANO):
             elastic_id = response["_id"]
             print(f"DOCUMENTO INDEXADO NO Elasticsearch: {elastic_id}")
 
-            # Salvar no banco de dados
             query = """
                 INSERT INTO documentos (ano, titulo, ementa, arquivo, url, tipo_documento_id, user_id, assunto_id, unidade_id)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (ANO, titulo_doc, titulo_doc, elastic_id, pdf_url, 1, 1, ASSUNTO_ID, UNIDADE_ID))
             conn.commit()
-            print(f"SALVO NO BANCO DE DADOS: {os.path.basename(filename)}")
+            print(f"SALVO NO BANCO DE DADOS: {pdf_url.split('/')[-1]}")
 
         except Exception as e:
             print(f"Erro ao processar {pdf_url}: {e}")
 
     print("Processo concluído.")
 
-for ano in range(2025, 2019, -1):  # De 2025 até 2020
+for ano in range(2025, 2019, -1):
     main(ano)

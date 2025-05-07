@@ -50,5 +50,3 @@
     php artisan cache:clear
 
     ```
-
-\

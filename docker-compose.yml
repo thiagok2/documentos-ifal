@@ -48,6 +48,7 @@ services:
                 - '${DB_USERNAME}'
             retries: 3
             timeout: 5s
+<<<<<<< HEAD
 #    elasticsearch:
 #        image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
 #        environment:
@@ -73,13 +74,44 @@ services:
 #            - pgsql
 #        networks:
 #            - sail
+=======
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+        environment:
+            - discovery.type=single-node
+            - xpack.security.enabled=false
+        ports:
+            - 9200:9200
+            - 9300:9300
+        volumes:
+            - sailelasticsearch:/usr/share/elasticsearch/data
+            - ./sinonimos_elastic.txt:/usr/share/elasticsearch/config/analysis/sinonimos_elastic.txt
+
+        networks:
+            - sail
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: admin
+        ports:
+            - "8080:80"  # Acessar pgAdmin via http://localhost:8080
+        depends_on:
+            - pgsql
+        networks:
+            - sail
+>>>>>>> feat-SearchCommandA0
     python:
         image: python:3.11
         container_name: python_app
         working_dir: /app
         volumes:
             - .:/app
+<<<<<<< HEAD
         command: ["sh", "-c", "pip install -r requirements.txt && tail -f /dev/null"]
+=======
+        command: ["sh", "-c", "pip install requests beautifulsoup4 elasticsearch==8.14 psycopg2-binary && tail -f /dev/null"]
+>>>>>>> feat-SearchCommandA0
         networks:
             - sail
         depends_on:

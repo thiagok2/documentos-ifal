@@ -27,6 +27,7 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
   "settings": {
     "analysis": {
       "filter": {
+<<<<<<< HEAD
         "synonym_test": {
           "type": "synonym", 
           "synonyms": [
@@ -42,6 +43,8 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
             "13.146,  Lei Brasileira de Inclusão => Inclusão"
           ]
         },
+=======
+>>>>>>> feat-SearchCommandA0
         "brazilian_stop": {
           "type": "stop",
           "stopwords":  "_brazilian_" 
@@ -60,7 +63,10 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
           "tokenizer": "standard",
           "filter": [
             "lowercase",
+<<<<<<< HEAD
             "synonym_test",
+=======
+>>>>>>> feat-SearchCommandA0
             "brazilian_stop",
             "brazilian_keywords",
             "brazilian_stemmer"
@@ -78,6 +84,10 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -86,6 +96,10 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -117,6 +131,10 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -131,6 +149,10 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
               "keyword": {
                 "type": "keyword",
                 "ignore_above": 256
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -194,6 +216,10 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal/_mapping/" \
                 "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
+                },
+                "raw": {
+                  "type": "text",
+                  "analyzer": "whitespace"
                 }
             }
         }
@@ -201,5 +227,11 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal/_mapping/" \
   --insecure | jq '.acknowledged' && echo "Mapeamento do índice 'documentos_ifal' atualizado com sucesso." || echo "Falha ao atualizar o mapeamento do índice 'documentos_ifal'."
 
 echo -e "\nObtendo o mapeamento do índice 'documentos_ifal'..."
+<<<<<<< HEAD
 curl -s -X GET "http://localhost:9200/documentos_ifal/_mapping" \
   --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."
+=======
+
+curl -s -X GET "http://elasticsearch:9200/documentos_ifal/_mapping" \
+  --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."
+>>>>>>> feat-SearchCommandA0
