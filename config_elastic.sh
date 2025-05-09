@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\nCriando o pipeline de ingestão..."
-curl -s -X PUT "http://localhost:9200/_ingest/pipeline/attachment" \
+curl -s -X PUT "http://elasticsearch:9200/_ingest/pipeline/attachment" \
   -H "Content-Type: application/json" \
   -d '{
            "description": "Extract attachment information",
@@ -17,17 +17,16 @@ curl -s -X PUT "http://localhost:9200/_ingest/pipeline/attachment" \
   --insecure | jq '.acknowledged' && echo "Pipeline de ingestão criado com sucesso." || echo "Falha ao criar o pipeline de ingestão."
 
 echo -e "\nDeletando o índice 'documentos_ifal'..."
-curl -s -X DELETE "http://localhost:9200/documentos_ifal" \
+curl -s -X DELETE "http://elasticsearch:9200/documentos_ifal" \
   --insecure | jq '.acknowledged' && echo "Índice 'documentos_ifal' deletado com sucesso." || echo "Falha ao deletar o índice 'documentos_ifal'."
 
 echo -e "\nCriando o índice 'documentos_ifal' com configurações específicas..."
-curl -s -X PUT "http://localhost:9200/documentos_ifal" \
+curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
      -H "Content-Type: application/json" \
      -d '{
   "settings": {
     "analysis": {
       "filter": {
-<<<<<<< HEAD
         "synonym_test": {
           "type": "synonym", 
           "synonyms": [
@@ -43,8 +42,6 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
             "13.146,  Lei Brasileira de Inclusão => Inclusão"
           ]
         },
-=======
->>>>>>> feat-SearchCommandA0
         "brazilian_stop": {
           "type": "stop",
           "stopwords":  "_brazilian_" 
@@ -63,10 +60,7 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
           "tokenizer": "standard",
           "filter": [
             "lowercase",
-<<<<<<< HEAD
             "synonym_test",
-=======
->>>>>>> feat-SearchCommandA0
             "brazilian_stop",
             "brazilian_keywords",
             "brazilian_stemmer"
@@ -205,7 +199,7 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal" \
 ' --insecure | jq '.acknowledged' && echo "Índice 'documentos_ifal' criado com sucesso." || echo "Falha ao criar o índice 'documentos_ifal'."
 
 echo -e "\nAtualizando o mapeamento do índice 'documentos_ifal'..."
-curl -s -X PUT "http://localhost:9200/documentos_ifal/_mapping/" \
+curl -s -X PUT "http://elasticsearch:9200/documentos_ifal/_mapping/" \
   -H "Content-Type: application/json" \
   -d '{  
      "properties": {
@@ -227,11 +221,6 @@ curl -s -X PUT "http://localhost:9200/documentos_ifal/_mapping/" \
   --insecure | jq '.acknowledged' && echo "Mapeamento do índice 'documentos_ifal' atualizado com sucesso." || echo "Falha ao atualizar o mapeamento do índice 'documentos_ifal'."
 
 echo -e "\nObtendo o mapeamento do índice 'documentos_ifal'..."
-<<<<<<< HEAD
-curl -s -X GET "http://localhost:9200/documentos_ifal/_mapping" \
-  --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."
-=======
 
 curl -s -X GET "http://elasticsearch:9200/documentos_ifal/_mapping" \
   --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."
->>>>>>> feat-SearchCommandA0

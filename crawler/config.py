@@ -1,7 +1,30 @@
 from elasticsearch import Elasticsearch
 import psycopg2
 
-
+def config_geral(ANO=None):
+  CONFIG = {
+    'ensino': {
+      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/ensino/editais/{ANO}",
+      'TAGS': ['PROEN'],
+      'ASSUNTO_ID': 1,
+      'UNIDADE_ID': 19
+    },
+    'pesquisa': {
+      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/editais-{ANO}",
+      'ANTIGOS_URL': f"https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/editais-{ANO}",
+      'TAGS': ["PRPPI"],
+      'ASSUNTO_ID': 2,
+      'UNIDADE_ID': 21
+    },
+    'extensao': {
+      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/extensao/editais/editais-{ANO}",
+      'TAGS': ["PROEX"],
+      'ASSUNTO_ID': 3,
+      'UNIDADE_ID': 20
+    },
+  }
+  return CONFIG
+    
     
 def map_keywords_to_tags(titulo, paramentro):
     tags = set()  # Usar set para evitar tags duplicadas
@@ -194,13 +217,13 @@ NORMAS_URLS = [
 ]
 
 DOWNLOAD_DIR = "./crawler/pdfs"
-ELASTIC_URL = "http://localhost:9200"
+ELASTIC_URL = "http://elasticsearch:9200"
 INDEX_NAME = "documentos_ifal"
 DB_CONFIG = {
     "dbname": "postgres",
     "user": "postgres",
     "password": "password",
-    "host": "localhost",
+    "host": "pgsql",
     "port": "5432"
 }
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
