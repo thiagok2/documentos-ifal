@@ -15,15 +15,16 @@ class SearchCommandA1 implements ISearchCommand
 
     private $filters;
     private $query;
-
     private $index;
     private $root;
-
     private $clientElastic;
+    private $public;
 
-    function __construct($_index, $_root) {
+
+    function __construct($_index, $_root, $_public = true) {
         $this->index = $_index;
         $this->root =  $_root;
+        $this->public = $_public;
 
         $this->queryBuilder = new QueryBuilder("ato");
 
@@ -81,6 +82,9 @@ class SearchCommandA1 implements ISearchCommand
     }
 
     private function addBoolFilterExpressions($filters){
+        if ($this->public){
+            $this->queryBuilder->addBoolFilterTerm(true, "publico");
+        }
         if($this->checkHasFilter("tipo_doc", $filters))
             $this->queryBuilder->addBoolFilterTerm($filters["tipo_doc"], "tipo_doc");
         

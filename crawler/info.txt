@@ -1,0 +1,10 @@
+USERNAME=tamara@ifal.edu.br
+FILENAME=4RetificaoEDITALPROEXPROGRAMASEPROJETOS2024.pdf
+TITULO=testeteste
+PUBLICO=True
+ANO=2024
+DATA_PUBLICACAO=2024-11-11
+TAGS="SELEÇÂO, MONITORIA"
+TIPO_DOC=Edital
+URL='https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/arquivos/portaria_ifal_2022_13.pdf'
+NUMERO=01

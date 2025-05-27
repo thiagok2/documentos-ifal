@@ -62,31 +62,13 @@
         <!-- app  scripts -->
         <script src="/js/jquery.min.js" type="text/javascript"></script>
         <script src="/js/jquery-migrate.min.js" type="text/javascript"></script>
-        <!-- <script src="/js/bootstrap.min.js"></script> -->
-        <script src="/js/bootstrap5.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
         <script src="/js/star-rating.min.js" type="text/javascript"></script>
         <script src="/js/theme.min.js"></script>
         <script src="/js/normativas-search.js" type="text/javascript"></script>
 
         @stack('scripts-caio')
         <script>
-            //Popover
-            document.addEventListener('DOMContentLoaded', function () {
-                const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-                const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
-            
-                // Aqui ativamos o evento blur para esconder o popover
-                const popoverBtn = document.getElementById('popoverBtn');
-                
-                popoverBtn.addEventListener('blur', function () {
-                    const popover = bootstrap.Popover.getInstance(popoverBtn);
-                    if (popover) {
-                        popover.hide();  // Esconde o popover ao perder o foco
-                    }
-                });
-            });
-            //Popoverend
-
             $(document).on('ready', function () {
 
                 $('.kv-fa').rating({

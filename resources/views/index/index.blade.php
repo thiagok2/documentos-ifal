@@ -220,15 +220,6 @@
 
                 <form action="/" method="GET" class="">
 
-                    <button id="popoverBtn"
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="popover"
-                    data-bs-placement="top"
-                    data-bs-title="Título do Popover"
-                    data-bs-content="Este é o conteúdo do popover.">
-                    Clique aqui para ver o popover
-                    </button>
                 <div class="input-group">
                     <input type="text" name="query" class="form-control" placeholder="Digite os termos da consulta" value="{{ $query }}" />
                 </div>
@@ -440,9 +431,10 @@
                                     </div>
                                 </div>
                                 <hr class="split-sm">
-                                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#trechos-{{$loop->index}}" aria-expanded="false" aria-controls="highlight-collapse-{{$doc['id']}}"
+                                <button id='popoverBtn' data-bs-toggle="popover" data-bs-placement="top" data-bs-title="Título do Popover" data-bs-content="Este é o conteúdo do popover." class="btn btn-info" type="button" data-toggle="collapse" data-target="#trechos-{{$loop->index}}" aria-expanded="false" aria-controls="highlight-collapse-{{$doc['id']}}"
                                     {{empty($doc['trechos_destaque']) ? 'disabled':''}}>
                                     <i class="fa fa-quote-right"></i> Trechos encontrados
+            
                                 </button>
 
                                 <a style="color: white !important" href="/normativa/pdf/{{ $doc['id'] }}" class="btn btn-primary" target="_blank">
@@ -562,4 +554,22 @@
 <hr class="split">
 
 @endsection
-
+@push('scripts-caio')
+    <script src="/js/bootstrap5.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+            const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+        
+            // Aqui ativamos o evento blur para esconder o popover
+            const popoverBtn = document.getElementById('popoverBtn');
+            
+            popoverBtn.addEventListener('blur', function () {
+                const popover = bootstrap.Popover.getInstance(popoverBtn);
+                if (popover) {
+                    popover.hide();  // Esconde o popover ao perder o foco
+                }
+            });
+        });
+    </script>
+@endpush

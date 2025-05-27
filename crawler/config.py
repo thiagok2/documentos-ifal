@@ -1,30 +1,5 @@
 from elasticsearch import Elasticsearch
 import psycopg2
-
-def config_geral(ANO=None):
-  CONFIG = {
-    'ensino': {
-      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/ensino/editais/{ANO}",
-      'TAGS': ['PROEN'],
-      'ASSUNTO_ID': 1,
-      'UNIDADE_ID': 19
-    },
-    'pesquisa': {
-      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/editais-{ANO}",
-      'ANTIGOS_URL': f"https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/editais-{ANO}",
-      'TAGS': ["PRPPI"],
-      'ASSUNTO_ID': 2,
-      'UNIDADE_ID': 21
-    },
-    'extensao': {
-      'BASE_URL': f"https://www2.ifal.edu.br/o-ifal/extensao/editais/editais-{ANO}",
-      'TAGS': ["PROEX"],
-      'ASSUNTO_ID': 3,
-      'UNIDADE_ID': 20
-    },
-  }
-  return CONFIG
-    
     
 def map_keywords_to_tags(titulo, paramentro):
     tags = set()  # Usar set para evitar tags duplicadas
@@ -266,6 +241,7 @@ def create_ato_documento(filename, titulo, tags, ANO, BASE_URL, numero='00', tip
         "numero": f'{numero}/{ANO}',
         "tags": list(tags),
         "tipo_doc": tipo,
-        "titulo": titulo
+        "titulo": titulo,
+        "publico": True
     }
 

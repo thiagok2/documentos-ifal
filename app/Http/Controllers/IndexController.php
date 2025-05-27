@@ -121,7 +121,7 @@ class IndexController extends Controller
                     
                     $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato');
                     $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
-                        
+                    
                     // Primeira fonte: A0
                     $docIdsA0 = [];
                     $finalResults = [];

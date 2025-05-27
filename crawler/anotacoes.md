@@ -1,10 +1,3 @@
-### TODO
-  # Testar
-  # Raspar a p0rr@ toda
-
-###
-
-
 # 0, ASSUNTO DESCONHECIDO
 # 1, ENSINO
 # 2, PESQUISA
@@ -12,7 +5,6 @@
 # 4, RECURSOS HUMANOS
 # 5, BIBLIOTECA
 # 6, MONITORIA E AÇÕES INTEGRADAS
-
 
 apt update && apt install -y python3-pip
 pip install requests beautifulsoup4 elasticsearch psycopg2-binary

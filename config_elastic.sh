@@ -176,6 +176,9 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
                 "type": "keyword"
               }
             }
+          },
+          "publico":{
+            "type": "boolean"
           }
         }
       },

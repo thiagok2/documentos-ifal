@@ -1,2 +1,0 @@
-# Tooltip implementada
-# Otimiza-la
