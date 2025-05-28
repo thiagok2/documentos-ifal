@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, CONTRATA_REMOVE_TAGS_URLS
+from crawler.service import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, CONTRATA_REMOVE_TAGS_URLS
 
 # URL da página com os PDFs
 UNIDADE_ID = 1

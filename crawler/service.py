@@ -1,5 +1,128 @@
 from elasticsearch import Elasticsearch
 import psycopg2
+
+DOWNLOAD_DIR = "./crawler/pdfs"
+ELASTIC_URL = "http://elasticsearch:9200"
+INDEX_NAME = "documentos_ifal"
+DB_CONFIG = {
+    "dbname": "postgres",
+    "user": "postgres",
+    "password": "password",
+    "host": "pgsql",
+    "port": "5432"
+}
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
+#######
+
+# Conexões
+es = Elasticsearch(ELASTIC_URL)
+conn = psycopg2.connect(**DB_CONFIG)
+cursor = conn.cursor()
+
+def convert_subject(subject):
+    subject_map = {
+        "Assunto Desconhecido": 0,
+        "Ensino": 1,
+        "Pesquisa": 2,
+        "Extensão": 3,
+        "Recursos Humanos": 4,
+        "Biblioteca": 5,
+        "Monitoria e Ações Integradas": 6
+    }
+    return subject_map.get(subject, 0)  # retorna 0 se o assunto não for reconhecido
+
+def convert_doc_type(type):
+    doc_type_map = {
+        "Indeterminado": 0,
+        "Edital": 1,
+        "Ata": 2,
+        "Autorização": 3,
+        "Decreto": 4,
+        "Deliberação": 5,
+        "Declaração": 6,
+        "Instrução Normativa": 7,
+        "Lei": 8,
+        "Parecer": 9,
+        "Portaria": 10,
+        "Relatório": 11,
+        "Resolução": 12,
+        "Nota Técnica": 13,
+        "Indicação": 14,
+        "Publicação": 15,
+    }
+    return doc_type_map.get(type, 0) 
+
+def create_ato_documento_dir(
+    filename,
+    titulo,
+    tags,
+    ANO,
+    URL,
+    numero,
+    tipo,
+    data,
+    publico,
+    i
+):
+    ato = {
+        "ano": ANO,
+        "arquivo": filename,
+        "ato_id": f"A{i}",
+        "data_publicacao": data,
+        "ementa": titulo,
+        "fonte": {
+            "esfera": "Campus",
+            "orgao": "Instituto Federal de Alagoas",
+            "sigla": "IFAL",
+            "uf": "AL",
+            "uf_sigla": "AL",
+            "url": URL
+        },
+        "numero": f'{numero}/{ANO}',
+        "tags": tags,
+        "tipo_doc": tipo,
+        "titulo": titulo,
+        "publico": publico
+    }
+
+    # Remove todos os campos None
+    return ato
+
+def ler_multiplos_registros(caminho_arquivo):
+    registros = []
+    registro_atual = {}
+    with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
+        for linha in arquivo:
+            linha = linha.strip()
+            if not linha:
+                continue
+            if linha == '+':
+                if registro_atual:
+                    registros.append(registro_atual)
+                    registro_atual = {}
+                continue
+            if '=' in linha:
+                chave, valor = linha.split('=', 1)
+                chave = chave.strip()
+                valor = valor.strip()
+                # remove aspas simples ou duplas
+                if (valor.startswith('"') and valor.endswith('"')) or \
+                   (valor.startswith("'") and valor.endswith("'")):
+                    valor = valor[1:-1]
+                # converte tipos
+                lower = valor.lower()
+                if lower == 'true':
+                    valor = True
+                elif lower == 'false':
+                    valor = False
+                elif valor.isdigit():
+                    valor = int(valor)
+                elif ',' in valor:
+                    valor = [item.strip() for item in valor.split(',')]
+                registro_atual[chave] = valor
+        if registro_atual:
+            registros.append(registro_atual)
+    return registros
     
 def map_keywords_to_tags(titulo, paramentro):
     tags = set()  # Usar set para evitar tags duplicadas
@@ -190,24 +313,6 @@ NORMAS_URLS = [
     "https://www2.ifal.edu.br/o-ifal/administracao/normas/orcamento",
     "https://www2.ifal.edu.br/o-ifal/administracao/normas/patrimonio",
 ]
-
-DOWNLOAD_DIR = "./crawler/pdfs"
-ELASTIC_URL = "http://elasticsearch:9200"
-INDEX_NAME = "documentos_ifal"
-DB_CONFIG = {
-    "dbname": "postgres",
-    "user": "postgres",
-    "password": "password",
-    "host": "pgsql",
-    "port": "5432"
-}
-HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
-#######
-
-# Conexões
-es = Elasticsearch(ELASTIC_URL)
-conn = psycopg2.connect(**DB_CONFIG)
-cursor = conn.cursor()
 
 def create_tags(titulo):
     tags_novas = map_keywords_to_tags(titulo, KEYWORDS_TO_TAGS)

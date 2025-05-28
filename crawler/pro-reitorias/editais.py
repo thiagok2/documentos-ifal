@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import DOWNLOAD_DIR, es, create_tags_pro, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS
+from crawler.service import DOWNLOAD_DIR, es, create_tags_pro, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS
 
 def config_geral(ANO=None):
   assuntos = {

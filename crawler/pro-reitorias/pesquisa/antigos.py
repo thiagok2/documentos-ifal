@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import *
+from crawler.service import *
 
 # Fluxo Principal
 def main(ANO):

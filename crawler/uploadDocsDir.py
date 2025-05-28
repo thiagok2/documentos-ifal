@@ -1,99 +1,6 @@
 import os, base64
-from crawler.config import DOWNLOAD_DIR, es, INDEX_NAME, cursor, conn
+from crawler.service import DOWNLOAD_DIR, es, INDEX_NAME, cursor, conn, create_ato_documento_dir, ler_multiplos_registros, convert_doc_type, convert_subject
 
-def clean_none_fields(obj):
-    """
-    Remove de forma recursiva todos os pares chave: valor onde valor é None.
-    """
-    if isinstance(obj, dict):
-        return {
-            k: clean_none_fields(v)
-            for k, v in obj.items()
-            if v is not None
-        }
-    elif isinstance(obj, list):
-        return [clean_none_fields(v) for v in obj if v is not None]
-    else:
-        return obj
-
-def create_ato_documento(
-    filename,
-    titulo='Titulo não informado',
-    tags=None,
-    ANO=0,
-    URL='Url não informada',
-    numero='00',
-    tipo='Edital',
-    data='nada',
-    publico=True
-):
-    # valores padrão
-    if data in (None, 'nada'):
-        data = f"{ANO}-01-01"
-    if tags is None:
-        tags = []
-    elif not isinstance(tags, list):
-        tags = [tags]
-
-    ato = {
-        "ano": ANO,
-        "arquivo": filename,
-        "ato_id": "A002",
-        "data_publicacao": data,
-        "ementa": titulo,
-        "fonte": {
-            "esfera": "Campus",
-            "orgao": "Instituto Federal de Alagoas",
-            "sigla": "IFAL",
-            "uf": "AL",
-            "uf_sigla": "AL",
-            "url": URL
-        },
-        "numero": f'{numero}/{ANO}',
-        "tags": tags,
-        "tipo_doc": tipo,
-        "titulo": titulo,
-        "publico": publico
-    }
-
-    # Remove todos os campos None
-    return clean_none_fields(ato)
-
-def ler_multiplos_registros(caminho_arquivo):
-    registros = []
-    registro_atual = {}
-    with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
-        for linha in arquivo:
-            linha = linha.strip()
-            if not linha:
-                continue
-            if linha == '+':
-                if registro_atual:
-                    registros.append(registro_atual)
-                    registro_atual = {}
-                continue
-            if '=' in linha:
-                chave, valor = linha.split('=', 1)
-                chave = chave.strip()
-                valor = valor.strip()
-                # remove aspas simples ou duplas
-                if (valor.startswith('"') and valor.endswith('"')) or \
-                   (valor.startswith("'") and valor.endswith("'")):
-                    valor = valor[1:-1]
-                # converte tipos
-                lower = valor.lower()
-                if lower == 'true':
-                    valor = True
-                elif lower == 'false':
-                    valor = False
-                elif valor.isdigit():
-                    valor = int(valor)
-                elif ',' in valor:
-                    valor = [item.strip() for item in valor.split(',')]
-                registro_atual[chave] = valor
-        if registro_atual:
-            registros.append(registro_atual)
-    return registros
 
 # --- fluxo principal ---
 caminho = "crawler/info.txt"
@@ -103,14 +10,15 @@ atos_criados = []
 for i, reg in enumerate(registros, start=1):
     # pegando campos (pode vir None)
     ANO = reg.get("ANO")
-    DATA = reg.get("DATA_PUBLICACAO")  # pode ser None
-    TAGS = reg.get("TAGS")
+    DATA = reg.get("DATA_PUBLICACAO") or f'{ANO}-01-01'
+    TAGS = reg.get("TAGS") or []
     TITULO = reg.get("TITULO")
-    TIPO_DOC = reg.get("TIPO_DOC")
-    URL = reg.get("URL")
+    TIPO_DOC = reg.get("TIPO_DOC") or "Indeterminado"
+    URL = reg.get("URL") or 'https://www2.ifal.edu.br/'
     NUMERO = reg.get("NUMERO") or "00"
     FILENAME = reg.get("FILENAME")
-    PUBLICO = reg.get("PUBLICO")
+    PUBLICO = reg.get("PUBLICO") or True
+    ASSUNTO = reg.get("ASSUNTO") or "Assunto Desconhecido"
 
     if not FILENAME:
         print(f"Registro ignorado por ausência de FILENAME: {reg}")
@@ -124,7 +32,7 @@ for i, reg in enumerate(registros, start=1):
         print(f"Registro ignorado por ausência de TITULO: {reg}")
         continue
 
-    ato = create_ato_documento(
+    ato = create_ato_documento_dir(
         filename=FILENAME,
         titulo=TITULO,
         tags=TAGS,
@@ -133,11 +41,10 @@ for i, reg in enumerate(registros, start=1):
         numero=NUMERO,
         tipo=TIPO_DOC,
         data=DATA,
-        publico=PUBLICO
+        publico=PUBLICO,
+        i=i
     )
-    atos_criados.append(ato)
 
-for ato in atos_criados:
     caminho_arquivo = os.path.join(DOWNLOAD_DIR, ato["arquivo"])
     
     if not os.path.exists(caminho_arquivo):
@@ -159,14 +66,17 @@ for ato in atos_criados:
     
     titulo = ato["titulo"]
     ano = ato["ano"]
-    data_publicacao = ato["data_publicacao"] or f'{ano}-01-01'
+    data_publicacao = ato["data_publicacao"]
     numero = ato["numero"]
-    #tipo_doc = ato["tipo_doc"] Perguntar ao prof
-    url = ato["fonte"]["url"] or 'https://www2.ifal.edu.br/'
+    tipo_doc = convert_doc_type(ato["tipo_doc"])
+    url = ato["fonte"]["url"] 
     filename = ato["arquivo"]
+    publico = ato["publico"]
+    assunto = convert_subject(ASSUNTO)
+    
     query = """
-        INSERT INTO documentos (ano, titulo, numero, ementa, arquivo, url, data_publicacao, user_id, assunto_id, unidade_id, publico)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO documentos (ano, titulo, numero, ementa, arquivo, url, data_publicacao, tipo_documento_id ,user_id, assunto_id, unidade_id, publico)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
     cursor.execute(query, (
         ano,
@@ -176,10 +86,11 @@ for ato in atos_criados:
         elastic_id,
         url,
         data_publicacao,
+        tipo_doc,
         1,  # user_id
-        4,  # assunto_id
+        assunto,  # assunto_id
         1,   # unidade_id
-        ato["publico"]
+        publico  
     ))
     conn.commit()
     print(f"SALVO NO BANCO: {filename}")

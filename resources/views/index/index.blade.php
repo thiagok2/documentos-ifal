@@ -410,15 +410,16 @@
                                             @else
                                                 Não informado
                                             @endif
-                                            @if($doc['tags'])                                            
+                                        @if (!empty($doc['tags']) && is_string($doc['tags']))
                                             <br />
                                             <strong>Palavras-Chave:</strong>
-                                            @foreach ($doc['tags'] as $tag)
-                                                <a href="?query={{$tag}}" class="badge badge-info">
-                                                    {{ $tag }}
+                                            @foreach (explode(',', $doc['tags']) as $tag)
+                                                <a href="?query={{ trim($tag) }}" class="badge badge-info">
+                                                    {{ trim($tag) }}
                                                 </a>
                                             @endforeach
                                         @endif
+                                        
                                     </div>                                    
                                     <div class="col-md-2">
                                         <div class="tooltip-custom">
