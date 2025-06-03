@@ -91,6 +91,7 @@
         z-index: -9999;
         pointer-events: none;
     }
+    
 </style>
 
 <section id="mini-header">
@@ -227,11 +228,22 @@
                     <div class="row">
                         <div class="col text-center mt-3 mb-3">
                             <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search mr-1"></i>Pesquisar</button>
-                            <!--<button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>-->
+                            <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
                         </div>
+
+                        
                     </div>
-                    <!--<div id="filters-menu" class="collapse <?php if($filters){ echo 'show'; }  else {echo 'hidden';}?>">
+                    <div id="filters-menu" class="collapse <?php if($filters){ echo 'show'; }  else {echo 'hidden';}?>">
                         <div class="row">
+                            <div class="col text-center mb-3">
+                                <label class="custom-switch">
+                                    <input type="checkbox" id="switchPublico" name="publico" checked>
+                                    <span class="slider round"></span>
+                                    <span class="switch-label ml-2">Buscar Apenas Documentos Públicos</span>
+                                </label>
+                            </div>
+                        </div>
+                        <!--<div class="row">
                             <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
                                 <select class="form-control" name="esfera" >
                                     <option value="all" <?php if($esfera == "all"){ echo ' selected'; }?>>Todas as Esferas</option>
@@ -248,8 +260,8 @@
                                     <option value="<?php echo (date("Y")-5); ?>" <?php if($periodo == date("Y")-5){ echo ' selected'; }?>>Últimos 5 anos</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>-->
+                        </div>-->
+                    </div>
                 </form>
             </div>
         </div>

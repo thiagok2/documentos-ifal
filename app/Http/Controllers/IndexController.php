@@ -50,6 +50,8 @@ class IndexController extends Controller
     { 
         $size_page = $request->has('page_size') ? $request->query("page_size") : self::RESULTS_PER_PAGE;
 
+        $publico = filter_var($request->query("publico", false), FILTER_VALIDATE_BOOLEAN);
+
         $tipo_doc = $request->query("tipo_doc");
         $esfera = $request->query("esfera");
         $periodo = $request->query("periodo");
@@ -102,7 +104,7 @@ class IndexController extends Controller
             
                 if(str_ends_with($query, '"') && str_starts_with($query, '"')){
                     $from = (($page - 1) * $size_page);
-                    $searchCommand = new SearchCommandA0('documentos_ifal', 'ato');
+                    $searchCommand = new SearchCommandA0('documentos_ifal', 'ato', $publico);
                     $result = $searchCommand->search($query, $queryFilters, $from, $size_page);
                     $total = $result->totalResults;
                     
@@ -116,10 +118,10 @@ class IndexController extends Controller
                 else{
                     // Executa A0 e A1
 
-                    $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato');
+                    $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato', $publico);
                     $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000); // recupera até 1000 resultados para evitar paginação fragmentada
                     
-                    $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato');
+                    $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato', $publico);
                     $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
                     
                     // Primeira fonte: A0

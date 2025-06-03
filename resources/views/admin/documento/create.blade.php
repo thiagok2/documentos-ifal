@@ -150,7 +150,15 @@
                                 <small class=".text-muted">Arquivos digitalizados não são indexados para busca. Dê preferência ao PDF original.</small>
                             </div>
                         </div>                           
-                    </div><!--end row -->                                                                
+                    </div><!--end row -->  
+                    <div class="switch-wrapper mt-3">
+                        <input type="hidden" name="publico" value="0">
+                        <input type="checkbox" id="publico" name="publico" class="switch-input" value="1" checked>
+                        <label for="publico" class="switch-label">
+                          <span class="switch-slider"></span>
+                          Documento Público
+                        </label>
+                    </div>
                 </div><!-- end box-body -->        
             </div><!-- end box-->
             <button type="submit" class="btn btn-primary btn-lg" value="Enviar">Enviar</button>

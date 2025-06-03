@@ -47,13 +47,20 @@
                         <div class="tab-content">
                             <div id="general" class="tab-pane active">
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="orgao">Orgão</label>
                                             <input type="text" class="form-control" id="orgao" name="orgao" 
                                             value="{{$documento->unidade->nome}}" readonly/>
                                         </div>
                                     </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="publico">Público</label>
+                                            <input type="text" class="form-control" id="publico" name="publico" 
+                                                   value="{{ $documento->publico ? 'Sim' : 'Não' }}" readonly/>
+                                        </div>
+                                    </div>                                    
                                 </div><!--end row -->
         
                                 <div class="row">
