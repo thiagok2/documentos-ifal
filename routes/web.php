@@ -60,6 +60,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
         return view('admin/guide');
     })->name('guia');    
     Route::get('convites',              [ConviteController::class, 'index'])->name('convites');
+
     Route::get('unidades',              [UnidadeController::class, 'index'])->name('unidades');
     Route::Post('unidades',             [UnidadeController::class, 'store'] )->name('unidade-store');
     Route::post('unidades/salvar',      [UnidadeController::class, 'save'])->name('unidade-save');
@@ -77,7 +78,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('unidades/assessorias',       [AssessoriaController::class, 'index'])->name('assessoria');
     Route::get('unidades/assessoria/nova',   [AssessoriaController::class, 'create'])->name('assessoria-create');
     Route::post('unidades/assessoria',       [AssessoriaController::class, 'store'])->name('assessoria-store');
-    Route::get('tiposdocumento',             [TipoDocumentoController::class, 'index'])->name('tiposdocumento');
+    
     Route::get('assuntos',                   [AssuntoController::class, 'index'])->name('Assuntos');
     Route::get('assuntos/novo',              [AssuntoController::class, 'create'])->name('assuntos-create');
     Route::post('assuntos/salvar',           [AssuntoController::class, 'store'])->name('assunto-store');
@@ -85,15 +86,19 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('assuntos/delete/{id}',       [AssuntoController::class, 'destroy'])->name('assunto-delete');
     Route::get('assuntos/removidos',         [AssuntoController::class, 'trashed'])->name('assunto-removidos');
     Route::get('assuntos/restaurar/{id}',    [AssuntoController::class, 'restore'])->name('assunto-restore');
+    
+    Route::get('tiposdocumento',             [TipoDocumentoController::class, 'index'])->name('tiposdocumento');
     Route::get('tiposdocumento/novo',        [TipoDocumentoController::class, 'create'])->name('tiposdocumento-create');
     Route::post('tiposdocumento/salvar',     [TipoDocumentoController::class, 'store'])->name('tiposdocumento-store');
     Route::get('tiposdocumento/editar/{id}', [TipoDocumentoController::class, 'edit'])->name('tiposdocumento-edit');
     Route::get('tiposdocumento/delete/{id}', [TipoDocumentoController::class, 'destroy'])->name('tiposdocumento-delete');
     Route::get('tiposdocumento/removidos',   [TipoDocumentoController::class, 'trashed'])->name('tiposdocumento-removidos');
     Route::get('tiposdocumento/restaurar/{id}', [TipoDocumentoController::class, 'restore'])->name('tiposdocumento-restore');
+    
     Route::get('documentos',                 [SearchDocument::class, 'search'])->name('documentos');
     Route::get('documentos/pesquisar',       [SearchDocument::class, 'search'])->name('documentos-pesquisar');
     Route::get('documentos/pesquisar/status', [SearchDocument::class, 'searchStatus'])->name('documentos-pesquisar-status');
+    Route::get('documentos/privados',         [SearchDocument::class, "searchPrivate"])->name('documento-privado-ver');
     Route::get('documentos/publicar',        [DocumentoController::class, 'create'])->name('publicar');
     Route::post('documentos/publicar',       [DocumentoController::class, 'store'])->name('enviar');
     Route::get('documentos/publicar-lote',   [LoteController::class, 'create'])->name('publicar-lote');
@@ -109,6 +114,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('lote/upload/{id}/delete',    [LoteController::class, 'destroy'])->name('delete-upload');
     Route::get('documentos/{id}/ocultar',    [DocumentoController::class, 'ocultar'])->name('documento-ocultar');
     Route::get('documento/{id}/indexar',     [DocumentoController::class, "indexar"])->name('documento-indexar');
+
     Route::get('usuarios/{id}/editar',       [UsuarioController::class, 'edit'])->name('usuario-edit');
     Route::get('usuarios',                   [UsuarioController::class, 'index'])->name('usuarios');
     Route::get('usuarios/convidar',           [UsuarioController::class, 'convidar'])->name('usuario-convidar');
@@ -120,6 +126,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('usuarios/delete/{id}',       [UsuarioController::class, 'destroy'])->name('usuario-delete');
     Route::get('usuarios/force-delete/{id}', [UsuarioController::class, 'forceDelete'])->name('usuario-force-delete');
     Route::get('usuarios/restore/{id}',      [UsuarioController::class, 'restore'])->name('usuario-restore');
+
     Route::get('etl/comandos',               [ETLController::class, 'index'])->name('etl-comandos');
     Route::get('etl/log/download/{logFile}', [ETLController::class, 'downloadLog'])->name('download-log');
     Route::get('etl/executar/{script}',      [ETLController::class, 'executarEtl'])->name('etl-executar');

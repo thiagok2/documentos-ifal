@@ -228,7 +228,7 @@
                     <div class="row">
                         <div class="col text-center mt-3 mb-3">
                             <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search mr-1"></i>Pesquisar</button>
-                            <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
+                            {{-- <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
                         </div>
 
                         
@@ -242,7 +242,7 @@
                                     <span class="switch-label ml-2">Buscar Apenas Documentos Públicos</span>
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
                         <!--<div class="row">
                             <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
                                 <select class="form-control" name="esfera" >
