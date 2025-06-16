@@ -69,7 +69,7 @@
 
         
                                         <select class="form-control" id="pai_id" name="pai_id">
-                                            <option>Sem pai</option>
+                                            <option>N/A</option>
                                             @foreach ($unidades as $u)
                                                 @if ($u->esfera == 'Campus')
                                                 <option value="{{$u->id}}">{{$u->nome}}</option>

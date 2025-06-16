@@ -22,3 +22,6 @@ yarn-error.log
 /crawler/pdfs
 crawler/pdfs/5-resultado-preliminar-inscricoes-deferidas.pdf
 __pycache__/
+**/__pycache__/
+*.py[cod]
+*.log

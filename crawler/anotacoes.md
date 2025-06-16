@@ -33,30 +33,21 @@ python3 -m crawler.todo_resto
 
 ###
 https://www2.ifal.edu.br/acesso-a-informacao/institucional/revisao-e-consolidacao-dos-atos-normativos/documentos
-
 https://www2.ifal.edu.br/acesso-a-informacao/institucional/orgaos-colegiados/conselho-de-ensino-pesquisa-e-extensao/resolucoes-1/2025 - 2025-2021
-
 https://www2.ifal.edu.br/acesso-a-informacao/institucional/orgaos-colegiados/conselho-superior/resolucoes/2025 - 2025-2008
-
 https://www2.ifal.edu.br/o-ifal/administracao/normas/orientacoes-normativas
-
 https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/legislacao-e-normas/capacitacao
-
 https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/legislacao-e-normas/instrucoes-normativas
-
 https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/concursos/editais/professor-efetivo
 https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/concursos/editais/tecnico-administrativo
 https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/concursos/editais/professor-substituto
 https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/remocao/professor
 https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/remocao/tecnico
-
 https://www2.ifal.edu.br/o-ifal/procuradoria-federal/pareceres-referenciais
-
 https://www2.ifal.edu.br/o-ifal/ensino/editais/2025 - 2025-2020
 https://www2.ifal.edu.br/o-ifal/extensao/editais/editais-2020 - 2025-2020
 https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/2025 - 2025-2020
 https://www2.ifal.edu.br/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/o-ifal/pesquisa-pos-graduacao-e-inovacao/editais/editais-2019 2019-2010
-
 https://www2.ifal.edu.br/o-ifal/administracao/normas/compras
 https://www2.ifal.edu.br/o-ifal/administracao/normas/arquivo-e-protocolo
 https://www2.ifal.edu.br/o-ifal/administracao/normas/contratos
@@ -66,7 +57,6 @@ https://www2.ifal.edu.br/o-ifal/administracao/normas/diarias-e-passagens
 https://www2.ifal.edu.br/o-ifal/administracao/normas/envio-das-informacoes-dos-campi-para-a-pro-reitoria-de-administracao
 https://www2.ifal.edu.br/o-ifal/administracao/normas/orcamento
 https://www2.ifal.edu.br/o-ifal/administracao/normas/patrimonio
-
 'https://www2.ifal.edu.br/acesso-a-informacao/auditorias/boletim-informativo',
 'https://www2.ifal.edu.br/acesso-a-informacao/auditorias/Normas%2C%20Fluxos%20e%20Modelos',
 'https://www2.ifal.edu.br/acesso-a-informacao/auditorias/relatorios-de-auditoria-interna',

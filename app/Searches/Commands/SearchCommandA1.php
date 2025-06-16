@@ -52,7 +52,6 @@ class SearchCommandA1 implements ISearchCommand
                 $sizePage
         );
 
-        
         $elasticResult = $this->clientElastic->search($queryElastic->get());
         
         $aggs = $this->clientElastic->search($queryElastic->agg());
@@ -82,9 +81,16 @@ class SearchCommandA1 implements ISearchCommand
     }
 
     private function addBoolFilterExpressions($filters){
-        if ($this->public){
+        if ($this->public) {
             $this->queryBuilder->addBoolFilterTerm(true, "publico");
+        } else {
+            $this->queryBuilder->addBoolFilterTerm(false, "publico");
         }
+        
+        if (!$this->public && $this->checkHasFilter("orgao", $filters)) {
+            $this->queryBuilder->addBoolFilterTerm($filters["orgao"], "fonte.orgao.keyword");
+        }
+        
         if($this->checkHasFilter("tipo_doc", $filters))
             $this->queryBuilder->addBoolFilterTerm($filters["tipo_doc"], "tipo_doc");
         

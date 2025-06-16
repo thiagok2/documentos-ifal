@@ -16,7 +16,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card card-secondary">
-                <div class="card-header">Filtrar</div>
+                <div class="card-header">
+                    <i class="fas fa-lock me-1 mr-1"></i> Filtrar
+                </div>
                 <div class="card-body">
                     <form class="form" method="GET" action="{{route('documentos-pesquisar')}}">
 
@@ -24,9 +26,13 @@
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label for="unidadeNome">Unidade:</label>
-                                        <input type="text" id="unidadeNome" name="unidadeNome" class="form-control" value="{{$queryParams['unidadeQuery']}}"
-                                            placeholder="Ex.: Alagoas, Maceió..." aria-describedby="basic-addon1"/>
+                                        <label for="formato">Formato:</label>
+                                        <select class="form-control select2" id="formato" name="formato">
+                                            <option value="">Todos</option>
+                                            @foreach ($listFormatos as $f)
+                                                <option value="{{$f->formato}}" @if ($queryParams['formato'] == $f->formato) selected @endif>{{$f->formato}}</option>
+                                            @endforeach
+                                        </select>
                                         <br/>
                                         <label for="usuarioNome">Usuário:</label>
                                         <input type="text" id="usuarioNome" name="usuarioNome" class="form-control"  value="{{$queryParams['usuarioNome']}}"
@@ -87,20 +93,14 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label for="formato">Formato:</label>
-                                        <select class="form-control select2" id="formato" name="formato">
-                                            <option value="">Todos</option>
-                                            @foreach ($listFormatos as $f)
-                                                <option value="{{$f->formato}}" @if ($queryParams['formato'] == $f->formato) selected @endif>{{$f->formato}}</option>
-                                            @endforeach
-                                        </select>
+
                                     </div>
                                 </div>
 
 
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Pesquisar</button>
+                        <button type="submit" class="btn btn-secondary">Pesquisar</button>
                         {!! csrf_field() !!}
                     </form>
                 </div>

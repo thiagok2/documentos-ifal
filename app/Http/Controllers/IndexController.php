@@ -48,10 +48,11 @@ class IndexController extends Controller
 
     public function index(Request $request)
     { 
+        $changePrivateFlag = False;
+
         $size_page = $request->has('page_size') ? $request->query("page_size") : self::RESULTS_PER_PAGE;
 
         $publico = filter_var($request->query("publico", false), FILTER_VALIDATE_BOOLEAN);
-
         $tipo_doc = $request->query("tipo_doc");
         $esfera = $request->query("esfera");
         $periodo = $request->query("periodo");
@@ -73,11 +74,23 @@ class IndexController extends Controller
 
         $query = $request->query('query');
         $queryFilters = $request->query();
+        
         $filters = $this->hasFilters($queryFilters);
 
         $documentos = [];
 
         try {
+
+            //Busca Privada
+            $usuario = auth()->user();
+            $unidadeUsuario = $usuario?->unidade?->nome ?? null;
+
+            if (!$publico && $unidadeUsuario) {
+                $queryFilters['orgao'] = $unidadeUsuario;
+                $changePrivateFlag = True;
+            }
+            
+            
 
             if (isset($query)) {
 
@@ -178,7 +191,8 @@ class IndexController extends Controller
                         'total_pages',
                         'max_score',
                         'documentos',
-                        'aggregations'
+                        'aggregations',
+                        'changePrivateFlag'
                     )
                 );
             

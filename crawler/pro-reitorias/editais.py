@@ -29,7 +29,7 @@ def config_geral(ANO=None):
   return assuntos
 
 def main(ANO):
-    ASSUNTO = 'extensao'
+    ASSUNTO = 'extensao'    # Alterar essa variavel.
     TAGS = config_geral()[ASSUNTO]['TAGS']
     ASSUNTO_ID = config_geral()[ASSUNTO]['ASSUNTO_ID']
     UNIDADE_ID = config_geral()[ASSUNTO]['UNIDADE_ID']

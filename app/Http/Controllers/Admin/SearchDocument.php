@@ -99,7 +99,7 @@ class SearchDocument extends Controller
             $unidadeUser = auth()->user()->unidade;
             if(!auth()->user()->isAdmin()){
                 $list->where('unidade_id',$unidadeUser->id);
-            }
+            }            
 
             $documentos = $list->paginate(25);
 
@@ -115,8 +115,6 @@ class SearchDocument extends Controller
             return redirect()->route('home')
             ->with('error', 'Como assessor, você não pode gerenciar documentos.');            
         }else{
-            $this->queryParams['unidadeQuery'] = $request['unidadeNome'];
-
             $this->queryParams['usuarioNome'] = $request['usuarioNome'];
 
             $this->queryParams['dataInicioEnvio'] = $request['dataInicioEnvio'];
@@ -137,13 +135,6 @@ class SearchDocument extends Controller
 
             $list->where('publico', false);
             
-            if(isset($this->queryParams['unidadeQuery'])){
-            $list->whereHas('unidade', function($query){
-                    $query->withTrashed();
-                    $query->where('nome', 'ilike', '%'.$this->queryParams['unidadeQuery'].'%');
-                    $query->orWhere('sigla', 'ilike', '%'.$this->queryParams['unidadeQuery'].'%');
-                });
-            }
             if(isset($this->queryParams['usuarioNome'])){
                 $list->whereHas('user', function($query){
                     $query->withTrashed();
@@ -197,10 +188,8 @@ class SearchDocument extends Controller
 
 
             $unidadeUser = auth()->user()->unidade;
-            if(!auth()->user()->isAdmin()){
-                $list->where('unidade_id',$unidadeUser->id);
-            }
-
+            $list->where('unidade_id',$unidadeUser->id);
+ 
             $documentos = $list->paginate(25);
 
             $queryParams = $this->queryParams;

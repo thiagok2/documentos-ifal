@@ -52,6 +52,9 @@
     .card-primary:not(.card-outline)>.card-header{
         background-color: #45a050;
     }
+    .card-secondary:not(.card-outline)>.card-header{
+        background-color: #5c655c;
+    }
     .tooltip-custom {
         position: relative;        
     }
@@ -125,14 +128,24 @@
                     <input type="text" name="query" class="form-control " placeholder="Digite os termos da consulta" value="{{ $query }}" />
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
-                        <!--<button type="button" class="btn btn-mobile btn-info btn-sm" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>-->
+                        @if (auth()->check() && auth()->user()->unidade)
+                            <button type="button" class="btn btn-mobile btn-info btn-sm" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
+                            <input type="hidden" name="orgao" value="{{ auth()->user()->unidade->nome }}">
+                        @endif
                     </div>
                 </div>
                 </div>
                 </div>
                 <div id="filters-menu" class="collapse <?php if($filters){ echo 'show'; } else {echo 'hidden';}?>">
                     <div class="row">
-                        <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
+                        <div class="col text-center mb-3">
+                            <label class="custom-switch">
+                                <input type="checkbox" name="publico" value="1" {{$changePrivateFlag ? '' : 'checked'}} >
+                                <span class="slider round"></span>
+                                <span class="switch-label ml-2">Buscar Apenas Documentos Públicos</span>
+                            </label>
+                        </div>
+                        {{-- <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
                             <select class="form-control form-control-sm" name="esfera" >
                                 <option value="all" <?php if($esfera == "all"){ echo ' selected'; }?>>Todas as Esferas</option>
                                 <option value="Federal" <?php if($esfera == "Federal"){ echo ' selected'; }?>>Federal</option>
@@ -147,7 +160,7 @@
                                 <option value="<?php echo (date("Y")-2); ?>" <?php if($periodo == date("Y")-2){ echo ' selected'; }?>>Últimos 2 anos</option>
                                 <option value="<?php echo (date("Y")-5); ?>" <?php if($periodo == date("Y")-5){ echo ' selected'; }?>>Últimos 5 anos</option>
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </form>
@@ -228,8 +241,11 @@
                     <div class="row">
                         <div class="col text-center mt-3 mb-3">
                             <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search mr-1"></i>Pesquisar</button>
-                            {{-- <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
-                        </div>
+                            @if (auth()->check() && auth()->user()->unidade)
+                                <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse" data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-cogs"></i> Configurações da busca</button>
+                                <input type="hidden" name="orgao" value="{{ auth()->user()->unidade->nome }}">
+                            @endif
+                            </div>
 
                         
                     </div>
@@ -237,12 +253,12 @@
                         <div class="row">
                             <div class="col text-center mb-3">
                                 <label class="custom-switch">
-                                    <input type="checkbox" id="switchPublico" name="publico" checked>
+                                    <input type="checkbox" id="switchPublico" value="1" name="publico" checked>
                                     <span class="slider round"></span>
                                     <span class="switch-label ml-2">Buscar Apenas Documentos Públicos</span>
                                 </label>
                             </div>
-                        </div> --}}
+                        </div> 
                         <!--<div class="row">
                             <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
                                 <select class="form-control" name="esfera" >
@@ -293,6 +309,9 @@
             @if (!empty($query) && (!empty($documentos)))
                 <nav class="row">
                     <div class="col-lg-10 offset-lg-1">
+                        @if ($changePrivateFlag)
+                            <h2>Documentos Privados</h1>
+                        @endif
                         <p class="mb-3 mt-3">
                             <i class="fa fa-filter"></i> <strong> Filtrar resultados</strong> <em>({{ $total }}</em> resultados encontrados. Exibindo de 
                             @if ($total >  ($page) * $size_page)
@@ -357,7 +376,12 @@
             @foreach ($documentos as $doc)
                 <article class="row">
                     <div class="col-lg-10 offset-lg-1">
-                        <div class="card card-primary mb-3">
+                        <div @class([
+                            'card',
+                            'mb-3',
+                            'card-secondary' => $changePrivateFlag,
+                            'card-primary' => !$changePrivateFlag,
+                        ])>
                             <div class="card-header">
                                 <h6>
                                 <a style="color: white !important" id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
@@ -444,13 +468,13 @@
                                     </div>
                                 </div>
                                 <hr class="split-sm">
-                                <button id='popoverBtn' data-bs-toggle="popover" data-bs-placement="top" data-bs-title="Título do Popover" data-bs-content="Este é o conteúdo do popover." class="btn btn-info" type="button" data-toggle="collapse" data-target="#trechos-{{$loop->index}}" aria-expanded="false" aria-controls="highlight-collapse-{{$doc['id']}}"
+                                <button id='popoverBtn' data-bs-toggle="popover" data-bs-placement="top" data-bs-title="Título do Popover" data-bs-content="Este é o conteúdo do popover." @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse" data-target="#trechos-{{$loop->index}}" aria-expanded="false" aria-controls="highlight-collapse-{{$doc['id']}}" 
                                     {{empty($doc['trechos_destaque']) ? 'disabled':''}}>
                                     <i class="fa fa-quote-right"></i> Trechos encontrados
             
                                 </button>
 
-                                <a style="color: white !important" href="/normativa/pdf/{{ $doc['id'] }}" class="btn btn-primary" target="_blank">
+                                <a style="color: white !important" href="/normativa/pdf/{{ $doc['id'] }}" @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) target="_blank">
                                     <i class="fa fa-download"></i> Baixar
                                 </a>
 
@@ -509,15 +533,15 @@
                         <ul class="pagination justify-content-center">
                             @if ($page > 1)
                             <li class="page-item">
-                                <a href="?query={{ urlencode($query) }}&page={{ 1 }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}"
+                                <a href="?query={{ urlencode($query) }}&page={{ 1 }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}&publico={{$changePrivateFlag ? 0 : 1}}"
                                     class="page-link" tabindex="-1">Primeira</a>
                             </li>
-                            <li class="page-item">
-                                <a href="?query={{ urlencode($query) }}&page={{ ($page - 1) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}"
+'                            <li class="page-item">
+                                <a href="?query={{ urlencode($query) }}&page={{ ($page - 1) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}&publico={{$changePrivateFlag ? 0 : 1}}"
                                     class="page-link" tabindex="-1">Anterior</a>
                             </li>
                             @endif
-
+'
                             @if($total_pages > 0 && $page <= $total_pages)
 
                                 @php($auxb = $page+5>$total_pages ? 9-($total_pages-$page)  : 5 )                                
@@ -525,18 +549,18 @@
                                 @php($auxe = $page-6>0 ? 5 : 10-$page)
                                 @php($end = $page+$auxe>$total_pages ? $total_pages : $page+$auxe) 
                                 @for ($i = $begin; $i <= $end; $i++)
-                                     <li class="page-item"><a class="page-link {{$i == $page ? 'active' :'' }}" href="?query={{ urlencode($query) }}&page={{ ($i) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}">{{$i}}</a></li>
+                                     <li class="page-item"><a class="page-link {{$i == $page ? 'active' :'' }}" href="?query={{ urlencode($query) }}&page={{ ($i) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}&publico={{$changePrivateFlag ? 0 : 1}}">{{$i}}</a></li>
                                 @endfor
 
                             @endif
 
                             @if ($page < $total_pages)
                                 <li class="page-item">
-                                <a href="?query={{ urlencode($query) }}&page={{ ($page + 1) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}"
+                                <a href="?query={{ urlencode($query) }}&page={{ ($page + 1) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}&publico={{$changePrivateFlag ? 0 : 1}}"
                                     class="page-link">Próxima</a>
                                 </li>
                                 <li class="page-item">
-                                <a href="?query={{ urlencode($query) }}&page={{ ($total_pages) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}"
+                                <a href="?query={{ urlencode($query) }}&page={{ ($total_pages) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}&publico={{$changePrivateFlag ? 0 : 1}}"
                                     class="page-link">Última</a>
                                 </li>
                             @endif
