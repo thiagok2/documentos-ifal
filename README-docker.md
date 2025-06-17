@@ -22,9 +22,9 @@
         DB_CONNECTION=pgsql
         DB_HOST=pgsql
         DB_PORT=5432
-        DB_DATABASE=nome_banco
-        DB_USERNAME=nome_usuario
-        DB_PASSWORD=sua_senha
+        DB_DATABASE=postgres
+        DB_USERNAME=postgres
+        DB_PASSWORD=postgres
     ```
 3. Verifique se a informações batem com as do docker-compose
 
@@ -33,7 +33,7 @@
 
 1. Rode `docker compose up --build -d` para contruir o container da aplicação.
 
-2. Vá até o container com `docker exec -it documentos-ifal-laravel.test-1 bash` e rode
+2. Vá até o container com `docker exec -it documentos-ifal-main-laravel.test-1 bash` e rode
     ```
     php artisan key:generate
     php artisan migrate
