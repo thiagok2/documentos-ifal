@@ -67,6 +67,8 @@ $(function () {
         var titulo = $('#titulo_'+id).val().trim();
 
         var ementa = $('#ementa_'+id).val().trim();
+        var publico = $('#publico_' + id).is(':checked') ? 1 : 0;        
+
 
         var isValid = true;
 
@@ -92,7 +94,8 @@ $(function () {
                 "tipo_documento_id": tipo_documento_id,
                 "assunto_id": assunto_id,
                 "titulo": titulo,
-                "ementa": ementa
+                "ementa": ementa,
+                "publico": publico
             }
 
             console.log('222');

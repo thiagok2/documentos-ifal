@@ -20,19 +20,18 @@ class AppServiceProvider extends ServiceProvider
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             $user = auth()->user();
             
-
             if ($user->isAdmin() || $user->isConselho() || $user->isExtrator()) {
                 $event->menu->add('Atos Normativos');
                 $event->menu->add(
                     [
                         'text' => 'Publicar',
                         'url' => 'admin/documentos/publicar',
-                        'icon' => 'upload'
+                        'icon' => 'fas fa-fw fa-upload'
                     ],
                     [
                         'text' => 'Publicar em Lote',
                         'url' => 'admin/documentos/publicar-lote',
-                        'icon' => 'upload'
+                        'icon' => 'fas fa-fw fa-upload'
                     ]
                 );
             }
@@ -41,7 +40,14 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text' => 'Últimos Documentos',
                         'url' => 'admin/documentos',
-                        'icon' => 'search'
+                        'icon' => 'fas fa-fw fa-search'
+                    ]
+                );
+                $event->menu->add(
+                    [
+                        'text' => 'Documentos Privados',
+                        'url' => 'admin/documentos/privados',
+                        'icon' => 'fas fa-fw fa-lock'
                     ]
                 );
                 $event->menu->add('Pendências');
@@ -49,17 +55,17 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text' => 'Pendências de Lote',
                         'url' => 'admin/documentos/pendentes',
-                        'icon' => 'exclamation-circle',
+                        'icon' => 'fas fa-fw fa-exclamation-circle',
                     ],
                     [
                         'text' => 'Pesquisar Pendências',
                         'url' => 'admin/documentos/pesquisar/status',
-                        'icon' => 'search',
+                        'icon' => 'fas fa-fw fa-search',
                     ],
                     [
                         'text' => 'Pesquisar Consultas',
                         'url' => 'admin/consultas',
-                        'icon' => 'search',
+                        'icon' => 'fas fa-fw fa-search',
                     ]
 
                 );
@@ -69,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
                 $event->menu->add(
                     [
                         'text' => 'Unidades',
-                        'icon' => 'university',
+                        'icon' => 'fas fa-fw fa-university',
                         'url' => 'admin/unidades',
                     ]
                 );
@@ -88,18 +94,18 @@ class AppServiceProvider extends ServiceProvider
                 [
                     'text' => 'Tipos de Documentos',
                     'url' => 'admin/tiposdocumento',
-                    'icon' => 'file',
+                    'icon' => 'fas fa-fw fa-file',
                 ],
                 [
                     'text' => 'Assuntos',
                     'url' => 'admin/assuntos',
-                    'icon' => 'bookmark',
+                    'icon' => 'fas fa-fw fa-bookmark',
                 ]
             );
             $event->menu->add(
                 [
                     'text' => 'Perfil',
-                    'icon' => 'address-card',
+                    'icon' => 'fas fa-fw fa-address-card',
                     'url' => 'admin/usuarios'
                 ]
             );

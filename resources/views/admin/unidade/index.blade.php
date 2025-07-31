@@ -121,7 +121,7 @@
                                         <td>
                                             <a style="cursor: pointer;" href="{{route("unidade-show",$unidade->id)}}" data-conselho-id="{{ $unidade->id }}">{{ $unidade->nome}}</a>
                                         </td>
-                                        <td> @if ($unidade->pai) {{$unidade->pai->nome}}@else Sem Pai @endif
+                                        <td> @if ($unidade->pai) {{$unidade->pai->nome}}@else N/A @endif
                                         <td>
                                             <span>
                                                 CRIADO:

@@ -36,7 +36,8 @@
                                 <tr>
                                     <th style="width: 7%">Ano</th>
                                     <th style="width: 10%">Publicação/Número</th>
-                                    <th style="width: 1 %">Tipo/Assunto</th>
+                                    <th style="width: 1%">Tipo/Assunto</th>
+                                    <th style="width: 10%">Publico</th>
                                     <th style="width: 25%">Título</th>
                                     <th style="width: 20%">Ementa</th>
                                     <th style="width: 5%"></th>
@@ -71,6 +72,15 @@
                                             @endforeach
                                         </select>
     
+                                    </td>
+
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="1" name="publico_{{$doc->id}}" id="publico_{{$doc->id}}" checked>
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                              Publico
+                                            </label>
+                                          </div>
                                     </td>
     
                                     <td>

@@ -1,0 +1,4 @@
+requests
+beautifulsoup4
+elasticsearch==8.14
+psycopg2-binary

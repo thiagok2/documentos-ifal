@@ -65,7 +65,6 @@ class LoteController extends Controller
         $documentos = [];
         
         foreach ($request->documentos as $doc) {
-    
             
             $documento = new Documento();
             $documento->nome_original = $doc->getClientOriginalName();
@@ -91,6 +90,7 @@ class LoteController extends Controller
             $documento->assunto_id = ($request->assunto_id) ? $request->assunto_id : null;
             $documento->tipo_documento_id = ($request->tipo_documento_id) ? $request->tipo_documento_id : null;
             $documento->tipo_entrada = Documento::ENTRADA_LOTE;
+            $documento->publico = $request->publico ? true : false;
 
             $documento->completed = $documento->isCompleto();
             $documento->save();

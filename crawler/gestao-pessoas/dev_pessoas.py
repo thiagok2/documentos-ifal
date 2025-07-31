@@ -3,14 +3,13 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS
+from crawler.service import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS
 
 response = requests.get('https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/legislacao-e-normas/capacitacao', headers=HEADERS)
 soup = BeautifulSoup(response.content, "html.parser")
 
 pdfs = []
 def main():
-    input()
     for callout in soup.find_all('p', class_='callout'):
         link_tag = callout.find('a')
         if link_tag:
@@ -108,7 +107,9 @@ def main():
                     "content": encoded_pdf
                 }
             }
+            print(doc)
             response = es.index(index=INDEX_NAME, pipeline="attachment", body=doc)
+            
             elastic_id = response["_id"]
             print(f"DOCUMENTO INDEXADO NO Elasticsearch: {elastic_id}")
             # Salvar no banco de dados

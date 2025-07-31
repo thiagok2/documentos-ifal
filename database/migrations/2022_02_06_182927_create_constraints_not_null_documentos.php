@@ -18,6 +18,8 @@ class CreateConstraintsNotNullDocumentos extends Migration
             $table->integer('user_id')->nullable()->change();
             $table->integer('tipo_documento_id')->nullable()->change();
             $table->integer('assunto_id')->nullable()->change();
+            $table->integer('ano')->nullable()->change();
+            //Lembrar de Mudar pra not null
         });
     }
 

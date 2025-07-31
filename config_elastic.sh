@@ -78,6 +78,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -86,6 +90,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -117,6 +125,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
             "fields": {
               "keyword": {
                 "type": "keyword"
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -131,6 +143,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
               "keyword": {
                 "type": "keyword",
                 "ignore_above": 256
+              },
+              "raw": {
+                "type": "text",
+                "analyzer": "whitespace"
               }
             }
           },
@@ -160,6 +176,9 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
                 "type": "keyword"
               }
             }
+          },
+          "publico":{
+            "type": "boolean"
           }
         }
       },
@@ -194,6 +213,10 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal/_mapping/" \
                 "keyword": {
                     "type": "keyword",
                     "ignore_above": 256
+                },
+                "raw": {
+                  "type": "text",
+                  "analyzer": "whitespace"
                 }
             }
         }
@@ -201,5 +224,6 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal/_mapping/" \
   --insecure | jq '.acknowledged' && echo "Mapeamento do índice 'documentos_ifal' atualizado com sucesso." || echo "Falha ao atualizar o mapeamento do índice 'documentos_ifal'."
 
 echo -e "\nObtendo o mapeamento do índice 'documentos_ifal'..."
+
 curl -s -X GET "http://elasticsearch:9200/documentos_ifal/_mapping" \
   --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."

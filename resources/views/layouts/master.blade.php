@@ -31,6 +31,7 @@
 
         <link href="/img/favicon.ico" rel="shortcut icon">
 
+        @stack('estilos-caio')
     </head>
     <style>
     a{
@@ -41,6 +42,63 @@
     .card-primary:not(.card-outline)>.card-header{
         background-color: #45a050;
     }
+    .custom-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 3.5em;
+    height: 1.8em;
+    margin-right: 10px;
+}
+
+.custom-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin-left: 20px;
+
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 2em;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 1.3em;
+    width: 1.3em;
+    left: 0.25em;
+    bottom: 0.25em;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(1.7em);
+}
+
+.switch-label {
+    margin-left: 0.5em;
+    font-size: 1em;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+
     </style>
 
      <body>
@@ -66,6 +124,7 @@
         <script src="/js/theme.min.js"></script>
         <script src="/js/normativas-search.js" type="text/javascript"></script>
 
+        @stack('scripts-caio')
         <script>
             $(document).on('ready', function () {
 

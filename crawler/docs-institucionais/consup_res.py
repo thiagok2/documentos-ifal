@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import os
 import base64
-from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn
+from crawler.service import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn
 
 ###Conselho é departamento???
 
@@ -15,7 +15,7 @@ print("Raspando PDFs da página...")
 # Fazer requisição HTTP
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
 def main(ANO):
-    BASE_URL = f"https://www2.ifal.edu.br/acesso-a-informacao/institucional/orgaos-colegiados/conselho-de-ensino-pesquisa-e-extensao/resolucoes-1/2022-1"
+    BASE_URL = f"https://www2.ifal.edu.br/acesso-a-informacao/institucional/orgaos-colegiados/conselho-superior/resolucoes/{ANO}"
 
     response = requests.get(BASE_URL, headers=HEADERS)
     soup = BeautifulSoup(response.content, "html.parser")
@@ -77,8 +77,7 @@ def main(ANO):
                 'tipo_id': tipo_doc,
                 'tipo_nome': tipo_nome,
             })
-        print(numero_doc)
-    input()
+
     for pdf in pdfs:
         PDF_URL = pdf['url']
         TITULO_DOC = pdf['titulo']
