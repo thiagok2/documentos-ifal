@@ -17,7 +17,7 @@ class CreateDocumentosTable extends Migration
         Schema::create('documentos', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('ano');
+            $table->integer('ano')->nullable();
             $table->string('titulo', 255);
             $table->string('numero', 20);
             $table->text('ementa');

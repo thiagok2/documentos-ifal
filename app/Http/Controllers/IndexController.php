@@ -16,6 +16,7 @@ use App\Models\TipoDocumento;
 use App\Models\Unidade;
 use App\Services\SearchComponent;
 use App\Searches\Commands\SearchCommandA1;
+use App\Searches\Commands\SearchCommandA0;
 
 use App\Services\DocumentoQuery;
 
@@ -47,8 +48,11 @@ class IndexController extends Controller
 
     public function index(Request $request)
     { 
+        $changePrivateFlag = False;
+
         $size_page = $request->has('page_size') ? $request->query("page_size") : self::RESULTS_PER_PAGE;
 
+        $publico = filter_var($request->query("publico", false), FILTER_VALIDATE_BOOLEAN);
         $tipo_doc = $request->query("tipo_doc");
         $esfera = $request->query("esfera");
         $periodo = $request->query("periodo");
@@ -70,11 +74,23 @@ class IndexController extends Controller
 
         $query = $request->query('query');
         $queryFilters = $request->query();
+        
         $filters = $this->hasFilters($queryFilters);
 
         $documentos = [];
 
         try {
+
+            //Busca Privada
+            $usuario = auth()->user();
+            $unidadeUsuario = $usuario?->unidade?->nome ?? null;
+
+            if (!$publico && $unidadeUsuario) {
+                $queryFilters['orgao'] = $unidadeUsuario;
+                $changePrivateFlag = True;
+            }
+            
+            
 
             if (isset($query)) {
 
@@ -96,53 +112,100 @@ class IndexController extends Controller
 
                 if ($page == 1) //cadastrar consulta apenas no primeiro acesso
                     SearchComponent::logging($query, $request);
-
+                
                 $from = (($page - 1) * $size_page);
-                    $searchCommand = new SearchCommandA1('documentos_ifal', 'ato');
+            
+                if(str_ends_with($query, '"') && str_starts_with($query, '"')){
+                    $from = (($page - 1) * $size_page);
+                    $searchCommand = new SearchCommandA0('documentos_ifal', 'ato', $publico);
                     $result = $searchCommand->search($query, $queryFilters, $from, $size_page);
                     $total = $result->totalResults;
-             
+                    
                     $max_score = $result->maxScore;
                     
                     $total_pages = $result->totalPages;
-
+                    
                     $documentos = $result->documentsResult;
-                    $aggregations = $result->aggResults;
+                    $aggregations = $result->aggResults;                
                 }
+                else{
+                    // Executa A0 e A1
 
-            return view(
-                'index.index',
-                compact(
-                    'query',
-                    'conselho',
-                    'tiposDocumento',
-                    'tipo_doc',
-                    'esfera',
-                    'periodo',
-                    'ano',
-                    'fonte',
-                    'filters',
-                    'page',
-                    'total',
-                    'size_page',
-                    'total_pages',
-                    'max_score',
-                    'documentos',
-                    'aggregations'
-                )
-            );
-
-
+                    $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato', $publico);
+                    $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000); // recupera até 1000 resultados para evitar paginação fragmentada
+                    
+                    $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato', $publico);
+                    $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
+                    
+                    // Primeira fonte: A0
+                    $docIdsA0 = [];
+                    $finalResults = [];
+                    
+                    // Verifica se existe documentos em resultA0
+                    $docsA0 = (array) $resultA0->documentsResult;
+                    $docsA1 = (array) $resultA1->documentsResult;
+                    
+                    $merged = array_merge($docsA0, $docsA1);
+                    
+                    // Usa array_reduce para eliminar duplicados com base no 'id'
+                    $finalResultsAssoc = array_reduce($merged, function ($carry, $doc) {
+                        $id = $doc['id'] ?? null;
+                        if ($id !== null && !isset($carry[$id])) {
+                            $carry[$id] = $doc;
+                        }
+                        return $carry;
+                    }, []);
+                    
+                    // Reindexa para array simples
+                    $finalResults = array_values($finalResultsAssoc);                    
+                    
+                    // Pagina manualmente os resultados combinados
+                    $total = count($finalResults);
+                    $total_pages = ceil($total / $size_page);
+                    $from = (($page - 1) * $size_page);     
+                    $documentos = array_slice($finalResults, $from, $size_page);
+                    
+                    // Calcula o max_score dos dois resultados
+                    $max_score = max($resultA0->maxScore ?? 0, $resultA1->maxScore ?? 0);
+                    
+                    // Agregações: escolha uma ou combine (aqui pegamos do A1 como base)
+                    $aggregations = $resultA1->aggResults;
+                }
+                
+                }
+                return view(
+                    'index.index',
+                    compact(
+                        'query',
+                        'conselho',
+                        'tiposDocumento',
+                        'tipo_doc',
+                        'esfera',
+                        'periodo',
+                        'ano',
+                        'fonte',
+                        'filters',
+                        'page',
+                        'total',
+                        'size_page',
+                        'total_pages',
+                        'max_score',
+                        'documentos',
+                        'aggregations',
+                        'changePrivateFlag'
+                    )
+                );
+            
         } catch (\Exception $e) {
             $erro['titulo'] = getenv('APP_DEBUG') ? "DEBUG:: " . $e->getMessage() : 'Plataforma de busca indisponível';
             $erro['local'] = $e->getFile() . " #" . $e->getLine();
             $erro['trace'] = $e->getTraceAsString();
-
+        
             Log::error($e->getFile() . ' - Linha ' . $e->getLine() . ' - search::' . $e->getMessage());
-
+        
             throw $e;
         }
-
+    
     }
 
     public function viewNormativa($normativaId)

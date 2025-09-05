@@ -56,5 +56,3 @@ docker-compose up -d
     php artisan cache:clear
 
     ```
-
-\

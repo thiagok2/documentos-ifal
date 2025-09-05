@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.config import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn
+from crawler.service import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn
 
 def limpa_ementa(ementa):
     """Remove textos indesejados no resumo."""

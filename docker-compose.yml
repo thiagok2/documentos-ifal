@@ -58,6 +58,8 @@ services:
             - 9300:9300
         volumes:
             - sailelasticsearch:/usr/share/elasticsearch/data
+            - ./sinonimos_elastic.txt:/usr/share/elasticsearch/config/analysis/sinonimos_elastic.txt
+
         networks:
             - sail
     # pgadmin:
@@ -77,7 +79,7 @@ services:
         working_dir: /app
         volumes:
             - .:/app
-        command: ["sh", "-c", "pip install requests beautifulsoup4 elasticsearch psycopg2-binary && tail -f /dev/null"]
+        command: ["sh", "-c", "pip install -r requirements.txt && tail -f /dev/null"]
         networks:
             - sail
         depends_on:

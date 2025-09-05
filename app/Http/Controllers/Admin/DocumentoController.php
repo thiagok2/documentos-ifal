@@ -430,5 +430,14 @@ class DocumentoController extends Controller
 
     }
 
+    // public function listPrivateDocs(){
+    //     $unidadeId = auth()->user()->unidade->id;
+        
+    //     $documentos = Documento::where('unidade_id', $unidadeId)
+    //                             ->where('publico', false)
+    //                             ->paginate(20);
 
+    //     return view('admin.documento.privite', compact("documentos"));
+
+    // }
 }

@@ -39,8 +39,13 @@ class Documento extends Model
     protected $fillable = [
         'ano', 'titulo','numero','ementa','url','data_publicacao','tipo_documento_id',
         'assunto_id','unidade_id' , 'nome_original', 
-        'tipo_entrada','url_extrator', 'id_extrator', 'numero_processo'  ];
+        'tipo_entrada','url_extrator', 'id_extrator', 'numero_processo',
+        'publico'
 
+    ];
+    protected $casts = [
+        'publico' => 'boolean',
+    ];    
 
     public function isCompleto(){
         return 
@@ -120,7 +125,9 @@ class Documento extends Model
         'assunto_id' => 'required|integer',
         'ementa'    => 'required',
         'arquivo' => 'required|mimes:pdf',
-        'url'   => 'nullable|active_url|max:200'
+        'url'   => 'nullable|active_url|max:200',
+        'publico' => 'nullable|boolean',
+
     ];
 
     public $messages = [
@@ -173,7 +180,8 @@ class Documento extends Model
                     "uf_sigla" => $this->unidade->estado->sigla,
                     "esfera" => $this->unidade->esfera,
                     "url" => $this->unidade->url
-                ]
+                ],
+                "publico" => $this->publico
             ]
         ];
 
