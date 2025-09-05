@@ -1,5 +1,11 @@
 # Documentos IFAL
 
+### Rodar projeto
+
+```sh
+docker-compose up -d
+```
+
 ### instalando dependencias;
 
 1. Precisamos instalar as dependencias do laravel sail no seu repositório local

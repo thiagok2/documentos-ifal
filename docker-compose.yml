@@ -60,17 +60,17 @@ services:
             - sailelasticsearch:/usr/share/elasticsearch/data
         networks:
             - sail
-    pgadmin:
-        image: dpage/pgadmin4
-        environment:
-            PGADMIN_DEFAULT_EMAIL: admin@admin.com
-            PGADMIN_DEFAULT_PASSWORD: admin
-        ports:
-            - "8080:80"  # Acessar pgAdmin via http://localhost:8080
-        depends_on:
-            - pgsql
-        networks:
-            - sail
+    # pgadmin:
+    #     image: dpage/pgadmin4
+    #     environment:
+    #         PGADMIN_DEFAULT_EMAIL: admin@admin.com
+    #         PGADMIN_DEFAULT_PASSWORD: admin
+    #     ports:
+    #         - "8080:80"  # Acessar pgAdmin via http://localhost:8080
+    #     depends_on:
+    #         - pgsql
+    #     networks:
+    #         - sail
     python:
         image: python:3.11
         container_name: python_app

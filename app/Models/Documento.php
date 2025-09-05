@@ -19,13 +19,21 @@ class Documento extends Model
     public const STATUS_EXTRATOR_FALHA_ELASTIC = 'FALHA_ELASTIC';
 
     public static function listTiposEntrada(){
-        return [ENTRADA_INDIVIDUAL, ENTRADA_LOTE, ENTRADA_EXTRATOR];
+        return [
+          self::ENTRADA_INDIVIDUAL, 
+          self::ENTRADA_LOTE, 
+          self::ENTRADA_EXTRATOR
+        ];
     }
 
     public static function listStatus(){
-        return [STATUS_EXTRATOR_CADASTRADO, STATUS_EXTRATOR_BAIXADO,
-        STATUS_EXTRATOR_FALHA_DOWNLOAD, STATUS_EXTRATOR_INDEXADO,
-        STATUS_EXTRATOR_FALHA_ELASTIC];
+        return [
+          self::STATUS_EXTRATOR_CADASTRADO, 
+          self::STATUS_EXTRATOR_BAIXADO,
+          self::STATUS_EXTRATOR_FALHA_DOWNLOAD, 
+          self::STATUS_EXTRATOR_INDEXADO,
+          self::STATUS_EXTRATOR_FALHA_ELASTIC
+        ];
     }
 
     protected $fillable = [

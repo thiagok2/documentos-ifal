@@ -132,9 +132,9 @@ $(function () {
             limitMultiFileUploads: 10,
             multipart:true,
             add: function (e, data) {
-                if($('#ano').val()
-                        && $('#tipo_documento_id').val() && $('#tipo_documento_id').val() != 0
-                        && $('#assunto_id').val() && $('#assunto_id').val() != 0){
+                if($('#ano').val()){
+                    // && $('#tipo_documento_id').val() && $('#tipo_documento_id').val() != 0
+                    // && $('#assunto_id').val() && $('#assunto_id').val() != 0
 
                     $('#loading').text('Enviando...');
                     $('#progress').removeClass('hidden');
@@ -143,6 +143,10 @@ $(function () {
                     data.submit();
 
                 }else{
+                    console.log('ano:' + $('#ano').val());
+                    console.log('tipo_documento_id:' + $('#tipo_documento_id').val());
+                    console.log('assunto_id:' + $('#assunto_id').val());
+
                     $('#alertas').removeClass('hidden');
                     $('#alertas-msg').text("Preencha os campos obrigatórios(Ano, Tipo de Documento e Assunto)");
                 }

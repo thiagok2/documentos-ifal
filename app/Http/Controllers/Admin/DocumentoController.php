@@ -148,13 +148,9 @@ class DocumentoController extends Controller
                 }else{
                     throw new Exception((string)$resultElastic);
                 }
-
-               
-                
+ 
             }else{
-                return redirect()
-			    ->back()->withInput()
-			    ->with('error', "Insira um anexo de extensão PDF.");
+                return redirect()->back()->withInput()->with('error', "Insira um anexo de extensão PDF.");
             }
 
         }catch(Exception $e){
@@ -163,13 +159,9 @@ class DocumentoController extends Controller
             $messageErro = (getenv('APP_DEBUG') === 'true') ? $e->getMessage()." : ".$e->getTraceAsString():
             "Problemas na indexação do documento. Caso o problema persista, entre em contato pelo email normativas@nees.com.br";
 
-
             Log::error($e->getFile().' - Linha '.$e->getLine().' - search::'.$e->getMessage());
-
             
-            return redirect()
-			    ->back()->withInput()
-			    ->with('error', $messageErro);
+            return redirect()->back()->withInput()->with('error', $messageErro);
         }
     }
 

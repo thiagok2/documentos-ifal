@@ -9,6 +9,10 @@ use App\Models\Documento;
 use App\Models\Unidade;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property \App\Models\Unidade $unidade
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\Documento[] $documentos
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -71,10 +75,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Get the documents associated with the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function documentos(){
         return $this->hasMany(Documento::class);
     }
 
+    /**
+     * Get the unidade that the user belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function unidade() {
 		return $this->belongsTo(Unidade::class,'unidade_id')->withTrashed();
     }

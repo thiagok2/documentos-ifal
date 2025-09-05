@@ -87,7 +87,7 @@
                 <hr class="split">
                 <h1>
                     <a href="{{route('index')}}">
-                        <img src="/img/normativos-logo.png" srcset="/img/normativos-logo@2x.png 2x" alt="Documentos IFAL" />
+                        <img src="/img/normativos-logo.png" srcset="/img/normativos-logo.png" alt="Documentos IFAL" />
                     </a>
                 </h1>
                 <hr class="split">
