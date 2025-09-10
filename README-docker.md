@@ -47,7 +47,14 @@ docker-compose up -d
 
 1. Rode `docker compose up --build -d` para contruir o container da aplicação.
 
-2. Vá até o container com `docker exec -it documentos-ifal-laravel.test-1 bash` e rode
+
+Descobrindo o nome do container
+
+```sh
+docker compose ps
+```
+
+s2. Vá até o container com `docker exec -it documentos-ifal-main-laravel.test-1 bash` e rode
     ```
     php artisan key:generate
     php artisan migrate
@@ -56,9 +63,19 @@ docker-compose up -d
     ```
 ### configurando o elastic;
 
-1. Ainda dentro do container da aplicação rode `apt-get update && apt-get install -y jq` para poder excutar o script de configuraçã0 `./config_elastic.sh`
+1. Ainda dentro do container da aplicação rode:
+
+```sh
+    apt-get update && apt-get install -y jq
+``` 
+para poder excutar o script de configuração 
+
+```sh
+    ./config_elastic.sh
+```
 
 2. Caso tenha algum problema de host nulo depois, entre novamente no container de aplicação e rode o comandos
+    
     ```
     php artisan config:clear
     php artisan cache:clear
@@ -69,8 +86,6 @@ docker-compose up -d
 
 1. No Ubunthu e no Mac rode na raiz do projeto 
 ``` sh
-
-    python3 -m crawler.rodar_tudo.py
-
+    python3 -m crawler/rodar_tudo.py
 ```
 # obs: Caso queira rodar algum .py individualmente é só usar uma estrutura hieráquica ex: `python3 -m crawler.adm.normas.py`
