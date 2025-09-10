@@ -21,9 +21,17 @@ docker-compose up -d
 
 ### preparando ambiente;
 
-1. Para o funcionamento do elasticsearch verifique se na .env está `ELASTIC_URL=http://elasticsearch:9200`
+1. Renomeie o arquivo `.env.example` para `.env`:
 
-2. Já para o postgres 
+    ```bash
+    mv .env.example .env
+    ```
+
+2. Modifique as variáveis de ambiente no arquivo `.env` para seu contexto local. **Observação:** Se estiver usando PostgreSQL como banco de dados, altere os valores das variáveis `SESSION_DRIVER` e `CACHE_STORE` para `"file"`.
+
+3. Para o funcionamento do elasticsearch verifique se na .env está `ELASTIC_URL=http://elasticsearch:9200`
+
+4. Já para o postgres 
     ```
         DB_CONNECTION=pgsql
         DB_HOST=pgsql
@@ -32,7 +40,7 @@ docker-compose up -d
         DB_USERNAME=postgres
         DB_PASSWORD=postgres
     ```
-3. Verifique se a informações batem com as do docker-compose
+5. Verifique se a informações batem com as do docker-compose
 
 
 ### rodando a docker-compose;
