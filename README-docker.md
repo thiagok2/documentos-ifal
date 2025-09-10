@@ -5,7 +5,7 @@
 ```sh
 docker-compose up -d
 ```
-
+ 
 ### instalando dependencias;
 
 1. Precisamos instalar as dependencias do laravel sail no seu repositório local
@@ -39,7 +39,7 @@ docker-compose up -d
 
 1. Rode `docker compose up --build -d` para contruir o container da aplicação.
 
-2. Vá até o container com `docker exec -it documentos-ifal-main-laravel.test-1 bash` e rode
+2. Vá até o container com `docker exec -it documentos-ifal-laravel.test-1 bash` e rode
     ```
     php artisan key:generate
     php artisan migrate
@@ -56,3 +56,13 @@ docker-compose up -d
     php artisan cache:clear
 
     ```
+
+### Executando os arquivos .py(CRAWLER)
+
+1. No Ubunthu e no Mac rode na raiz do projeto 
+``` sh
+
+    python3 -m crawler.rodar_tudo.py
+
+```
+# obs: Caso queira rodar algum .py individualmente é só usar uma estrutura hieráquica ex: `python3 -m crawler.adm.normas.py`
