@@ -21,7 +21,7 @@ docker-compose up -d
 
 ### preparando ambiente;
 
-1. Renomeie o arquivo `.env.example` para `.env`:
+1. Renomeie o arquivo `env-example` para `.env`:
 
     ```bash
     mv .env.example .env
@@ -36,7 +36,7 @@ docker-compose up -d
         DB_CONNECTION=pgsql
         DB_HOST=pgsql
         DB_PORT=5432
-        DB_DATABASE=postgres
+        DB_DATABASE=documentos-ifal
         DB_USERNAME=postgres
         DB_PASSWORD=postgres
     ```
