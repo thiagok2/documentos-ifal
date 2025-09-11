@@ -67,7 +67,11 @@ docker-compose up -d
 
 ### Executando os arquivos .py(CRAWLER)
 
-1. No Ubunthu e no Mac rode na raiz do projeto 
+1. No Ubunthu e no Mac rode na raiz do projeto `docker exec -it python_app bash` para entrar no container com python
+
+2. Verifique as variáveis de ambiente no arquivo service.py: *DB_CONFIG / ELASTIC_URL*. Devem referenciar as informações dos containers no docker-compose.yml
+
+3. Use o seguinte comando para rodar todos os crawlers
 ``` sh
 
     python3 -m crawler.rodar_tudo.py
