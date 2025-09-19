@@ -1,9 +1,8 @@
 import os, base64
-from crawler.service import DOWNLOAD_DIR, es, INDEX_NAME, cursor, conn, create_ato_documento_dir, ler_multiplos_registros, convert_doc_type, convert_subject
-
+from crawler.crawler_connections import DOWNLOAD_DIR, es, INDEX_NAME, cursor, conn, create_ato_documento_dir, ler_multiplos_registros, convert_doc_type, convert_subject
 
 # --- fluxo principal ---
-caminho = "crawler/info.txt"
+caminho = "crawler/info.txt" # Altere aqui o caminho do arquivo txt
 registros = ler_multiplos_registros(caminho)
 atos_criados = []
 

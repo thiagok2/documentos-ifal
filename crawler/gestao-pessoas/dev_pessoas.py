@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.service import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS
+from crawler.crawler_connections import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS
 
 response = requests.get('https://www2.ifal.edu.br/o-ifal/gestao-de-pessoas/legislacao-e-normas/capacitacao', headers=HEADERS)
 soup = BeautifulSoup(response.content, "html.parser")

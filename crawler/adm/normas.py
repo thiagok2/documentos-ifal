@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import base64
-from crawler.service import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, NORMAS_URLS
+from crawler.crawler_connections import DOWNLOAD_DIR, es, create_tags, create_ato_documento, INDEX_NAME, cursor, conn, HEADERS, NORMAS_URLS
 
 def main(url):
     response = requests.get(url, headers=HEADERS)
