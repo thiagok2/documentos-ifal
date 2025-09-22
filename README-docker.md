@@ -21,7 +21,7 @@ docker-compose up -d
 
 ### preparando ambiente;
 
-1. Renomeie o arquivo `env-example` para `.env`:
+1. Renomeie o arquivo `.env.example` para `.env`:
 
     ```bash
     mv .env.example .env
@@ -67,10 +67,16 @@ docker-compose up -d
 
 ### Executando os arquivos .py(CRAWLER)
 
-1. No Ubunthu e no Mac rode na raiz do projeto 
+1. No Ubunthu e no Mac rode na raiz do projeto `docker exec -it python_app bash` para entrar no container com python
+
+2. Caso não use o ambiente dockerizado, verifique se as variáveis de ambiente no arquivo crawler_connections.py: *DB_CONFIG / ELASTIC_URL* batem com as suas.
+
+3. Use o seguinte comando para rodar todos os crawlers
 ``` sh
 
     python3 -m crawler.rodar_tudo.py
 
 ```
-# obs: Caso queira rodar algum .py individualmente é só usar uma estrutura hieráquica ex: `python3 -m crawler.adm.normas.py`
+obs: Caso queira rodar algum .py individualmente é só usar uma estrutura hieráquica ex: `python3 -m crawler.adm.normas.py`
+
+4. A indexação por txt se encontra em crawler/uploadDocsDir.py
