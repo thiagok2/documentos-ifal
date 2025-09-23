@@ -3056,7 +3056,7 @@ body a:hover, body a:focus, body a.active {
 }
 
 body .badge-info {
-  background-color: #87aab0;
+  background-color: #87b08a;
   white-space: normal;
   text-align: left;
 }
@@ -3083,13 +3083,15 @@ body .btn {
 }
 
 body .btn.btn-primary {
-  background-color: #189200;
-  border-color: #189200;
+  background-color: #87b08a;
+  border-color: #87b08a;
+  color: white;
 }
 
 body .btn.btn-primary:hover, body .btn.btn-primary:focus, body .btn.btn-primary.active {
   background-color: #126c00;
   border-color: #126c00;
+  color: white;
 }
 
 body .btn.btn-login {
@@ -3147,14 +3149,14 @@ body #results .rating-container .caption {
 }
 
 body .pagination .page-item .page-link {
-  background-color: #189200;
-  border-color: #116600;
+  background-color: #87b08a;
+  border-color: #87b08a;
   color: #ffffff !important;
 }
 
 body .pagination .page-item .page-link:hover, body .pagination .page-item .page-link:focus, body .pagination .page-item .page-link.active {
-  background-color: #073848;
-  border-color: #073848;
+  background-color: rgb(238, 134, 134);
+  border-color: rgb(238,134,134);
 }
 
 body div#content {
