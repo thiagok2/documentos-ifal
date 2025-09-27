@@ -3030,7 +3030,7 @@ body {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background: #f0f0f0;
+  background: #ffffff;
   /* página de unidades */
   /* fim página de unidades */
 }
@@ -3046,17 +3046,17 @@ body hr.split-sm {
   height: 20px;
   margin: 0;
 }
-
+/*
 body a {
   color: #12586f;
 }
 
 body a:hover, body a:focus, body a.active {
   color: #073848;
-}
-
+} retirado por possivel conflito.
+*/ 
 body .badge-info {
-  background-color: #87b08a;
+  background-color: #5ca060;
   white-space: normal;
   text-align: left;
 }
@@ -3082,16 +3082,31 @@ body .btn {
   margin-bottom: 10px;
 }
 
+.btn.btn-outline-secondary:hover, .btn.btn-outline-secondary:focus, .btn.btn-outline-secondary.active, .btn.btn-outline-secondary.bg-secondary{
+  color:#ffffff !important;
+  background-color:#14791b !important;
+}
+
 body .btn.btn-primary {
-  background-color: #87b08a;
-  border-color: #87b08a;
+  background-color: #14791b;
+  border-color: #14791b;
+  color: white;
+}
+body .btn-secondary{
+  background-color: #14791b;
+  border-color: #14791b;
   color: white;
 }
 
 body .btn.btn-primary:hover, body .btn.btn-primary:focus, body .btn.btn-primary.active {
-  background-color: #126c00;
-  border-color: #126c00;
+  background-color: #5ca060; /*#126c00*/
+  border-color: #5ca060;
   color: white;
+}
+body .btn-secondary:hover, body .btn-secondary:focus, body .btn-secondary.active{
+  background-color: #5ca060; /*#126c00*/
+  border-color: #5ca060; /*#87b08a*/
+  color: white; 
 }
 
 body .btn.btn-login {
@@ -3144,19 +3159,25 @@ body #results .card-columns {
   column-count: 2;
 }
 
+.rating-container .rating-stars {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
 body #results .rating-container .caption {
   display: none;
+  pointer-events: none;
 }
 
 body .pagination .page-item .page-link {
-  background-color: #87b08a;
-  border-color: #87b08a;
+  background-color: #5ca060;
+  border-color: #5ca060;
   color: #ffffff !important;
 }
 
 body .pagination .page-item .page-link:hover, body .pagination .page-item .page-link:focus, body .pagination .page-item .page-link.active {
-  background-color: rgb(238, 134, 134);
-  border-color: rgb(238,134,134);
+  background-color: #14791b;
+  border-color: #14791b;
 }
 
 body div#content {
