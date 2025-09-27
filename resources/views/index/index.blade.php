@@ -304,7 +304,7 @@
         @if (isset($fonte) && isset($conselho))
         <div class="row">
             <div class="col-lg-10 offset-lg-1 mt-3">
-                <div>?query=boletim&fonte=IFAL
+                <div>
                     <h4 class="rounded">
                     {{$conselho->nome}}
                     <a class="pull-right" href="{{route('unidades-page',$conselho->friendly_url)}}" style="color:white;">
