@@ -137,6 +137,17 @@ class IndexController extends Controller
                     
                     $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato', $publico);
                     $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
+
+                    // Busca não respondeu com tipo, buscar sem tipo
+                    if($resultA0->totalResults == 0 && $resultA1->totalResults == 0){
+                        unset($queryFilters['tipo_doc']);
+                        
+                        $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato', $publico);
+                        $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000);
+
+                        $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato', $publico);
+                        $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
+                    } 
                     
                     // Primeira fonte: A0
                     $docIdsA0 = [];
