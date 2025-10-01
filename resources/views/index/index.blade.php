@@ -44,16 +44,28 @@
 </script>
 
 <style>
+    .descricao{
+        font-size: 17px;
+        margin-right: 15px;
+    }
+    body{
+        background-color: white !important;
+    }
     a{
         text-decoration: none !important;
         color: inherit;
     }
 
+    .card-primary{
+        border: none !important;
+    }
     .card-primary:not(.card-outline)>.card-header{
         background-color: #45a050;
+        border: none !important;
     }
     .card-secondary:not(.card-outline)>.card-header{
         background-color: #5c655c;
+        border: none !important;
     }
     .tooltip-custom {
         position: relative;        
@@ -382,9 +394,9 @@
                             'card-secondary' => $changePrivateFlag,
                             'card-primary' => !$changePrivateFlag,
                         ])>
-                            <div class="card-header">
+                            <div style="background-color: white !important;" class="card-header">
                                 <h6>
-                                <a style="color: white !important" id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
+                                <a style="color: black !important;font-size: 25px;" id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
                                     <i class="fa fa-external-link"></i>                                      
                                     {{ $doc['titulo'] }}                   
                                 </a>
@@ -410,22 +422,20 @@
                                     )
                                     <strong>Ementa:&nbsp;&nbsp;</strong>{{ $doc['ementa'] }}
                                     <hr/>
-                                @endif --}}
-                                <strong>Ementa:&nbsp;&nbsp;</strong>{{ $doc['ementa'] }}
-                                <hr/>
+                                @endif --}}{{--
+                                <span style="font-size: 20px">{{ $doc['ementa'] }}</span>
+                                <hr/>--}}
                                 
 
                                 <div class="row">
-                                    <div class="col-md-10">
-                                        @if (!empty($doc['numero']))
-                                        <strong>Número:</strong> {{ $doc['numero']}}
-                                        <br/>
+                                    <div class=" col-md-10">
+                                        @if (!empty($doc['numero']) && $doc['numero'] != '00/00' )
+                                        <span class="descricao">  {{ $doc['numero']}} </span>
                                         @endif                                        
-                                        @if (!empty($doc['tipo_doc']))
-                                        <strong>Tipo:</strong> {{ $doc['tipo_doc']}}
+                                        @if (!empty($doc['tipo_doc']) && $doc['tipo_doc'] != 'Indefinido' && $doc['tipo_doc'] != 'Indeterminado')
+                                        <span class="descricao">  {{ $doc['tipo_doc']}} </span>
                                         @endif                                                                
-                                        <br/>
-                                        <strong>Fonte:</strong>
+                                        <span class="descricao">
                                             @if (isset($doc['fonte']['sigla']))
                                             <a href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
                                                 {{ $doc['fonte']['orgao'] }}
@@ -433,27 +443,26 @@
                                             @else
                                                 {{ $doc['fonte']['orgao'] }}
                                             @endif
-
-
-                                        <br/>
-                                        <strong>Publicação:</strong>
+                                        </span>                                            
                                             @php
                                                 $anoDocumento = date('Y', strtotime($doc['data_publicacao']));
                                             @endphp
-
+                                            
                                             @if($anoDocumento != '1800')
+                                            <span class="descricao">  
                                                 {{ date('d/m/Y', strtotime($doc['data_publicacao'])) }}
                                             @else
-                                                Não informado
+                                                
                                             @endif
+                                            </span>
                                         @if (!empty($doc['tags']) && is_string($doc['tags']))
-                                            <br />
-                                            <strong>Palavras-Chave:</strong>
+                                            <span class="descricao">
                                             @foreach (explode(',', $doc['tags']) as $tag)
                                                 <a href="?query={{ trim($tag) }}" class="badge badge-info">
                                                     {{ trim($tag) }}
                                                 </a>
                                             @endforeach
+                                            </span>
                                         @endif
                                         
                                     </div>                                    
@@ -468,14 +477,14 @@
                                     </div>
                                 </div>
                                 <hr class="split-sm">
-                                <button id='popoverBtn' data-bs-toggle="popover" data-bs-placement="top" data-bs-title="Título do Popover" data-bs-content="Este é o conteúdo do popover." @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse" data-target="#trechos-{{$loop->index}}" aria-expanded="false" aria-controls="highlight-collapse-{{$doc['id']}}" 
+                                <button id='popoverBtn' data-bs-toggle="popover" data-bs-placement="top" data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse" data-target="#trechos-{{$loop->index}}" aria-expanded="false" aria-controls="highlight-collapse-{{$doc['id']}}" 
                                     {{empty($doc['trechos_destaque']) ? 'disabled':''}}>
-                                    <i class="fa fa-quote-right"></i> Trechos encontrados
+                                    <i class="fa fa-quote-right"></i>
             
                                 </button>
 
                                 <a style="color: white !important" href="/normativa/pdf/{{ $doc['id'] }}" @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) target="_blank">
-                                    <i class="fa fa-download"></i> Baixar
+                                    <i class="fa fa-download"></i> 
                                 </a>
 
                                 @auth
@@ -536,12 +545,12 @@
                                 <a href="?query={{ urlencode($query) }}&page={{ 1 }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}&publico={{$changePrivateFlag ? 0 : 1}}"
                                     class="page-link" tabindex="-1">Primeira</a>
                             </li>
-'                            <li class="page-item">
+                            <li class="page-item">
                                 <a href="?query={{ urlencode($query) }}&page={{ ($page - 1) }}&esfera={{ $esfera }}&fonte={{ $fonte }}&ano={{$ano}}&periodo={{$periodo}}&publico={{$changePrivateFlag ? 0 : 1}}"
                                     class="page-link" tabindex="-1">Anterior</a>
                             </li>
                             @endif
-'
+
                             @if($total_pages > 0 && $page <= $total_pages)
 
                                 @php($auxb = $page+5>$total_pages ? 9-($total_pages-$page)  : 5 )                                

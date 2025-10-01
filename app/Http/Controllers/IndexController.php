@@ -52,7 +52,7 @@ class IndexController extends Controller
 
         $size_page = $request->has('page_size') ? $request->query("page_size") : self::RESULTS_PER_PAGE;
 
-        $publico = filter_var($request->query("publico", false), FILTER_VALIDATE_BOOLEAN);
+        $publico = filter_var($request->query("publico", true), FILTER_VALIDATE_BOOLEAN);
         $tipo_doc = $request->query("tipo_doc");
         $esfera = $request->query("esfera");
         $periodo = $request->query("periodo");
@@ -103,7 +103,8 @@ class IndexController extends Controller
                 $hasFilterTipoDoc = TipoDocumento::where('nome', 'ilike', $beginTerm)->count();
 
                 if ($hasFilterTipoDoc) {
-                    $query = str_replace($beginTerm, "", $query);
+
+                    $query = count($arrayTerms) > 1 ? str_replace($beginTerm, "", $query) : $query;
                     $queryFilters['tipo_doc'] = $beginTerm;
                     $tipo_doc = $beginTerm;
                 }
@@ -130,7 +131,7 @@ class IndexController extends Controller
                 }
                 else{
                     // Executa A0 e A1
-
+                    
                     $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato', $publico);
                     $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000); // recupera até 1000 resultados para evitar paginação fragmentada
                     
