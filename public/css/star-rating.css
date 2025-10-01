@@ -105,17 +105,20 @@
 .rating-container .clear-rating {
     color: #aaa;
     cursor: not-allowed;
-    display: inline-block;
+    /* display: inline-block; */
+    display: none;
     vertical-align: middle;
     font-size: 60%;
 }
 
 .clear-rating-active {
     cursor: pointer !important;
+    display: none;
 }
 
 .clear-rating-active:hover {
     color: #843534;
+    display: none;
 }
 
 .rating-container .clear-rating {
