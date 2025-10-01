@@ -20,6 +20,7 @@ yarn-error.log
 /.vscode
 /data
 /crawler/pdfs
+/crawler/logs
 crawler/pdfs/5-resultado-preliminar-inscricoes-deferidas.pdf
 __pycache__/
 **/__pycache__/
