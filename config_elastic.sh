@@ -69,6 +69,11 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
       }
     }
   },
+
+  "highlight":{
+    "max_analyzed_offset": 5000000
+  },
+  
   "mappings": {
     "properties": {
       "ato": {
