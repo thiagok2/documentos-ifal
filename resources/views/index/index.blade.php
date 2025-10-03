@@ -44,10 +44,10 @@
     </script>
 
     <style>
-        .descricao {
+        /* .descricao {
             font-size: 17px;
             margin-right: 15px;
-        }
+        } */
 
         body {
             background-color: white !important;
@@ -140,12 +140,22 @@
         }
         .card-down{
             margin-left: 24px;
-            color: #636363 ;
+            color: #636363;
+            padding: 0;
+        }
+        .card-header{
+            padding: 0;
         }
         .btn-new{
             color: #5ca060 !important;
             background-color: #ffffff !important;
             border: solid 1px #5ca060 !important;
+        }
+        .descricao{
+            margin-right: 20px;
+        }
+        .discreta{
+            color: #888888
         }
     </style>
 
@@ -602,7 +612,7 @@
 
                             @endauth
                             <!-- </div> -->
-                            <div style="display: flex; flex-direction: row; gap: 5px; margin-top: 15px;">
+                            <div style="display: flex;justify-content: flex-end; flex-direction: row; gap: 5px; margin-top: 15px;">
                                 <button id='popoverBtn' {{-- data-bs-toggle="popover" data-bs-placement="top"
                                     data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." --}}
                                     @class(['btn-new','btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse"
@@ -639,6 +649,7 @@
                                 @endif
                             </div>
                         </div>
+                        <hr class="discreta">
                         <!-- </div> -->
                     </div>
                 </div>
