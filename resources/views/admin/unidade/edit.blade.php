@@ -110,7 +110,7 @@
                                             <input type="text" class="form-control" value="{{ $unidade->friendly_url }}" name="friendly_url" id="friendly_url" required>
                                         </div>
                                     
-                                        <small id="friendly_url_help" class="form-text text-muted">URL Interna para a plataforma normativas</small>                                
+                                        <small id="friendly_url_help" class="form-text text-muted">URL Interna para a plataforma</small>                                
                                     </div>
                                 </div>                         
                                     
@@ -320,7 +320,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    <div class="card-header">Atos normativos cadastrados ({{$documentos->total()}})</div>
+                    <div class="card-header">Documentos cadastrados ({{$documentos->total()}})</div>
                     <div class="card-body">
                         <div class="row">
                             @forelse ($documentos as $doc)

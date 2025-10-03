@@ -3100,7 +3100,7 @@ fieldset:disabled a.btn {
 
 .btn-dark {
   color: #fff;
-  background-color: #343a40;
+  background-color: #5ca060;
   border-color: #343a40;
 }
 
@@ -5627,7 +5627,7 @@ input[type="button"].btn-block {
 
 .badge-dark {
   color: #fff;
-  background-color: #343a40;
+  background-color: #5ca060;
 }
 
 .badge-dark[href]:hover,

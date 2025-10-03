@@ -317,7 +317,7 @@ class IndexController extends Controller
 
     public function arrayPaginator($array, $request)
     {
-        $page = Input::get('page', 1);
+        $page = Request()->get('page', 1);;
         $perPage = 20;
         $offset = ($page * $perPage) - $perPage;
 

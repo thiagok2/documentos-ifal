@@ -11,7 +11,7 @@
         gtag('config', 'G-0M43YF0CSW');
         </script>
 
-        <title>@yield("title", "Portal Atos Documentos IFAL - Uma plataforma de buscas sobre portarias, resoluções e decretos")</title>
+        <title>@yield("title", "Portal Documentos IFAL - Uma plataforma de buscas sobre portarias, resoluções e decretos")</title>
 
         <meta name="robots" content="index, follow">
         

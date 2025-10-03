@@ -112,7 +112,8 @@
             <div class="col-lg-2 offset-lg-1">
                 <h1>
                 <a href="{{route('index')}}">
-                    <img class="img-fluid" src="/img/normativos-logo.png" srcset="/img/normativos-logo@2x.png 2x" alt="Normativas" /></h1>
+                    <!-- <img src="/img/" srcset="/img/normativos-logo@2x.png 2x" alt="Documentos IFAL" /> -->
+                    <h1 style="color: aliceblue">Documentos <strong style="color: limegreen"> IFAL </strong></h1>
                 </a>
             </div>
             <div class="col-lg-4"></div>
@@ -154,7 +155,7 @@
                             @if ($unidade->documentos_count > 0)
                                 <p class="n-atos">
                                     <span>{{$unidade->documentos_count}}</span>
-                                    <em>atos normativos cadastrados</em>
+                                    <em>documentos cadastrados</em>
                                 </p>
                                 <br />
                             @endif
@@ -165,9 +166,9 @@
                             <div class="tooltip-custom">
                                 <span class="tooltiptext" id="tooltip-{{ $unidade->id}}">Link copiado!</span>
                                 <input aria-hidden="true" id="url-{{ $unidade->id}}"/>
-                                <button class="btn btn-mobile btn-light btn-pill btn-sm" type="button" onclick="share('{{ $unidade->id}}','{{$unidade->sigla}}','{{$unidade->nome}}')">
+                                <!-- <button class="btn btn-mobile btn-light btn-pill btn-sm" type="button" onclick="share('{{ $unidade->id}}','{{$unidade->sigla}}','{{$unidade->nome}}')">
                                     <i class="fa fa-share-alt"></i> Compartilhar conselho
-                                </button>                                        
+                                </button>                                         -->
                             </div>                            
                         </div>
                     </div>
@@ -207,7 +208,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="card no-border">
                                                         <div class="card-header">
-                                                            Sobre o Conselho
+                                                           
                                                         </div>
                                                         <div class="card-body pl-0 pr-0">
                                                             <div class="row pl-3 pr-3">
@@ -243,7 +244,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="card no-border">
                                                         <div class="card-header">
-                                                            Contato
+                                                            
                                                         </div>
                                                         <div class="card-body pl-0 pr-0">
                                                             <div class="row pl-3 pr-3">

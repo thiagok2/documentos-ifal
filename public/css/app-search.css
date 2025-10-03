@@ -3062,8 +3062,8 @@ body .badge-info {
 }
 
 body h4 {
-  background-color: #12586f;
-  color: #ffffff;
+  font-weight: 'bold';
+  color: #14791b;
   padding: 6px 16px;
 }
 
@@ -3130,9 +3130,9 @@ body .form-control-sm {
 }
 
 body .nav-tabs .nav-item .nav-link.active {
-  background-color: #12586f;
-  color: #ffffff;
-  border-color: #12586f;
+  background-color: #5ca060;
+  color: #ffffff !important;
+  border-color: #5ca060;
 }
 
 body .card.no-border {
@@ -3196,7 +3196,7 @@ body footer img:last-child {
 
 body #unidade .box-head {
   padding: 20px;
-  background-color: #12586f;
+  background-color: #5ca060;
   color: #ffffff;
 }
 

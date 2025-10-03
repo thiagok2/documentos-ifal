@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\Models\Consulta;
@@ -12,6 +11,7 @@ use App\Services\UsuarioQuery;
 
 
 use App\User;
+use Symfony\Component\Console\Input\Input;
 
 class ConsultaController extends Controller
 {
@@ -57,7 +57,7 @@ class ConsultaController extends Controller
 
     public function arrayPaginator($array, $request)
     {
-        $page = Input::get('page', 1);
+        $page = Request()->get('page', 1);;
         $perPage = 20;
         $offset = ($page * $perPage) - $perPage;
 
