@@ -10556,3 +10556,8 @@ a{
 .switch-input:checked + .switch-label .switch-slider::before {
   transform: translateX(24px);
 }
+
+.documento-titulo-n2 {
+  font-weight: 'bold';
+  color: '#5ca060';
+}

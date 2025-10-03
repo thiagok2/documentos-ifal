@@ -3304,3 +3304,18 @@ label .form-label {
 }
 
 /*# sourceMappingURL=app-search.css.map */
+
+.badge-green {
+    color: #fff;
+    background-color: #5ca060;
+}
+
+.badge-green .active {
+    color: #5ca060;
+    background-color: #fff;
+}
+
+.documento-titulo-n2 {
+  font-weight: 'bold';
+  color: '#5ca060';
+}

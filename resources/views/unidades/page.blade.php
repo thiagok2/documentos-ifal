@@ -148,7 +148,7 @@
                                 <h2>{{$unidade->sigla}}</h2>
                             @endif
                             @if (isset($unidade->confirmado_em))
-                                <small><b>Data de ingresso:</b> {{date('d/m/Y', strtotime($unidade->confirmado_em))}}</small>
+                                <small>Data de ingresso: {{date('d/m/Y', strtotime($unidade->confirmado_em))}}</small>
                             @endif
                         </div>
                         <div class="col-lg-4 text-right">
@@ -194,7 +194,7 @@
                         <ul class="nav nav-tabs">
                             <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#info">Info</a></li>
                             @forelse ($tiposTotal as $i => $tipo)
-                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#{{$tipo->tipo}}">{{$tipo->tipo}} <span class="badge badge-pill badge-dark">{{$tipo->total}}</span></a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#{{$tipo->tipo}}">{{$tipo->tipo}} <span class="badge badge-pill badge-dark badge-green">{{$tipo->total}}</span></a></li>
                             @empty
                             @endforelse
                         </ul>
@@ -206,13 +206,13 @@
                                             <div class="row mt-4">
                                                 <div class="col-lg-6">
                                                     <div class="card no-border">
-                                                        <div class="card-header">
+                                                        <!-- <div class="card-header">
                                                            
-                                                        </div>
+                                                        </div> -->
                                                         <div class="card-body pl-0 pr-0">
                                                             <div class="row pl-3 pr-3">
                                                                 <div class="col-lg-4">
-                                                                    <i class="fa fa-users"></i> <b><i>Gestão:</i></b>
+                                                                    <i class="fa fa-users"></i> <i>Gestão:</i>
                                                                 </div>
                                                                 <div class="col-lg-8">
                                                                     <span class="form-value">{{$unidade->contato}}</span><br />
@@ -222,7 +222,7 @@
                                                             <hr>
                                                             <div class="row pl-3 pr-3">
                                                                 <div class="col-lg-4">
-                                                                    <i class="fa fa-adjust"></i> <b><i>Esfera:</i></b>
+                                                                    <i class="fa fa-adjust"></i> <i>Esfera:</i>
                                                                 </div>
                                                                 <div class="col-lg-8">
                                                                     {{$unidade->esfera}}
@@ -231,7 +231,7 @@
                                                              <hr>
                                                             <div class="row pl-3 pr-3">
                                                                 <div class="col-lg-4">
-                                                                    <i class="fa fa-globe"></i> <b><i>Localização:</i></b>
+                                                                    <i class="fa fa-globe"></i> <i>Localização:</i>
                                                                 </div>
                                                                 <div class="col-lg-8">
                                                                     {{$unidade->estado['nome'].' ('.$unidade->estado['sigla'].')'}}
@@ -242,13 +242,13 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="card no-border">
-                                                        <div class="card-header">
+                                                        <!-- <div class="card-header">
                                                             
-                                                        </div>
+                                                        </div> -->
                                                         <div class="card-body pl-0 pr-0">
                                                             <div class="row pl-3 pr-3">
                                                                 <div class="col-lg-4">
-                                                                     <i class="fa fa-envelope"></i> <b><i>Email:</i></b>
+                                                                     <i class="fa fa-envelope"></i> <i>Email:</i>
                                                                 </div>
                                                                 <div class="col-lg-8">
                                                                     {{$unidade->email}}
@@ -257,7 +257,7 @@
                                                             <hr>
                                                             <div class="row pl-3 pr-3">
                                                                 <div class="col-lg-4">
-                                                                    <i class="fa fa-phone"></i> <b><i>Telefone:</i></b>
+                                                                    <i class="fa fa-phone"></i> <i>Telefone:</i>
                                                                 </div>
                                                                 <div class="col-lg-8">
                                                                     <a href="tel:{{$unidade->telefone}}">{{$unidade->telefone}}</a>
@@ -266,7 +266,7 @@
                                                              <hr>
                                                             <div class="row pl-3 pr-3">
                                                                 <div class="col-lg-4">
-                                                                    <i class="fa fa-map-marker"></i> <b><i>Endereço:</i></b>
+                                                                    <i class="fa fa-map-marker"></i> <i>Endereço:</i>
                                                                 </div>
                                                                 <div class="col-lg-8">
                                                                     {{$unidade->endereco}}
@@ -282,14 +282,14 @@
                                             <div id="{{$tipo->tipo}}" class="tab-pane fade in">
                                                 <div class="card mt-4">
                                                     <div class="card-body">
-                                                        <div class="alert" style="background-color: #357a90; color: #ffffff;">
+                                                        <div class="alert" style="background-color: #5ca060; color: #ffffff;">
                                                             @if ($tipo->total > 25)
                                                                 Listando apenas 25 documentos. <br/>
                                                                 Para ver mais <a class="text-light" href="{{route('index', ['query' => $unidade->local(),'fonte' => $unidade->sigla])}}">clique aqui</a>
                                                             @elseif ($tipo->total > 1)
                                                                 Listando todos os <strong>{{$tipo->total}}</strong> documentos. <br/>
                                                             @else
-                                                                Listando <strong>1</strong> ato normativo. <br/>
+                                                                Apenas um documento
                                                             @endif                                                            
                                                         </div>
                                                         
@@ -298,21 +298,22 @@
                                                                 @foreach ($docs as $doc)                                                        
                                                                     <article class="row">
                                                                         <div class="col-lg-12">
-                                                                            <div class="card mb-3">
-                                                                                <div class="card-header">
-                                                                                    <h6>
+                                                                            <div class="mb-3">
+                                                                                
+                                                                                    <h6 class="documento-titulo-n2">
                                                                                         <a id="a-doc-{{$doc['id']}}" href="/normativa/view/{{ $doc['arquivo'] }}">
                                                                                             <i class="fa fa-external-link"></i>                                      
                                                                                             {{ $doc['titulo'] }}                   
                                                                                         </a>
                                                                                     </h6>
-                                                                                </div>
-
-                                                                                <div class="card-body">
+                                                                                
                                                                                     @if ( isset($doc['ementa']) && 
                                                                                         (substr( $doc['ementa'] , -10) !=  substr($doc['titulo'], -10))
                                                                                         )
-                                                                                        <strong>Ementa:&nbsp;&nbsp;</strong>{{ $doc['ementa'] }}
+                                                                        
+                                                                                        <span style="font-size: 0.85rem;">
+                                                                                          {{ $doc['ementa'] }}
+                                                                                        </span>
                                                                                         <hr/>
                                                                                     @endif
                                                                                     
@@ -320,14 +321,14 @@
                                                                                     <div class="row">
                                                                                         <div class="col-md-10">
                                                                                             @if (!empty($doc['numero']))
-                                                                                            <strong>Número:</strong> {{ $doc['numero']}}
+                                                                                            Número: {{ $doc['numero']}}
                                                                                             @endif
 
                                                                                             <br/>
-                                                                                            <strong>Publicação:</strong> {{ date('d/m/Y', strtotime($doc['data_publicacao'] )) }}
+                                                                                            Publicação: {{ date('d/m/Y', strtotime($doc['data_publicacao'] )) }}
                                                                                             @if($doc['tags'])                                            
                                                                                                 <br />
-                                                                                                <strong>Palavras-Chave:</strong>
+                                                                                               Palavras-Chave:
                                                                                                 @foreach ($doc['tags'] as $tag)
                                                                                                     <a href="?query={{$tag}}" class="badge badge-info">
                                                                                                         {{ $tag }}
@@ -390,7 +391,7 @@
                                                                                     @endif
                                                                                     </div>
 
-                                                                                </div>
+                                                                                
                                                                             </div>
                                                                         </div>
                                                                     </article>

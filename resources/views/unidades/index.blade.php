@@ -145,30 +145,30 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-11 d-flex flex-column">
-                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-asterisk pull-left"></i>
+                                    <span class="mb-1 d-flex align-items-center"><i class="fa fa-asterisk pull-left"></i>
                                         {{$u->esfera}}
-                                    </strong>
+                                    </span>
                     
-                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-envelope pull-left"></i>
+                                    <span class="mb-1 d-flex align-items-center"><i class="fa fa-envelope pull-left"></i>
                                         {{$u->email}}
-                                    </strong>
+                                    </span>
                     
-                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-external-link-square pull-left"></i>
+                                    <span class="mb-1 d-flex align-items-center"><i class="fa fa-external-link-square pull-left"></i>
                                         <a class="form-value" href="{{$u->url}}" target="_blank">{{$u->url}}</a>
-                                    </strong>
+                                    </span>
                     
-                                    <strong class="mb-1 d-flex align-items-center"><i class="fa fa-phone-square pull-left"></i>
+                                    <span class="mb-1 d-flex align-items-center"><i class="fa fa-phone-square pull-left"></i>
                                         @if($u->telefone)<a href="tel:{{$u->telefone}}">{{$u->telefone}}</a>@else 0000-0000 @endif
-                                    </strong>
+                                    </span>
                     
-                                    <strong class="mb-1 d-flex align-items-center">
+                                    <span class="mb-1 d-flex align-items-center">
                                         <i class="fa fa-user-circle pull-left"></i>
                                         <span class="form-value">{{$u->contato}}</span>
                                         @if($u->contato2)
                                         <i class="fa fa-user-circle pull-left"></i>
                                         <span class="form-value">{{$u->contato2}}</span>
                                         @endif
-                                    </strong>
+                                    </span>
                                 </div>    
                                 <div class="col-lg-1">
                                     <div class="tooltip-custom">
@@ -187,7 +187,7 @@
 
                             @if (isset($u->confirmado_em))
                             <div class="col-lg-8">
-                                <label class="form-label"><strong>Ingressou na plataforma em:</strong></label>
+                                <label class="form-label"><span>Ingressou na plataforma em:</span></label>
                                 <span class="form-value">{{date('d/m/Y', strtotime($u->confirmado_em))}}</span>
                             </div>
                             @endif                            
