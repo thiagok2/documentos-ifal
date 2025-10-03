@@ -45,20 +45,20 @@
 
     <style>
         /* .descricao {
-                font-size: 17px;
-                margin-right: 15px;
-            } */
+                        font-size: 17px;
+                        margin-right: 15px;
+                    } */
 
         body {
             background-color: white !important;
         }
 
         /*
-                                    a{
-                                        text-decoration: none !important;
-                                        color: inherit;
-                                    } retirado por conflito
-                                    */
+                                            a{
+                                                text-decoration: none !important;
+                                                color: inherit;
+                                            } retirado por conflito
+                                            */
 
         .card-primary {
             border: none !important;
@@ -161,6 +161,16 @@
 
         .discreta {
             color: #888888
+        }
+
+        .buttons-card {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: row;
+            gap: 5px;
+            margin-left: 24px;
+            margin-top: 15px;
         }
     </style>
 
@@ -360,37 +370,37 @@
                                 </div>
                             </div>
                             <!--<div class="row">
-                                                            <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
-                                                                <select class="form-control" name="esfera" >
-                                                                    <option value="all" <?php    if ($esfera == "all") {
+                                                                    <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
+                                                                        <select class="form-control" name="esfera" >
+                                                                            <option value="all" <?php    if ($esfera == "all") {
             echo ' selected';
         }?>>Todas as Esferas</option>
-                                                                    <option value="Federal" <?php    if ($esfera == "Federal") {
+                                                                            <option value="Federal" <?php    if ($esfera == "Federal") {
             echo ' selected';
         }?>>Federal</option>
-                                                                    <option value="Estadual" <?php    if ($esfera == "Estadual") {
+                                                                            <option value="Estadual" <?php    if ($esfera == "Estadual") {
             echo ' selected';
         }?>>Estadual</option>
-                                                                    <option value="Municipal" <?php    if ($esfera == "Municipal") {
+                                                                            <option value="Municipal" <?php    if ($esfera == "Municipal") {
             echo ' selected';
         }?>>Municipal</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col col-12 col-lg-4 mb-1">
-                                                                <select class="form-control" name="periodo">
-                                                                    <option value="all">Desde o princípio</option>
-                                                                    <option value="<?php    echo date("Y"); ?>" <?php    if ($periodo == date("Y")) {
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col col-12 col-lg-4 mb-1">
+                                                                        <select class="form-control" name="periodo">
+                                                                            <option value="all">Desde o princípio</option>
+                                                                            <option value="<?php    echo date("Y"); ?>" <?php    if ($periodo == date("Y")) {
             echo ' selected';
         }?>>Deste Ano</option>
-                                                                    <option value="<?php    echo (date("Y") - 2); ?>" <?php    if ($periodo == date("Y") - 2) {
+                                                                            <option value="<?php    echo (date("Y") - 2); ?>" <?php    if ($periodo == date("Y") - 2) {
             echo ' selected';
         }?>>Últimos 2 anos</option>
-                                                                    <option value="<?php    echo (date("Y") - 5); ?>" <?php    if ($periodo == date("Y") - 5) {
+                                                                            <option value="<?php    echo (date("Y") - 5); ?>" <?php    if ($periodo == date("Y") - 5) {
             echo ' selected';
         }?>>Últimos 5 anos</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>-->
+                                                                        </select>
+                                                                    </div>
+                                                                </div>-->
                         </div>
                     </form>
                 </div>
@@ -538,7 +548,7 @@
                             <span style="font-size: 20px">{{ $doc['ementa'] }}</span>
                             <hr />--}}
                             <!-- <div class="row">
-                                                            <div class=" col-md-10"> -->
+                                                                    <div class=" col-md-10"> -->
                             @if (!empty($doc['numero']) && $doc['numero'] != '00/00')
                                 <span class="descricao"> {{ $doc['numero']}} </span>
                             @endif
@@ -546,14 +556,14 @@
                                 <span class="descricao"> {{ $doc['tipo_doc']}} </span>
                             @endif
                             <!-- <span class="descricao">
-                                                                            @if (isset($doc['fonte']['sigla']))
-                                                                            <a href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
-                                                                                {{ $doc['fonte']['orgao'] }}
-                                                                            </a>
-                                                                            @else
-                                                                                {{ $doc['fonte']['orgao'] }}
-                                                                            @endif
-                                                                        </span>                                             -->
+                                                                                    @if (isset($doc['fonte']['sigla']))
+                                                                                    <a href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
+                                                                                        {{ $doc['fonte']['orgao'] }}
+                                                                                    </a>
+                                                                                    @else
+                                                                                        {{ $doc['fonte']['orgao'] }}
+                                                                                    @endif
+                                                                                </span>                                             -->
                             @php
                                 $anoDocumento = date('Y', strtotime($doc['data_publicacao']));
                             @endphp
@@ -578,13 +588,13 @@
                             <!-- </div> -->
                             <!-- <div class="col-md-2"> -->
                             <!--
-                                                                        <div class="tooltip-custom">
-                                                                            <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
-                                                                            <input aria-hidden="true" id="url-{{ $doc['id']}}"/>
-                                                                            <button class="btn btn-secondary pull-right" type="button" onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
-                                                                                <i class="fa fa-share-alt"></i>
-                                                                            </button>                                        
-                                                                        </div>-->
+                                                                                <div class="tooltip-custom">
+                                                                                    <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
+                                                                                    <input aria-hidden="true" id="url-{{ $doc['id']}}"/>
+                                                                                    <button class="btn btn-secondary pull-right" type="button" onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
+                                                                                        <i class="fa fa-share-alt"></i>
+                                                                                    </button>                                        
+                                                                                </div>-->
                             <!-- </div> -->
                             <!-- </div> -->
                             <!--<hr class="split-sm">-->
@@ -618,21 +628,7 @@
 
                             @endauth
                             <!-- </div> -->
-                            <div
-                                style="display: flex;justify-content: flex-end;align-items: flex-start; flex-direction: row; gap: 5px; margin-top: 15px;">
-                                <div id="trechos-{{$loop->index}}" class="collapse">
-                                    @if (!empty($doc['trechos_destaque']))
-                                        <small>
-                                            <ul class="list-group">
-                                                @foreach ($doc['trechos_destaque'] as $highlight)
-                                                    <li class="list-group-item">
-                                                        <?php                echo html_entity_decode($highlight); ?>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </small>
-                                    @endif
-                                </div>
+                            <div class="buttons-card">
                                 <button id='popoverBtn' {{-- data-bs-toggle="popover" data-bs-placement="top"
                                     data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." --}}
                                     @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse"
@@ -653,6 +649,19 @@
                                         <i class="fa fa-share-alt"></i>
                                     </button>
                                 </div>
+                            </div>
+                            <div id="trechos-{{$loop->index}}" class="collapse">
+                                @if (!empty($doc['trechos_destaque']))
+                                    <small>
+                                        <ul class="list-group">
+                                            @foreach ($doc['trechos_destaque'] as $highlight)
+                                                <li class="list-group-item">
+                                                    <?php                echo html_entity_decode($highlight); ?>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </small>
+                                @endif
                             </div>
                         </div>
                         <hr class="discreta">

@@ -3079,8 +3079,9 @@ body .highlight {
 body .highlight_word {
   font-weight: bold;
   font-size: 1em;
-  background: #ffff00;
+  background: #ff0000;
   padding: 0.3% 6px;
+  color:#fff;
 }
 
 .form-control:focus {
