@@ -6,6 +6,7 @@
 /* FONT PATH
  * -------------------------- */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
 @font-face {
   font-family: 'FontAwesome';
   src: url("../fonts/fontawesome-webfont.eot?v=4.7.0");
@@ -57,7 +58,7 @@
   list-style-type: none;
 }
 
-.fa-ul > li {
+.fa-ul>li {
   position: relative;
 }
 
@@ -124,6 +125,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(359deg);
   }
@@ -171,7 +173,8 @@
   vertical-align: middle;
 }
 
-.fa-stack-1x, .fa-stack-2x {
+.fa-stack-1x,
+.fa-stack-2x {
   position: absolute;
   left: 0;
   width: 100%;
@@ -3014,7 +3017,8 @@
   border: 0;
 }
 
-.sr-only-focusable:active, .sr-only-focusable:focus {
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
   position: static;
   width: auto;
   height: auto;
@@ -3046,6 +3050,7 @@ body hr.split-sm {
   height: 20px;
   margin: 0;
 }
+
 /*
 body a {
   color: #12586f;
@@ -3054,7 +3059,7 @@ body a {
 body a:hover, body a:focus, body a.active {
   color: #073848;
 } retirado por possivel conflito.
-*/ 
+*/
 body .badge-info {
   background-color: #5ca060;
   white-space: normal;
@@ -3078,13 +3083,30 @@ body .highlight_word {
   padding: 0.3% 6px;
 }
 
+.form-control:focus {
+  border-color: #5ca060 !important;
+  box-shadow: 0 0 0 .2rem #5ca060;
+}
+
 body .btn {
   margin-bottom: 10px;
 }
 
-.btn.btn-outline-secondary:hover, .btn.btn-outline-secondary:focus, .btn.btn-outline-secondary.active, .btn.btn-outline-secondary.bg-secondary{
-  color:#ffffff !important;
-  background-color:#14791b !important;
+
+.btn.btn-outline-secondary:focus,
+.btn.btn-outline-secondary.active,
+.btn.btn-outline-secondary.bg-secondary,
+.btn.btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
+.btn.btn-outline-secondary.bg-secondary:not(:disabled):not(.disabled):active:focus {
+  color: #ffffff !important;
+  background-color: #14791b !important;
+  border-color: #14791b !important;
+  box-shadow: 0 0 0 .2rem #14791b !important;
+}
+
+.btn.btn-outline-secondary:hover {
+  color: #ffffff !important;
+  background-color: #14791b !important;
 }
 
 body .btn.btn-primary {
@@ -3092,21 +3114,38 @@ body .btn.btn-primary {
   border-color: #14791b;
   color: white;
 }
-body .btn-secondary{
+
+body .btn-secondary {
   background-color: #14791b;
   border-color: #14791b;
   color: white;
 }
 
-body .btn.btn-primary:hover, body .btn.btn-primary:focus, body .btn.btn-primary.active {
-  background-color: #5ca060; /*#126c00*/
-  border-color: #5ca060;
-  color: white;
+body .btn.btn-primary:focus,
+body .btn.btn-primary.active,
+.btn-pimary:not(:disabled):not(.disabled):active:focus {
+  background-color: #5ca060 !important;
+  /*#126c00*/
+  border-color: #5ca060 !important;
+  color: white !important;
+  box-shadow: 0 0 0 .2rem #5ca060 !important;
 }
-body .btn-secondary:hover, body .btn-secondary:focus, body .btn-secondary.active{
-  background-color: #5ca060; /*#126c00*/
-  border-color: #5ca060; /*#87b08a*/
-  color: white; 
+
+body .btn.btn-primary:hover {
+  background-color: #5ca060 !important;
+  /*#126c00*/
+  border-color: #5ca060 !important;
+  color: white !important;
+}
+
+body .btn-secondary:hover,
+body .btn-secondary:focus,
+body .btn-secondary.active {
+  background-color: #5ca060;
+  /*#126c00*/
+  border-color: #5ca060;
+  /*#87b08a*/
+  color: white;
 }
 
 body .btn.btn-login {
@@ -3160,8 +3199,8 @@ body #results .card-columns {
 }
 
 .rating-container .rating-stars {
-    pointer-events: none !important;
-    cursor: default !important;
+  pointer-events: none !important;
+  cursor: default !important;
 }
 
 body #results .rating-container .caption {
@@ -3170,14 +3209,17 @@ body #results .rating-container .caption {
 }
 
 body .pagination .page-item .page-link {
+  background-color: #ffffff;
+  border-color: #5ca060;
+  color: #5ca060 !important;
+}
+
+body .pagination .page-item .page-link:hover,
+body .pagination .page-item .page-link:focus,
+body .pagination .page-item .page-link.active {
   background-color: #5ca060;
   border-color: #5ca060;
   color: #ffffff !important;
-}
-
-body .pagination .page-item .page-link:hover, body .pagination .page-item .page-link:focus, body .pagination .page-item .page-link.active {
-  background-color: #14791b;
-  border-color: #14791b;
 }
 
 body div#content {
@@ -3237,6 +3279,7 @@ body #unidade .box-head small {
   body h1 img {
     max-width: 300px;
   }
+
   body .btn-mobile {
     display: block;
     width: 100%;
@@ -3249,6 +3292,7 @@ body #unidade .box-head small {
   body h1 img {
     max-width: 300px;
   }
+
   body .btn-mobile {
     display: block;
     width: 100%;
