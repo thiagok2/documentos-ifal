@@ -6,7 +6,7 @@
 
         if (navigator.share) {            
             navigator.share({                
-                text: 'Acesse a página do conselho: ' + nome + ' no Normativas',
+                text: 'Acesse a página da unidade: ' + nome,
                 url: url,
             })            
             .catch((error) => {});
@@ -118,7 +118,7 @@
                                 Pesquisar unidades
                             </button>
                             <a style="color: white !important" class="btn btn-info ml-1" href="/" target="_blank">
-                                <i class="fa fa-cogs"></i> Atos Normativos
+                                <i class="fa fa-cogs"></i> Documentos IFAL
                             </a>
                         </div>
                     </div>

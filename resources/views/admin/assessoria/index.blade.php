@@ -152,7 +152,7 @@
                             <div class="row">
                                 <div class="col-sm-9">
                                     <div class="form-group">
-                                        <label for="conselho_nome">Conselho *</label>
+                                        <label for="conselho_nome">Unidade *</label>
                                         <input type="text" class="form-control" name="conselho_nome" id="conselho_nome"
                                         required maxlength="255" minlength="10">
                                     </div>

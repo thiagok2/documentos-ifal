@@ -84,7 +84,7 @@
                     <i class="ion ion-search"></i>
                 </div>
                 <div class="small-box-footer">
-                    Veja os documentos do seu conselho
+                    Veja os documentos da sua unidade
                     <i class="fa fa-arrow-circle-right"></i>
                 </div>
             </div>

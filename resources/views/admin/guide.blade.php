@@ -143,7 +143,7 @@
                             <!-- Descrição e texto explicativo -->
                             <div class="timeline-item no-shadow">                    
                                 <h3 class="timeline-header no-border">Como consultar <a>Documentos</a> enviados e tratar <a>Pendências</a></h3>
-                                <p class="text">Neste vídeo, você irá conhecer as diversas formas de consultar os documentos enviados pelo seu conselho, além de como consultar, gerenciar e resolver as pendências de envios em lote e via extrator.</p>
+                                <p class="text">Neste vídeo, você irá conhecer as diversas formas de consultar os documentos enviados pelo sua unidade, além de como consultar, gerenciar e resolver as pendências de envios em lote e via extrator.</p>
                             </div>
                         </li>
                     <!-- Componente do video - fim -->
@@ -208,8 +208,8 @@
                             <i class="fa fa-book bg-primary"></i>
                             <!-- Descrição e texto explicativo -->
                             <div class="timeline-item no-shadow">                    
-                                <h3 class="timeline-header no-border">Como acrescentar novos <a>Usuários</a> no conselho e editar seu <a>Perfil</a></h3>
-                                <p class="text">Neste vídeo, você saberá os procedimentos para adição de colaboradores e outros gestores ao seu conselho, além de fazer a edição do seu perfil e usuário e como obter o link para a página do seu conselho na Plataforma Normativas.</p>
+                                <h3 class="timeline-header no-border">Como acrescentar novos <a>Usuários</a> na unidade e editar seu <a>Perfil</a></h3>
+                                <p class="text">Neste vídeo, você saberá os procedimentos para adição de colaboradores e outros gestores ao sua unidade, além de fazer a edição do seu perfil e usuário e como obter o link para a página do sua unidade na Plataforma.</p>
                             </div>
                         </li>
                     <!-- Componente do video - fim -->

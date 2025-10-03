@@ -156,7 +156,7 @@
                             </tr>
                             <tr>
                                 <th>
-                                    <strong>Conselho: </strong>
+                                    <strong>Unidade: </strong>
                                 </th>
                                 <td>
                                     {{ $normativa['ato']['fonte']['orgao'] }}

@@ -2,7 +2,7 @@
 
 @section('title', $unidade->nome )
 
-@section('description', "Página do ".$unidade->nome.". Essa plataforma disponibiliza os atos normativos deste órgão." )
+@section('description', "Página do ".$unidade->nome.". Essa plataforma disponibiliza os documentos desta unidade." )
 
 @section('keywords', $unidade->nome.','.$unidade->sigla )
 
@@ -12,7 +12,7 @@
 
         if (navigator.share) {            
             navigator.share({                
-                text: 'Acesse a página do conselho: ' + nome + ' no Normativas',
+                text: 'Acesse a página da unidade: ' + nome,
                 url: url,
             })            
             .catch((error) => {});
@@ -167,7 +167,7 @@
                                 <span class="tooltiptext" id="tooltip-{{ $unidade->id}}">Link copiado!</span>
                                 <input aria-hidden="true" id="url-{{ $unidade->id}}"/>
                                 <!-- <button class="btn btn-mobile btn-light btn-pill btn-sm" type="button" onclick="share('{{ $unidade->id}}','{{$unidade->sigla}}','{{$unidade->nome}}')">
-                                    <i class="fa fa-share-alt"></i> Compartilhar conselho
+                                    <i class="fa fa-share-alt"></i> Compartilhar unidade
                                 </button>                                         -->
                             </div>                            
                         </div>
@@ -181,7 +181,7 @@
                                 <form action="{{route('index')}}" method="GET">
                                     <div class="input-group">
                                         <input type="text" name="query" id="query" class="form-control"
-                                            placeholder="Busque atos normativos do {{$unidade->sigla}}" value=""/>
+                                            placeholder="Busque documentos a unidade {{$unidade->sigla}}" value=""/>
                                             <div class="input-group-append">
                                                 <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
                                             </div>
@@ -203,7 +203,6 @@
                             <div class="col-lg-12">
                                     <div class="tab-content">
                                         <div id="info" class="tab-pane fade in active show">
-                                            <!-- sobre o conselho -->
                                             <div class="row mt-4">
                                                 <div class="col-lg-6">
                                                     <div class="card no-border">
@@ -285,10 +284,10 @@
                                                     <div class="card-body">
                                                         <div class="alert" style="background-color: #357a90; color: #ffffff;">
                                                             @if ($tipo->total > 25)
-                                                                Listando apenas 25 atos normativos. <br/>
+                                                                Listando apenas 25 documentos. <br/>
                                                                 Para ver mais <a class="text-light" href="{{route('index', ['query' => $unidade->local(),'fonte' => $unidade->sigla])}}">clique aqui</a>
                                                             @elseif ($tipo->total > 1)
-                                                                Listando todos os <strong>{{$tipo->total}}</strong> atos normativos. <br/>
+                                                                Listando todos os <strong>{{$tipo->total}}</strong> documentos. <br/>
                                                             @else
                                                                 Listando <strong>1</strong> ato normativo. <br/>
                                                             @endif                                                            

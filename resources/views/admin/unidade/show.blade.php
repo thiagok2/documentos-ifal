@@ -18,7 +18,7 @@
 
         @if ($unidade->trashed())
             <div class="alert alert-danger" style="font-size: 120%">
-                Unidade desabilitada! Atualize os dados do conselho caso queira voltar a utiliza-lá.
+                Unidade desabilitada! Atualize os dados da unidade caso queira voltar a utiliza-lá.
             </div>                    
         @endif  
     

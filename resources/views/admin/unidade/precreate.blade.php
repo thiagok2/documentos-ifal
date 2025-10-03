@@ -10,8 +10,8 @@
     <div class="container-fluid">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a href="{{route('home')}}">Painel</a></li>
-            <li class="breadcrumb-item active"> <a href="{{route('unidades')}}" >Conselho</a></li>
-            <li class="breadcrumb-item active"> <a href="#" ><a href="#">Novo Conselho</a></li>
+            <li class="breadcrumb-item active"> <a href="{{route('unidades')}}" >Unidade</a></li>
+            <li class="breadcrumb-item active"> <a href="#" ><a href="#">Nova Unidade</a></li>
         </ol>
 
         @include('admin.includes.alerts')
@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    <div class="card-header">Novo Usuário/Conselho</div>
+                    <div class="card-header">Novo Usuário/Unidade</div>
                     <div class="card-body">
                     <form name="form" id="form" method="post" action="{{route('unidade-convidar')}}">
                             {!! csrf_field() !!}
@@ -54,7 +54,7 @@
                                             <option>Selecione</option>                                            
                                         </select>
 
-                                        <span class="help-text small text-muted">* Apenas municípios sem conselho criado.</span>
+                                        <span class="help-text small text-muted">* Apenas municípios sem unidade criada.</span>
                                     </div>
                                 </div>
                             </div><!-- end estados/municipios-->
