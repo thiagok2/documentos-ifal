@@ -3099,9 +3099,9 @@ body .btn-secondary{
 }
 
 body .btn.btn-primary:hover, body .btn.btn-primary:focus, body .btn.btn-primary.active {
-  background-color: #5ca060; /*#126c00*/
-  border-color: #5ca060;
-  color: white;
+  background-color: #5ca060 !important; /*#126c00*/
+  border-color: #5ca060 !important;
+  color: white !important;
 }
 body .btn-secondary:hover, body .btn-secondary:focus, body .btn-secondary.active{
   background-color: #5ca060; /*#126c00*/
