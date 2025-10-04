@@ -3079,9 +3079,10 @@ body .highlight {
 body .highlight_word {
   font-weight: bold;
   font-size: 1em;
-  background: #ff0000;
+  background:#E96A5A;
   padding: 0.3% 6px;
   color:#fff;
+  border-radius: 5px;
 }
 
 .form-control:focus {
@@ -3319,4 +3320,85 @@ label .form-label {
 .documento-titulo-n2 {
   font-weight: 'bold';
   color: '#5ca060';
+}
+
+/* opcional: zera qualquer decoração prévia */
+a.link-subtitulo,
+a.link-subtitulo:link,
+a.link-subtitulo:visited {
+  color: #535353 !important;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none !important;
+  text-decoration-color: currentColor;
+}
+
+/* hover/focus com mais força e especificidade */
+a.link-subtitulo:hover,
+a.link-subtitulo:focus-visible,
+.card-down.link-subtitulo:hover {
+  text-decoration-line: underline !important;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: currentColor !important;
+}
+/*-----------------------*/
+
+.container-ementa {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.container-ementa .texto-ementa {
+  flex: 1 1 85%;
+  min-width: 0;
+}
+
+.container-ementa .texto-ementa small {
+  color: #636363;
+  /* font-size: 0.9rem;*/
+  line-height: 1.45;
+}
+
+/* BOTÕES: ficam no bloco da direita (~20%) */
+.container-ementa .buttons-card {
+  flex: 0 0 15%;
+  display: flex;
+  justify-content: flex-end; /* alinhar à direita do bloco de 20% */
+  align-items: flex-start;
+  gap: 6px;                  /* espaço entre os botões */
+  flex-wrap: wrap;           /* permite quebrar para a linha de baixo se faltar largura */
+  /* text-align: right;      /* opcional se preferir, mas o flex já resolve */
+}
+
+.buttons-card .btn {
+  line-height: 1;
+  padding: 6px 10px;
+}
+
+.tooltip-custom {
+  position: relative;
+}
+.tooltip-custom input[aria-hidden="true"] {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .container-ementa {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .container-ementa .texto-ementa,
+  .container-ementa .buttons-card {
+    flex: 1 1 auto;
+  }
+  .container-ementa .buttons-card {
+    justify-content: flex-start;
+  }
 }

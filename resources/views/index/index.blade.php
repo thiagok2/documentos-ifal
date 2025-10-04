@@ -140,7 +140,7 @@
         }
 
         .card-down {
-            margin-left: 24px;
+            margin-left: 8px;
             color: #636363;
             padding: 0;
         }
@@ -156,7 +156,7 @@
         }
 
         .descricao {
-            margin-left: 24px;
+            
         }
 
         .discreta {
@@ -169,7 +169,6 @@
             align-items: flex-start;
             flex-direction: row;
             gap: 5px;
-            margin-left: 24px;
             margin-top: 15px;
         }
     </style>
@@ -529,7 +528,7 @@
 
                             </h6>
                             @if (isset($doc['fonte']['sigla']))
-                                <a class="card-down" style="color: #535353 !important; font-size: 18px;"
+                                <a class="card-down link-subtitulo"
                                     href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
                                     {{ $doc['fonte']['orgao'] }}
                                 </a>
@@ -555,15 +554,7 @@
                             @if (!empty($doc['tipo_doc']) && $doc['tipo_doc'] != 'Indefinido' && $doc['tipo_doc'] != 'Indeterminado')
                                 <span class="descricao"> {{ $doc['tipo_doc']}} </span>
                             @endif
-                            <!-- <span class="descricao">
-                                                                                    @if (isset($doc['fonte']['sigla']))
-                                                                                    <a href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
-                                                                                        {{ $doc['fonte']['orgao'] }}
-                                                                                    </a>
-                                                                                    @else
-                                                                                        {{ $doc['fonte']['orgao'] }}
-                                                                                    @endif
-                                                                                </span>                                             -->
+                     
                             @php
                                 $anoDocumento = date('Y', strtotime($doc['data_publicacao']));
                             @endphp
@@ -585,7 +576,7 @@
                                 </span>
                             @endif
 
-                            <!-- </div> -->
+                           
                             <!-- <div class="col-md-2"> -->
                             <!--
                                                                                 <div class="tooltip-custom">
@@ -596,7 +587,7 @@
                                                                                     </button>                                        
                                                                                 </div>-->
                             <!-- </div> -->
-                            <!-- </div> -->
+                         
                             <!--<hr class="split-sm">-->
 
 
@@ -628,30 +619,61 @@
 
                             @endauth
                             <!-- </div> -->
-                            <div class="buttons-card">
-                                <button id='popoverBtn' {{-- data-bs-toggle="popover" data-bs-placement="top"
-                                    data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." --}}
-                                    @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse"
-                                    data-target="#trechos-{{$loop->index}}" aria-expanded="false"
-                                    aria-controls="highlight-collapse-{{$doc['id']}}" {{empty($doc['trechos_destaque']) ? 'disabled' : ''}}>
-                                    <i class="fa fa-quote-right"></i>
+                            <div class="container-ementa">
+                                  <div class="texto-ementa">
+                                      @php
+                                          $ementa   = $doc['ementa'] ?? '';
+                                          $limit    = 500;
+                                          $hasMore  = Str::length($ementa) > $limit;
+                                          $short    = $hasMore ? Str::substr($ementa, 0, $limit) : $ementa;
+                                          $rest     = $hasMore ? Str::substr($ementa, $limit) : '';
+                                          $uid      = 'ementa-'.$doc['id'] ?? 'ementa-'.$loop->index;
+                                      @endphp
 
-                                </button>
+                                      <small class="ementa">
+                                        {!! nl2br(e($short)) !!}
 
-                                <a href="/normativa/pdf/{{ $doc['id'] }}" @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) target="_blank">
-                                    <i class="fa fa-download"></i>
-                                </a>
-                                <div class="tooltip-custom">
-                                    <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
-                                    <input aria-hidden="true" id="url-{{ $doc['id']}}" />
-                                    <button class="btn-new btn btn-secondary pull-right" type="button"
-                                        onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
-                                        <i class="fa fa-share-alt"></i>
+                                        @if($hasMore)
+                                            <a class="ementa-more"
+                                              data-bs-toggle="collapse"
+                                              href="#{{ $uid }}"
+                                              role="button"
+                                              aria-expanded="false"
+                                              aria-controls="{{ $uid }}">…(ver mais)</a>
+
+                                            <span id="{{ $uid }}" class="collapse">
+                                                {!! nl2br(e($rest)) !!}
+                                            </span>
+                                        @endif
+                                    </small>
+                                  </div>
+                                  <div class="buttons-card">
+                                    <button id='popoverBtn' {{-- data-bs-toggle="popover" data-bs-placement="top"
+                                        data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." --}}
+                                        @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse"
+                                        data-target="#trechos-{{$loop->index}}" aria-expanded="false"
+                                        aria-controls="highlight-collapse-{{$doc['id']}}" {{empty($doc['trechos_destaque']) ? 'disabled' : ''}}>
+                                        <i class="fa fa-quote-right"></i>
+
                                     </button>
-                                </div>
+
+                                    <a href="/normativa/pdf/{{ $doc['id'] }}" @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) target="_blank">
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                    <div class="tooltip-custom">
+                                        <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
+                                        <input aria-hidden="true" id="url-{{ $doc['id']}}" />
+                                        <button class="btn-new btn btn-secondary pull-right" type="button"
+                                            onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
+                                            <i class="fa fa-share-alt"></i>
+                                        </button>
+                                    </div>
+                                  </div>
                             </div>
+
                             <div id="trechos-{{$loop->index}}" class="collapse">
                                 @if (!empty($doc['trechos_destaque']))
+                                    <h6>Trechos encontrados</h6>
                                     <small>
                                         <ul class="list-group">
                                             @foreach ($doc['trechos_destaque'] as $highlight)

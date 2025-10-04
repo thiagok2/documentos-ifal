@@ -288,39 +288,39 @@
                     <div class="col-12 text-start">                   
                         <a href="http://localhost">
                             <svg width="175" height="53" viewBox="0 0 550 160" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    .text {
-      font-family: Arial, sans-serif;
-      font-size: 50px;
-      font-weight: bold;
-      dominant-baseline: middle;
-      text-anchor: start;
-      fill: #FFFFFF;
-    }
-  </style>
+                              <style>
+                                .text {
+                                  font-family: Arial, sans-serif;
+                                  font-size: 50px;
+                                  font-weight: bold;
+                                  dominant-baseline: middle;
+                                  text-anchor: start;
+                                  fill: #FFFFFF;
+                                }
+                              </style>
 
-  <g transform="translate(20, 80)">
-    <text class="text" stroke="#FFFFFF" stroke-width="2px">Documentos</text>
-  </g>
+                              <g transform="translate(20, 80)">
+                                <text class="text" stroke="#FFFFFF" stroke-width="2px">Documentos</text>
+                              </g>
 
-  <g class="logo_if" transform="translate(335, 10)">
-    <circle cx="20" cy="20" r="18" fill="#FFFFFF"/>
-    <rect x="40" y="0" width="35" height="35" fill="#FFFFFF"/>
-    <rect x="80" y="0" width="35" height="35" fill="#FFFFFF"/>
-    
-    <rect x="0" y="40" width="35" height="35" fill="#FFFFFF"/>
-    <rect x="40" y="40" width="35" height="35" fill="#FFFFFF"/>
-    
-    
-    <rect x="0" y="80" width="35" height="35" fill="#FFFFFF"/>
-    <rect x="40" y="80" width="35" height="35" fill="#FFFFFF"/>
-    <rect x="80" y="80" width="35" height="35" fill="#FFFFFF"/>
-  
+                              <g class="logo_if" transform="translate(335, 10)">
+                                <circle cx="20" cy="20" r="18" fill="#FFFFFF"/>
+                                <rect x="40" y="0" width="35" height="35" fill="#FFFFFF"/>
+                                <rect x="80" y="0" width="35" height="35" fill="#FFFFFF"/>
+                                
+                                <rect x="0" y="40" width="35" height="35" fill="#FFFFFF"/>
+                                <rect x="40" y="40" width="35" height="35" fill="#FFFFFF"/>
+                                
+                                
+                                <rect x="0" y="80" width="35" height="35" fill="#FFFFFF"/>
+                                <rect x="40" y="80" width="35" height="35" fill="#FFFFFF"/>
+                                <rect x="80" y="80" width="35" height="35" fill="#FFFFFF"/>
+                              
 
-    <rect x="0" y="120" width="35" height="35" fill="#FFFFFF"/>
-    <rect x="40" y="120" width="35" height="35" fill="#FFFFFF"/>
-  </g>
-</svg>
+                                <rect x="0" y="120" width="35" height="35" fill="#FFFFFF"/>
+                                <rect x="40" y="120" width="35" height="35" fill="#FFFFFF"/>
+                              </g>
+                            </svg>
                         </a>
                     </div>
             </div>

@@ -176,6 +176,15 @@ class IndexController extends Controller
                     $total_pages = ceil($total / $size_page);
                     $from = (($page - 1) * $size_page);     
                     $documentos = array_slice($finalResults, $from, $size_page);
+
+                    $documentos = array_map(function (array $doc) {
+                        $doc['ementa'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras suscipit semper sapien vel volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque sed nisi consequat, auctor mauris nec, laoreet ante. Integer nec aliquet nisl. Sed condimentum maximus metus, pretium imperdiet ipsum commodo eu. Mauris tristique purus sagittis lectus suscipit pretium vulputate euismod leo. Sed ac malesuada tellus. Vestibulum a nibh velit. In vel nisi arcu. Integer lacus eros, rutrum et ante sed, bibendum venenatis purus.
+Etiam consectetur eros at velit sagittis, vitae sollicitudin tortor efficitur. Proin elementum facilisis risus in dictum. Vestibulum viverra rhoncus neque, sed feugiat ante interdum non. Etiam sed augue non elit dictum suscipit. Integer sed urna eget lectus molestie rutrum ut eu velit. Fusce tincidunt nisi nec neque sagittis, sed convallis tortor molestie. Proin a dui tincidunt, tincidunt erat ut, gravida nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sagittis risus mi, sit amet eleifend risus tincidunt ut. Integer in egestas arcu. Donec laoreet metus eget egestas venenatis. Praesent ac metus lorem.
+';
+                        return $doc;
+                    }, $documentos);
+
+
                     
                     // Calcula o max_score dos dois resultados
                     $max_score = max($resultA0->maxScore ?? 0, $resultA1->maxScore ?? 0);
