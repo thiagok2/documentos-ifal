@@ -3079,9 +3079,9 @@ body .highlight {
 body .highlight_word {
   font-weight: bold;
   font-size: 1em;
-  background:#E96A5A;
+  background: #E96A5A;
   padding: 0.3% 6px;
-  color:#fff;
+  color: #fff;
   border-radius: 5px;
 }
 
@@ -3125,7 +3125,10 @@ body .btn-secondary {
 
 body .btn.btn-primary:focus,
 body .btn.btn-primary.active,
-.btn-pimary:not(:disabled):not(.disabled):active:focus {
+.btn-pimary:not(:disabled):not(.disabled):active:focus,
+.btn-new:focus,
+.btn-new.active,
+.btn-new:not(:disabled):not(.disabled):active:focus {
   background-color: #5ca060 !important;
   /*#126c00*/
   border-color: #5ca060 !important;
@@ -3133,7 +3136,8 @@ body .btn.btn-primary.active,
   box-shadow: 0 0 0 .2rem #5ca060 !important;
 }
 
-body .btn.btn-primary:hover {
+body .btn.btn-primary:hover,
+.btn-new:hover {
   background-color: #5ca060 !important;
   /*#126c00*/
   border-color: #5ca060 !important;
@@ -3308,13 +3312,13 @@ label .form-label {
 /*# sourceMappingURL=app-search.css.map */
 
 .badge-green {
-    color: #fff;
-    background-color: #5ca060;
+  color: #fff;
+  background-color: #5ca060;
 }
 
 .badge-green .active {
-    color: #5ca060;
-    background-color: #fff;
+  color: #5ca060;
+  background-color: #fff;
 }
 
 .documento-titulo-n2 {
@@ -3342,6 +3346,7 @@ a.link-subtitulo:focus-visible,
   text-decoration-thickness: 1px;
   text-decoration-color: currentColor !important;
 }
+
 /*-----------------------*/
 
 .container-ementa {
@@ -3365,10 +3370,13 @@ a.link-subtitulo:focus-visible,
 .container-ementa .buttons-card {
   flex: 0 0 15%;
   display: flex;
-  justify-content: flex-end; /* alinhar à direita do bloco de 20% */
+  justify-content: flex-end;
+  /* alinhar à direita do bloco de 20% */
   align-items: flex-start;
-  gap: 6px;                  /* espaço entre os botões */
-  flex-wrap: wrap;           /* permite quebrar para a linha de baixo se faltar largura */
+  gap: 6px;
+  /* espaço entre os botões */
+  flex-wrap: wrap;
+  /* permite quebrar para a linha de baixo se faltar largura */
   /* text-align: right;      /* opcional se preferir, mas o flex já resolve */
 }
 
@@ -3380,6 +3388,7 @@ a.link-subtitulo:focus-visible,
 .tooltip-custom {
   position: relative;
 }
+
 .tooltip-custom input[aria-hidden="true"] {
   position: absolute;
   left: -9999px;
@@ -3394,11 +3403,129 @@ a.link-subtitulo:focus-visible,
     flex-direction: column;
     gap: 8px;
   }
+
   .container-ementa .texto-ementa,
   .container-ementa .buttons-card {
     flex: 1 1 auto;
   }
+
   .container-ementa .buttons-card {
     justify-content: flex-start;
   }
+}
+
+/* ## Migrado do index.blade.php */
+
+body {
+  background-color: white !important;
+}
+
+.card-primary {
+  border: none !important;
+}
+
+.card-primary:not(.card-outline)>.card-header {
+  background-color: #45a050;
+  border: none !important;
+}
+
+.card-secondary:not(.card-outline)>.card-header {
+  background-color: #5c655c;
+  border: none !important;
+}
+
+.tooltip-custom {
+  position: relative;
+}
+
+.tooltip-custom .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 100%;
+  margin-left: -120px;
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-custom .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 80%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+[aria-hidden="true"] {
+  opacity: 0;
+  position: absolute;
+  z-index: -9999;
+  pointer-events: none;
+}
+
+/* Parte do header da area de buscado. */
+
+#header-buscado {
+  background-image: radial-gradient(ellipse at center, #19882c 1%, #025310 100%);
+  padding: 10px 0;
+  /* Padding menor para uma altura reduzida */
+  color: white;
+}
+
+#header-buscado .logo-img {
+  max-height: 40px;
+  /* Altura da logo menor que na página inicial */
+  width: auto;
+}
+
+#header-buscado .row {
+  align-items: center;
+  /* Alinha a logo e o botão verticalmente */
+}
+
+#header-buscado .btn-login {
+  color: aliceblue !important;
+  border-color: aliceblue;
+}
+
+.card-down {
+  margin-left: 8px;
+  color: #636363;
+  padding: 0;
+}
+
+.card-header {
+  padding: 0;
+}
+
+.btn-new {
+  color: #5ca060 !important;
+  background-color: #ffffff !important;
+  border: solid 1px #5ca060 !important;
+}
+
+.descricao {}
+
+.discreta {
+  color: #888888
+}
+
+.buttons-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: row;
+  gap: 5px;
+  margin-top: 15px;
 }
