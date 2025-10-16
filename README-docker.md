@@ -56,12 +56,13 @@ docker compose ps
 ```
 
 s2. Vá até o container com `docker exec -it documentos-ifal-main-laravel.test-1 bash` e rode
+    
     ```
     php artisan key:generate
     php artisan migrate
     php artisan db:seed
-
     ```
+
 ### configurando o elastic;
 
 1. Ainda dentro do container da aplicação rode:
