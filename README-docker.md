@@ -33,12 +33,13 @@ docker-compose up -d
 
 4. Já para o postgres 
     ```
-        DB_CONNECTION=pgsql
-        DB_HOST=pgsql
-        DB_PORT=5432
-        DB_DATABASE=documentos-ifal
-        DB_USERNAME=postgres
-        DB_PASSWORD=postgres
+    DB_CONNECTION=pgsql
+    DB_HOST=pgsql
+    DB_PORT=5432
+    DB_NAME=documentos-ifal
+    DB_DATABASE=documentos-ifal
+    DB_USERNAME=postgres
+    DB_PASSWORD=postgres
     ```
 5. Verifique se a informações batem com as do docker-compose
 
@@ -90,7 +91,7 @@ para poder excutar o script de configuração
 
 3. Use o seguinte comando para rodar todos os crawlers
 ``` sh
-    python3 -m crawler/rodar_tudo.py
+    python3 -m crawler.rodar_tudo.py
 ```
 obs: Caso queira rodar algum .py individualmente é só usar uma estrutura hieráquica ex: `python3 -m crawler.adm.normas.py`
 
