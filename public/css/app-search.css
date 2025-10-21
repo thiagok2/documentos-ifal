@@ -3216,7 +3216,7 @@ body #results .rating-container .caption {
 
 body .pagination .page-item .page-link {
   background-color: #ffffff;
-  border-color: #5ca060;
+  border:none;
   color: #5ca060 !important;
 }
 
@@ -3224,7 +3224,8 @@ body .pagination .page-item .page-link:hover,
 body .pagination .page-item .page-link:focus,
 body .pagination .page-item .page-link.active {
   background-color: #5ca060;
-  border-color: #5ca060;
+  border: none;
+  box-shadow: none;
   color: #ffffff !important;
 }
 
