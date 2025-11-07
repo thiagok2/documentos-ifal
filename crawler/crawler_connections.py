@@ -9,7 +9,7 @@ DOWNLOAD_DIR = "./crawler/pdfs"
 ELASTIC_URL = os.getenv("ELASTIC_URL", "http://localhost:9200")
 INDEX_NAME = "documentos_ifal"
 DB_CONFIG = {
-    "dbname": os.getenv("DB_NAME"),
+    "dbname": os.getenv("DB_NAME","documentos-ifal"),
     "user": os.getenv("DB_USER", "postgres"),
     "password": os.getenv("DB_PASSWORD", "postgres"),
     "host": os.getenv("DB_HOST", "pgsql"),
