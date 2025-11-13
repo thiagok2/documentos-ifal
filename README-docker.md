@@ -55,7 +55,7 @@ Descobrindo o nome do container
 docker compose ps
 ```
 
-2. Vá até o container com `docker exec -it documentos-ifal-main-laravel.test-1 bash` e rode
+2. Vá até o container com `docker exec -it documentos-ifal-laravel.test-1 bash` e rode
     
     ```
     php artisan key:generate
