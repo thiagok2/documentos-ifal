@@ -74,15 +74,22 @@
     <section id="mini-search">
         <div class="row">
             <div class="col-lg-10 offset-lg-1 mt-3">
-                <form action="/" method="GET" class="">
+                <form id="form-busca" action="/" method="GET" class="">
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2">
                             <div class="input-group">
                                 <input type="text" name="query" class="form-control "
                                     placeholder="Digite os termos da consulta" value="{{ $query }}" />
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-mobile btn-primary"><i class="fa fa-search"></i>
-                                        Pesquisar</button>
+                                    <button id="btn-buscar" type="submit" class="btn btn-mobile btn-primary">
+                                        <span id="texto-botao">
+                                            <i class="fa fa-search"></i> Pesquisar
+                                        </span>
+
+                                        <span id="loading-botao" class="d-none">
+                                            <i class="fa fa-spinner fa-spin"></i>
+                                                Pesquisando
+                                        </span></button>
                                     @if (auth()->check() && auth()->user()->unidade)
                                         <button type="button" class="btn btn-mobile btn-info btn-sm" data-toggle="collapse"
                                             data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i
@@ -245,7 +252,7 @@
                         @endif
                     @endif
 
-                    <form action="/" method="GET" class="">
+                    <form id="form-busca-start" action="/" method="GET" class="">
 
                         <div class="input-group">
                             <input type="text" name="query" class="form-control" placeholder="Digite os termos da consulta"
@@ -254,8 +261,15 @@
 
                         <div class="row">
                             <div class="col text-center mt-3 mb-3">
-                                <button type="submit" class="btn btn-mobile btn-primary"><i
-                                        class="fa fa-search mr-1"></i>Pesquisar</button>
+                                <button id="btn-buscar-start" type="submit" class="btn btn-mobile btn-primary">
+                                    <span id="texto-botao-start">
+                                        <i class="fa fa-search"></i> Pesquisar
+                                    </span>
+
+                                    <span id="loading-botao-start" class="d-none">
+                                        <i class="fa fa-spinner fa-spin"></i> Pesquisando
+                                    </span>
+                                </button>
                                 @if (auth()->check() && auth()->user()->unidade)
                                     <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse"
                                         data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i
@@ -671,6 +685,48 @@
 
 @endsection
 @push('scripts-caio')
+    <script>
+        document.getElementById('form-busca').addEventListener('submit', function(event) {
+            // Pega os elementos pelos IDs que criamos acima
+            var btn = document.getElementById('btn-buscar');
+            var texto = document.getElementById('texto-botao');
+            var loading = document.getElementById('loading-botao');
+
+            // Se por acaso os elementos não existirem (proteção contra erro), para aqui
+            if (!btn || !texto || !loading) return;
+
+            // 1. Evita clique duplo desabilitando o botão
+            btn.style.pointerEvents = 'none'; // Desabilita cliques
+            btn.style.opacity = '0.8';        // Dá um visual visual levemente apagado
+
+            // 2. Troca o conteúdo: Esconde texto, mostra loading
+            texto.classList.add('d-none');
+            loading.classList.remove('d-none');
+            
+            // O form segue o envio naturalmente...
+        });
+    </script>
+        <script>
+        document.getElementById('form-busca-start').addEventListener('submit', function(event) {
+            // Pega os elementos pelos IDs que criamos acima
+            var btn = document.getElementById('btn-buscar-start');
+            var texto = document.getElementById('texto-botao-start');
+            var loading = document.getElementById('loading-botao-start');
+
+            // Se por acaso os elementos não existirem (proteção contra erro), para aqui
+            if (!btn || !texto || !loading) return;
+
+            // 1. Evita clique duplo desabilitando o botão
+            btn.style.pointerEvents = 'none'; // Desabilita cliques
+            btn.style.opacity = '0.8';        // Dá um visual visual levemente apagado
+
+            // 2. Troca o conteúdo: Esconde texto, mostra loading
+            texto.classList.add('d-none');
+            loading.classList.remove('d-none');
+            
+            // O form segue o envio naturalmente...
+        });
+    </script>
     <script src="/js/bootstrap5.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
