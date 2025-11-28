@@ -83,11 +83,11 @@
     }
 
     .card{
-        background-color:#f0f0f0;
+        background-color:#ffffff;
     }
 
     .card-header{
-        background-color: #f0f0f0;
+        /* background-color: #f0f0f0; */
     }
 
     .bootstrap-tagsinput-mt-2{
@@ -134,6 +134,10 @@
         align-items:center;
 
         padding-left:40px;
+    }
+
+    .main_row{
+        /* background-color:#f0f0f0; */
     }
 
     .botao-collapse{
@@ -233,7 +237,8 @@
     }
 
     .main_pdf{
-        padding-left:20px;
+        padding-left:0;
+        padding-right:0;
     }
 
     .tag-link:hover{
@@ -409,7 +414,7 @@
 
             <div class="main_pdf">
     @if ($normativa['ato']['tipo_doc'] != 'doc' && $normativa['ato']['tipo_doc'] != 'docx' && substr($id, -3) != "doc" && substr($id, -4) != "docx")
-        <iframe src="/normativa/pdf/{{ $id }}#zoom=133" width="99%" height="960px">
+        <iframe src="/normativa/pdf/{{ $id }}#zoom=133" width="100%" height="960px">
         </iframe> 
     @else
         <iframe src="https://docs.google.com/gview?url={{str_replace("view","pdf",Request::url())}}&embedded=true" width="100%" height="600px">
