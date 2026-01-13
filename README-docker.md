@@ -33,12 +33,13 @@ docker-compose up -d
 
 4. Já para o postgres 
     ```
-        DB_CONNECTION=pgsql
-        DB_HOST=pgsql
-        DB_PORT=5432
-        DB_DATABASE=documentos-ifal
-        DB_USERNAME=postgres
-        DB_PASSWORD=postgres
+    DB_CONNECTION=pgsql
+    DB_HOST=pgsql
+    DB_PORT=5432
+    DB_NAME=documentos-ifal
+    DB_DATABASE=documentos-ifal
+    DB_USERNAME=postgres
+    DB_PASSWORD=postgres
     ```
 5. Verifique se a informações batem com as do docker-compose
 
@@ -54,13 +55,14 @@ Descobrindo o nome do container
 docker compose ps
 ```
 
-s2. Vá até o container com `docker exec -it documentos-ifal-main-laravel.test-1 bash` e rode
+2. Vá até o container com `docker exec -it documentos-ifal-main-laravel.test-1 bash` e rode
+    
     ```
     php artisan key:generate
     php artisan migrate
     php artisan db:seed
-
     ```
+
 ### configurando o elastic;
 
 1. Ainda dentro do container da aplicação rode:
@@ -90,7 +92,7 @@ para poder excutar o script de configuração
 
 3. Use o seguinte comando para rodar todos os crawlers
 ``` sh
-    python3 -m crawler/rodar_tudo.py
+    python3 -m crawler.rodar_tudo.py
 ```
 obs: Caso queira rodar algum .py individualmente é só usar uma estrutura hieráquica ex: `python3 -m crawler.adm.normas.py`
 

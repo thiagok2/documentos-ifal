@@ -286,7 +286,8 @@
         <section id="header d-flex justify-content-start">
             <div class="main_container-fluid d-flex align-items-center">
                     <div class="col-12 text-start">                   
-                        <a href="http://localhost">
+                        <a href="{{route('index')}}">
+
                             <svg width="175" height="53" viewBox="0 0 550 160" xmlns="http://www.w3.org/2000/svg">
                               <style>
                                 .text {
@@ -338,7 +339,7 @@
                             <div class="tooltip-custom">
                                 <span class="tooltiptext" id="tooltip-{{ $id }}">Link copiado!</span>
                                 <input aria-hidden="true" id="url-{{ $id }}"/>
-                                <button class="btn btn-secondary pull-right" style="background-color:#828282ff; border:0;"type="button" onclick="share('{{ $id }}','{{ $normativa['ato']['titulo'] }}','{{ $normativa['ato']['ementa']}}')">
+                                <button class="btn-new btn btn-secondary pull-right" style="background-color:#828282ff; border:0;"type="button" onclick="share('{{ $id }}','{{ $normativa['ato']['titulo'] }}','{{ $normativa['ato']['ementa']}}')">
                                     <i class="fa fa-share-alt"></i>
                                 </button>                                        
                         </div>
@@ -358,7 +359,7 @@
                         <div class="main_infos mt-1">
 
                                 <div class="main-link_tags">
-                               <a href="http://localhost" class="info_tags">{{ $normativa['ato']['tipo_doc'] }}</a>
+                               <a href="{{ route('index') }}" class="info_tags">{{ $normativa['ato']['tipo_doc'] }}</a>
                                 </div>
 
                                 <div class="main-link_tags">
@@ -368,11 +369,11 @@
                                 </div>
 
                                 <div class="main-link_tags">
-                                <a href="http://localhost">{{ $normativa['ato']['fonte']['orgao'] }}</a>
+                                <a href="{{ route('index') }}">{{ $normativa['ato']['fonte']['orgao'] }}</a>
                                 </div>
 
                                 <div class="main-link_tags">
-                                <a href="http://localhost">{{ $normativa['ato']['fonte']['esfera'] }}</a>
+                                <a href="{{ route('index') }}">{{ $normativa['ato']['fonte']['esfera'] }}</a>
                                 </div>
                         </div>
 

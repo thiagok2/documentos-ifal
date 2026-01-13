@@ -44,133 +44,7 @@
     </script>
 
     <style>
-        /* .descricao {
-                        font-size: 17px;
-                        margin-right: 15px;
-                    } */
-
-        body {
-            background-color: white !important;
-        }
-
-        /*
-                                            a{
-                                                text-decoration: none !important;
-                                                color: inherit;
-                                            } retirado por conflito
-                                            */
-
-        .card-primary {
-            border: none !important;
-        }
-
-        .card-primary:not(.card-outline)>.card-header {
-            background-color: #45a050;
-            border: none !important;
-        }
-
-        .card-secondary:not(.card-outline)>.card-header {
-            background-color: #5c655c;
-            border: none !important;
-        }
-
-        .tooltip-custom {
-            position: relative;
-        }
-
-        .tooltip-custom .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px 0;
-            position: absolute;
-            z-index: 1;
-            bottom: 100%;
-            left: 100%;
-            margin-left: -120px;
-            margin-bottom: 10px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip-custom .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 80%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #555 transparent transparent transparent;
-        }
-
-        [aria-hidden="true"] {
-            opacity: 0;
-            position: absolute;
-            z-index: -9999;
-            pointer-events: none;
-        }
-
-        /* Parte do header da area de buscado. */
-
-        #header-buscado {
-            background-image: radial-gradient(ellipse at center, #19882c 1%, #025310 100%);
-            padding: 10px 0;
-            /* Padding menor para uma altura reduzida */
-            color: white;
-        }
-
-        #header-buscado .logo-img {
-            max-height: 40px;
-            /* Altura da logo menor que na página inicial */
-            width: auto;
-        }
-
-        #header-buscado .row {
-            align-items: center;
-            /* Alinha a logo e o botão verticalmente */
-        }
-
-        #header-buscado .btn-login {
-            color: aliceblue !important;
-            border-color: aliceblue;
-        }
-
-        .card-down {
-            margin-left: 8px;
-            color: #636363;
-            padding: 0;
-        }
-
-        .card-header {
-            padding: 0;
-        }
-
-        .btn-new {
-            color: #5ca060 !important;
-            background-color: #ffffff !important;
-            border: solid 1px #5ca060 !important;
-        }
-
-        .descricao {
-            
-        }
-
-        .discreta {
-            color: #888888
-        }
-
-        .buttons-card {
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-            flex-direction: row;
-            gap: 5px;
-            margin-top: 15px;
-        }
+        /* Migrado para o app-search.css */
     </style>
 
     <header id="header-buscado">
@@ -290,44 +164,45 @@
                     <hr class="split">
                     <a href="{{route('index')}}">
                         <!-- <img src="/img/" srcset="/img/normativos-logo@2x.png 2x" alt="Documentos IFAL" /> -->
-                        <div class="col-12 text-start">                   
-                        <a href="http://localhost">
-                            <svg width="500" height="90" viewBox="0 0 550 160" xmlns="http://www.w3.org/2000/svg">
-                              <style>
-                                .text {
-                                  font-family: Arial, sans-serif;
-                                  font-size: 50px;
-                                  font-weight: bold;
-                                  dominant-baseline: middle;
-                                  text-anchor: start;
-                                  fill: #FFFFFF;
-                                }
-                              </style>
+                        <div class="col-12 text-start">
+                            <a href="{{route('index')}}">
 
-                              <g transform="translate(20, 80)">
-                                <text class="text" stroke="#FFFFFF" stroke-width="2px">Documentos</text>
-                              </g>
+                                <svg width="500" height="90" viewBox="0 0 550 160" xmlns="http://www.w3.org/2000/svg">
+                                    <style>
+                                        .text {
+                                            font-family: Arial, sans-serif;
+                                            font-size: 50px;
+                                            font-weight: bold;
+                                            dominant-baseline: middle;
+                                            text-anchor: start;
+                                            fill: #FFFFFF;
+                                        }
+                                    </style>
 
-                              <g class="logo_if" transform="translate(335, 10)">
-                                <circle cx="20" cy="20" r="18" fill="#FFFFFF"/>
-                                <rect x="40" y="0" width="35" height="35" fill="#FFFFFF"/>
-                                <rect x="80" y="0" width="35" height="35" fill="#FFFFFF"/>
-                                
-                                <rect x="0" y="40" width="35" height="35" fill="#FFFFFF"/>
-                                <rect x="40" y="40" width="35" height="35" fill="#FFFFFF"/>
-                                
-                                
-                                <rect x="0" y="80" width="35" height="35" fill="#FFFFFF"/>
-                                <rect x="40" y="80" width="35" height="35" fill="#FFFFFF"/>
-                                <rect x="80" y="80" width="35" height="35" fill="#FFFFFF"/>
-                              
+                                    <g transform="translate(20, 80)">
+                                        <text class="text" stroke="#FFFFFF" stroke-width="2px">Documentos</text>
+                                    </g>
 
-                                <rect x="0" y="120" width="35" height="35" fill="#FFFFFF"/>
-                                <rect x="40" y="120" width="35" height="35" fill="#FFFFFF"/>
-                              </g>
-                            </svg>
-                        </a>
-                    </div>
+                                    <g class="logo_if" transform="translate(335, 10)">
+                                        <circle cx="20" cy="20" r="18" fill="#FFFFFF" />
+                                        <rect x="40" y="0" width="35" height="35" fill="#FFFFFF" />
+                                        <rect x="80" y="0" width="35" height="35" fill="#FFFFFF" />
+
+                                        <rect x="0" y="40" width="35" height="35" fill="#FFFFFF" />
+                                        <rect x="40" y="40" width="35" height="35" fill="#FFFFFF" />
+
+
+                                        <rect x="0" y="80" width="35" height="35" fill="#FFFFFF" />
+                                        <rect x="40" y="80" width="35" height="35" fill="#FFFFFF" />
+                                        <rect x="80" y="80" width="35" height="35" fill="#FFFFFF" />
+
+
+                                        <rect x="0" y="120" width="35" height="35" fill="#FFFFFF" />
+                                        <rect x="40" y="120" width="35" height="35" fill="#FFFFFF" />
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
                     </a>
                     <hr class="split">
                 </div>
@@ -406,37 +281,37 @@
                                 </div>
                             </div>
                             <!--<div class="row">
-                                                                    <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
-                                                                        <select class="form-control" name="esfera" >
-                                                                            <option value="all" <?php    if ($esfera == "all") {
+                                                                        <div class="col col-12 col-lg-4 offset-lg-2 mb-1">
+                                                                            <select class="form-control" name="esfera" >
+                                                                                <option value="all" <?php    if ($esfera == "all") {
             echo ' selected';
         }?>>Todas as Esferas</option>
-                                                                            <option value="Federal" <?php    if ($esfera == "Federal") {
+                                                                                <option value="Federal" <?php    if ($esfera == "Federal") {
             echo ' selected';
         }?>>Federal</option>
-                                                                            <option value="Estadual" <?php    if ($esfera == "Estadual") {
+                                                                                <option value="Estadual" <?php    if ($esfera == "Estadual") {
             echo ' selected';
         }?>>Estadual</option>
-                                                                            <option value="Municipal" <?php    if ($esfera == "Municipal") {
+                                                                                <option value="Municipal" <?php    if ($esfera == "Municipal") {
             echo ' selected';
         }?>>Municipal</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col col-12 col-lg-4 mb-1">
-                                                                        <select class="form-control" name="periodo">
-                                                                            <option value="all">Desde o princípio</option>
-                                                                            <option value="<?php    echo date("Y"); ?>" <?php    if ($periodo == date("Y")) {
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col col-12 col-lg-4 mb-1">
+                                                                            <select class="form-control" name="periodo">
+                                                                                <option value="all">Desde o princípio</option>
+                                                                                <option value="<?php    echo date("Y"); ?>" <?php    if ($periodo == date("Y")) {
             echo ' selected';
         }?>>Deste Ano</option>
-                                                                            <option value="<?php    echo (date("Y") - 2); ?>" <?php    if ($periodo == date("Y") - 2) {
+                                                                                <option value="<?php    echo (date("Y") - 2); ?>" <?php    if ($periodo == date("Y") - 2) {
             echo ' selected';
         }?>>Últimos 2 anos</option>
-                                                                            <option value="<?php    echo (date("Y") - 5); ?>" <?php    if ($periodo == date("Y") - 5) {
+                                                                                <option value="<?php    echo (date("Y") - 5); ?>" <?php    if ($periodo == date("Y") - 5) {
             echo ' selected';
         }?>>Últimos 5 anos</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>-->
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>-->
                         </div>
                     </form>
                 </div>
@@ -565,8 +440,7 @@
 
                             </h6>
                             @if (isset($doc['fonte']['sigla']))
-                                <a class="card-down link-subtitulo"
-                                    href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
+                                <a class="card-down link-subtitulo" href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
                                     {{ $doc['fonte']['orgao'] }}
                                 </a>
                             @else
@@ -584,14 +458,14 @@
                             <span style="font-size: 20px">{{ $doc['ementa'] }}</span>
                             <hr />--}}
                             <!-- <div class="row">
-                                                                    <div class=" col-md-10"> -->
+                                                                        <div class=" col-md-10"> -->
                             @if (!empty($doc['numero']) && $doc['numero'] != '00/00')
                                 <span class="descricao"> {{ $doc['numero']}} </span>
                             @endif
                             @if (!empty($doc['tipo_doc']) && $doc['tipo_doc'] != 'Indefinido' && $doc['tipo_doc'] != 'Indeterminado')
                                 <span class="descricao"> {{ $doc['tipo_doc']}} </span>
                             @endif
-                     
+
                             @php
                                 $anoDocumento = date('Y', strtotime($doc['data_publicacao']));
                             @endphp
@@ -613,18 +487,18 @@
                                 </span>
                             @endif
 
-                           
+
                             <!-- <div class="col-md-2"> -->
                             <!--
-                                                                                <div class="tooltip-custom">
-                                                                                    <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
-                                                                                    <input aria-hidden="true" id="url-{{ $doc['id']}}"/>
-                                                                                    <button class="btn btn-secondary pull-right" type="button" onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
-                                                                                        <i class="fa fa-share-alt"></i>
-                                                                                    </button>                                        
-                                                                                </div>-->
+                                                                                    <div class="tooltip-custom">
+                                                                                        <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
+                                                                                        <input aria-hidden="true" id="url-{{ $doc['id']}}"/>
+                                                                                        <button class="btn btn-secondary pull-right" type="button" onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
+                                                                                            <i class="fa fa-share-alt"></i>
+                                                                                        </button>                                        
+                                                                                    </div>-->
                             <!-- </div> -->
-                         
+
                             <!--<hr class="split-sm">-->
 
 
@@ -657,34 +531,30 @@
                             @endauth
                             <!-- </div> -->
                             <div class="container-ementa">
-                                  <div class="texto-ementa">
-                                      @php
-                                          $ementa   = $doc['ementa'] ?? '';
-                                          $limit    = 500;
-                                          $hasMore  = Str::length($ementa) > $limit;
-                                          $short    = $hasMore ? Str::substr($ementa, 0, $limit) : $ementa;
-                                          $rest     = $hasMore ? Str::substr($ementa, $limit) : '';
-                                          $uid      = 'ementa-'.$doc['id'] ?? 'ementa-'.$loop->index;
+                                <div class="texto-ementa">
+                                    @php
+                                        $ementa = $doc['ementa'] ?? '';
+                                        $limit = 500;
+                                        $hasMore = Str::length($ementa) > $limit;
+                                        $short = $hasMore ? Str::substr($ementa, 0, $limit) : $ementa;
+                                        $rest = $hasMore ? Str::substr($ementa, $limit) : '';
+                                        $uid = 'ementa-' . $doc['id'] ?? 'ementa-' . $loop->index;
                                       @endphp
 
-                                      <small class="ementa">
+                                    <small class="ementa">
                                         {!! nl2br(e($short)) !!}
 
                                         @if($hasMore)
-                                            <a class="ementa-more"
-                                              data-bs-toggle="collapse"
-                                              href="#{{ $uid }}"
-                                              role="button"
-                                              aria-expanded="false"
-                                              aria-controls="{{ $uid }}">…(ver mais)</a>
+                                            <a class="ementa-more" data-bs-toggle="collapse" href="#{{ $uid }}" role="button"
+                                                aria-expanded="false" aria-controls="{{ $uid }}">…(ver mais)</a>
 
                                             <span id="{{ $uid }}" class="collapse">
                                                 {!! nl2br(e($rest)) !!}
                                             </span>
                                         @endif
                                     </small>
-                                  </div>
-                                  <div class="buttons-card">
+                                </div>
+                                <div class="buttons-card">
                                     <button id='popoverBtn' {{-- data-bs-toggle="popover" data-bs-placement="top"
                                         data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." --}}
                                         @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse"
@@ -705,7 +575,7 @@
                                             <i class="fa fa-share-alt"></i>
                                         </button>
                                     </div>
-                                  </div>
+                                </div>
                             </div>
 
                             <div id="trechos-{{$loop->index}}" class="collapse">

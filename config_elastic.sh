@@ -69,10 +69,6 @@ curl -s -X PUT "http://elasticsearch:9200/documentos_ifal" \
       }
     }
   },
-
-  "highlight":{
-    "max_analyzed_offset": 5000000
-  },
   
   "mappings": {
     "properties": {
@@ -232,3 +228,9 @@ echo -e "\nObtendo o mapeamento do índice 'documentos_ifal'..."
 
 curl -s -X GET "http://elasticsearch:9200/documentos_ifal/_mapping" \
   --insecure | jq '.' && echo "Mapeamento obtido com sucesso." || echo "Falha ao obter o mapeamento."
+
+curl -X PUT "http://elasticsearch:9200/documentos_ifal/_settings" -H "Content-Type: application/json" -d'
+    {
+        "index.highlight.max_analyzed_offset": 3000000
+    }'
+
