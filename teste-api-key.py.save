@@ -1,0 +1,34 @@
+
+
+TOKEN_SECRETO = "Crawlerskey12345"
+
+url_api = "http://localhost:88/api/documentos/store"
+
+dados_para_enviar = {
+    "titulo": "Teste API Completo - {}".format(datetime.datetime.now()),
+    "data_publicacao": "2025-11-05",
+    "ementa": "Testando o método de API Key estática sem Sanctum.",
+    "arquivo": "http://exemplo.com/arquivo_teste.pdf"
+
+    "numero": "API-{}".format(datetime.datetime.now().second),
+    "tipo_documento_id": 1, 
+    "assunto_id": 1
+}
+
+headers = {
+    'Authorization': f'Bearer {TOKEN_SECRETO}', 
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+}
+
+print("Enviando requisição...")
+try:
+    response = requests.post(url_api, data=json.dumps(dados_para_enviar), headers=headers)
+
+    print("\n========= RESPOSTA DO LARAVEL =========\n")
+    print(f"Código de Status: {response.status_code}")
+    print("Corpo da Resposta:")
+    print(response.text)
+
+except requests.exceptions.ConnectionError:
+    print("\nERRO DE C

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 
 use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\ClientBuilder;
 
 use App\Models\Documento;
 use Illuminate\Support\Facades\DB;
