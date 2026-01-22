@@ -40,7 +40,7 @@ class Documento extends Model
         'ano', 'titulo','numero','ementa','url','data_publicacao','tipo_documento_id',
         'assunto_id','unidade_id' , 'nome_original', 
         'tipo_entrada','url_extrator', 'id_extrator', 'numero_processo',
-        'publico'
+        'publico','arquivo', 'conteudo'
 
     ];
     protected $casts = [

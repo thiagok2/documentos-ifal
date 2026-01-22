@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use App\Models\Documento;
-use Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\ClientBuilder;
 
 class EnvController extends Controller
 {
@@ -17,12 +17,13 @@ class EnvController extends Controller
      */
     private $client;
 
-    public function __construct(){
-
-        $hosts = [        
+    public function __construct()    {
+        $hosts = [
             getenv('ELASTIC_URL')
         ];
-        $this->client = ClientBuilder::create()->setHosts($hosts)->build();
+        $username = getenv('ELASTICSEARCH_USERNAME');
+        $password = getenv('ELASTICSEARCH_PASSWORD');
+        $this->client = ClientBuilder::create()->setHosts($hosts)->setBasicAuthentication($username, $password)->build();
     }
 
     

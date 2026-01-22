@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,10 @@ Route::post('unidades', 'API\UnidadeRestController@store');
 Route::get('unidades/{id}', 'API\UnidadeRestController@unidade');
 
 Route::get('documentos/{documentoId}/indexar', 'API\ElasticDocumentoController@indexar');
+Route::post('documentos', 'API\CrawlerController@store');
+Route::get('/ping', function () {
+    return ['status' => 'pong', 'message' => 'API do Laravel está viva!'];
+});
+
+// Nossa rota oficial de busca
+Route::get('/search', [SearchController::class, 'search']);

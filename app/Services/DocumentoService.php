@@ -14,11 +14,12 @@ class DocumentoService{
 
     public function __construct()
     {
-
+        $username = getenv('ELASTICSEARCH_USERNAME');
+        $password = getenv('ELASTICSEARCH_PASSWORD');
         $hosts = [        
             getenv('ELASTIC_URL')
         ];
-        $this->client = ClientBuilder::create()->setHosts($hosts)->build();
+        $this->client = ClientBuilder::create()->setHosts($hosts)->setBasicAuthentication($username, $password)->build();
     }
 
     public function delete($id)
