@@ -22,8 +22,11 @@ class SearchCommandA0 implements ISearchCommand
 
         $this->queryBuilder = new QueryBuilder("ato");
 
+        $username = getenv('ELASTICSEARCH_USERNAME');
+        $password = getenv('ELASTICSEARCH_PASSWORD');
+
         $hosts = [getenv('ELASTIC_URL')];
-        $this->clientElastic = ClientBuilder::create()->setHosts($hosts)->build();
+        $this->clientElastic = ClientBuilder::create()->setHosts($hosts)->setBasicAuthentication($username, $password)->build();
     }
 
     public function getArrayQuery(){

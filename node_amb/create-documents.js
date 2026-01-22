@@ -26,16 +26,29 @@ function createDocument(filePath, atoDocumento) {
     };
 }
 
+require('dotenv').config();
+const axios = require('axios');
+const https = require('https');
+
 async function indexDocumentToElasticsearch(document, documentID) {
-    const ELASTIC_URL = 'http://localhost:9200/documentos_ifal/_doc/?pipeline=attachment';
-    const HEADERS = {
-        'Content-Type': 'application/json'
-    };
+    const url = `${process.env.ELASTIC_URL}/documentos_ifal/_doc/${documentID}?pipeline=attachment`;
+
     try {
-        const response = await axios.post(ELASTIC_URL, document, { headers: HEADERS });
-        console.log('Documento indexado com sucesso:', response.data);
+        const response = await axios.put(url, document, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            auth: {
+                username: process.env.ELASTICSEARCH_USERNAME,
+                password: process.env.ELASTICSEARCH_PASSWORD
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false
+            })
+        });
+        console.log(response.data);
     } catch (error) {
-        console.error('Erro ao indexar documento:', error);
+        console.error(error);
     }
 }
 

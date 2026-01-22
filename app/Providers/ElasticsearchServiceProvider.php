@@ -22,14 +22,17 @@ class ElasticsearchServiceProvider extends ServiceProvider
      * Register the application services.
      *
      * @return void
-     */
+        */
     public function register()
     {
-        $this->app->singleton(Client::class, function() {
-            $hosts = [
-                env('ELASTIC_URL')
-            ];
-            return ClientBuilder::create()->setHosts($hosts)->build();
+        $this->app->singleton(Client::class, function () {
+            return ClientBuilder::create()
+                ->setHosts([env('ELASTIC_URL')])
+                ->setBasicAuthentication(
+                    env('ELASTICSEARCH_USERNAME'),
+                    env('ELASTICSEARCH_PASSWORD')
+                )
+                ->build();
         });
     }
 }

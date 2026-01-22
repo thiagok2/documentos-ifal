@@ -38,7 +38,9 @@ class IndexController extends Controller
         $hosts = [
             getenv('ELASTIC_URL')
         ];
-        $this->client = ClientBuilder::create()->setHosts($hosts)->build();
+        $username = getenv('ELASTICSEARCH_USERNAME');
+        $password = getenv('ELASTICSEARCH_PASSWORD');
+        $this->client = ClientBuilder::create()->setHosts($hosts)->setBasicAuthentication($username, $password)->build();
     }
 
     function tirarAcentos($string)

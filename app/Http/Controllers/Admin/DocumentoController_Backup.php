@@ -31,11 +31,12 @@ class DocumentoController extends Controller
     */
     public function __construct()
     {
-
-        $hosts = [        
+        $hosts = [
             getenv('ELASTIC_URL')
         ];
-        $this->client = ClientBuilder::create()->setHosts($hosts)->build();
+        $username = getenv('ELASTICSEARCH_USERNAME');
+        $password = getenv('ELASTICSEARCH_PASSWORD');
+        $this->client = ClientBuilder::create()->setHosts($hosts)->setBasicAuthentication($username, $password)->build();
     }
 
     public function index(){
