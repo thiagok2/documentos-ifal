@@ -2,24 +2,42 @@ from elasticsearch import Elasticsearch
 import psycopg2
 import os
 from dotenv import load_dotenv
+import urllib3
 
+# Carrega variáveis de ambiente
 load_dotenv()
 
+# Desabilita avisos de SSL (necessário pois verify_certs=False)
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 DOWNLOAD_DIR = "./crawler/pdfs"
-ELASTIC_URL = os.getenv("ELASTIC_URL", "http://localhost:9200")
+
+# Configurações do Elastic (Forçando HTTPS e Auth)
+ELASTIC_URL = os.getenv("ELASTIC_URL")
+ELASTIC_USER = os.getenv("ELASTICSEARCH_USERNAME")
+ELASTIC_PASS = os.getenv("ELASTICSEARCH_PASSWORD")
+
 INDEX_NAME = "documentos_ifal"
 DB_CONFIG = {
-    "dbname": os.getenv("DB_NAME","documentos-ifal"),
+    "dbname": os.getenv("DB_NAME", "documentos-ifal"),
     "user": os.getenv("DB_USER", "postgres"),
     "password": os.getenv("DB_PASSWORD", "postgres"),
     "host": os.getenv("DB_HOST", "pgsql"),
     "port": os.getenv("DB_PORT", "5432")
 }
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 OPR/116.0.0.0"}
+
 #######
 
-# Conexões
-es = Elasticsearch(ELASTIC_URL)
+# Conexão Elastic Direta
+es = Elasticsearch(
+    ELASTIC_URL,
+    basic_auth=(ELASTIC_USER, ELASTIC_PASS),
+    verify_certs=False,  # Ignora validação do certificado SSL
+    ssl_show_warn=False  # Não exibe avisos de segurança no console
+)
+
+# Conexão Postgres
 conn = psycopg2.connect(**DB_CONFIG)
 cursor = conn.cursor()
 
