@@ -56,13 +56,13 @@ class QueryElastic
                 'size' => 0,
                 'aggs' => [
                     'ano' => [
-                        'terms' => [ 'field' => 'ato.ano' ]
+                        'terms' => [ 'field' => 'ato.ano.keyword' ]
                     ],
                     'esfera' => [
-                        'terms' => [ 'field' => 'ato.fonte.esfera' ]
+                        'terms' => [ 'field' => 'ato.fonte.esfera.keyword' ]
                     ],
                     'fonte' => [
-                        'terms' => [ 'field' => 'ato.fonte.sigla' ]
+                        'terms' => [ 'field' => 'ato.fonte.sigla.keyword' ]
                     ],
                     'tipo_doc' => [
                         'terms' => [ 'field' => 'ato.tipo_doc.keyword' ]
