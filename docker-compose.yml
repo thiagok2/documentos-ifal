@@ -48,20 +48,20 @@ services:
                 - '${DB_USERNAME}'
             retries: 3
             timeout: 5s
-    elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
-        environment:
-            - discovery.type=single-node
-            - xpack.security.enabled=false
-        ports:
-            - 9200:9200
-            - 9300:9300
-        volumes:
-            - sailelasticsearch:/usr/share/elasticsearch/data
-            - ./sinonimos_elastic.txt:/usr/share/elasticsearch/config/analysis/sinonimos_elastic.txt
-
-        networks:
-            - sail
+    # elasticsearch:
+    #     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
+    #     environment:
+    #         - discovery.type=single-node
+    #         - xpack.security.enabled=false
+    #     ports:
+    #         - 9200:9200
+    #         - 9300:9300
+    #     volumes:
+    #         - sailelasticsearch:/usr/share/elasticsearch/data
+    #         - ./sinonimos_elastic.txt:/usr/share/elasticsearch/config/analysis/sinonimos_elastic.txt
+    #
+    #     networks:
+    #         - sail
     # pgadmin:
     #     image: dpage/pgadmin4
     #     environment:
@@ -84,7 +84,7 @@ services:
             - sail
         depends_on:
             - pgsql
-            - elasticsearch
+    #        - elasticsearch
 networks:
     sail:
         driver: bridge

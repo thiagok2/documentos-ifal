@@ -65,7 +65,7 @@ class QueryElastic
                         'terms' => [ 'field' => 'ato.fonte.sigla' ]
                     ],
                     'tipo_doc' => [
-                        'terms' => [ 'field' => 'ato.tipo_doc' ]
+                        'terms' => [ 'field' => 'ato.tipo_doc.keyword' ]
                     ]
 
                 ]
