@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PnldQuestoesController;
+use App\Http\Controllers\PnldAvaliacaoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,8 +135,11 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('status/index',               [StatusController::class, 'index'])->name('server-status');
     Route::get('consultas',                  [ConsultaController::class, 'index'])->name('consultas');
     Route::get('consultas-mes',              [ConsultaController::class, 'consultasMes'])->name('consultasMes');
-});
+    });
 
+    Route::get('/pnld-questao', [PnldQuestoesController::class, 'index']);
+    Route::get('/pnld-formulario-avaliacao', [PnldAvaliacaoController::class, 'index'])->name('pnld.avaliacao.index');
+    Route::post('/pnld-formulario-avaliacao', [PnldAvaliacaoController::class, 'store'])->name('pnld.avaliacao.store');
 
 Auth::routes();
 
