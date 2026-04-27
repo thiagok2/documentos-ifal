@@ -157,7 +157,7 @@ Para rodar o script de captura (Crawler) em Python:
   # APLICAÇÃO #
 ==================
 
-- Acesso ao Sistema: http://localhost:80
+- Acesso ao Sistema: http://localhost:88
 
 ============================
  # RESOLUÇÃO DE PROBLEMAS #
