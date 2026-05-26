@@ -475,7 +475,7 @@
 
                 <div class="alert alert-danger-blue">
                     Persistindo o problema, notifique a administração do sistema através do email:
-                    <a href="mailto:Documentos IFAL@nees.com.br?Subject=Notificação de erro" target="_top">normativas@nees.com.br</a>
+                    <a href="mailto:CentralDoc@nees.com.br?Subject=Notificação de erro" target="_top">normativas@nees.com.br</a>
                 </div>
 
                 <div class="alert alert-danger-blue">

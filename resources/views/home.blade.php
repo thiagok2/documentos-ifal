@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'documentos ifal')
+@section('title', 'CentralDoc')
 
 
 @section('content_header')
@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-lg-12">
         <p class="alert alert-success" style="padding: 10px;">
-            Você é um usuário assessor. Você pode conceder as unidades acesso à plataforma Documentos ifal.
+            Você é um usuário assessor. Você pode conceder as unidades acesso à plataforma CentralDoc.
         </p>
     </div>
 </div>
@@ -341,7 +341,7 @@
                                 </td>
                                 <td>
                                     @if ($doc->isIndexado())
-                                        <a href="/normativa/view/{{ $doc['arquivo'] }}" target="_blank" title="Abrir no portal Documentos ifal">
+                                        <a href="/normativa/view/{{ $doc['arquivo'] }}" target="_blank" title="Abrir no CentralDoc">
                                             <i class="fa fa-external-link"></i>
                                         </a>
                                 

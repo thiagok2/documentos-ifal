@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Documentos ifal')
+@section('title', 'CentralDoc')
 
 @section('content_header')
 

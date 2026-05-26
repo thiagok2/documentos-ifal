@@ -118,7 +118,7 @@
                                 Pesquisar unidades
                             </button>
                             <a style="color: white !important" class="btn btn-info ml-1" href="/" target="_blank">
-                                <i class="fa fa-cogs"></i> Documentos IFAL
+                                <i class="fa fa-cogs"></i> CentralDoc
                             </a>
                         </div>
                     </div>

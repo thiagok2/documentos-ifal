@@ -38,7 +38,7 @@
 
         if (navigator.share) {            
             navigator.share({
-                text: 'Acesse: ' + titulo + ' no Documentos IFAL',                
+                text: 'Acesse: ' + titulo + ' no CentralDoc',                
                 url: url,
             })            
             .catch((error) => {});
@@ -112,7 +112,7 @@
             <div class="col-lg-2 offset-lg-1">
                 <h1>
                 <a href="{{route('index')}}">
-                    <!-- <img src="/img/" srcset="/img/normativos-logo@2x.png 2x" alt="Documentos IFAL" /> -->
+                    <!-- <img src="/img/" srcset="/img/normativos-logo@2x.png 2x" alt="CentralDoc" /> -->
                     <h1 style="color: aliceblue">Documentos <strong style="color: limegreen"> IFAL </strong></h1>
                 </a>
             </div>

@@ -14,7 +14,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url(config('adminlte.dashboard_url', 'admin/home')) }}">{!! config('adminlte.logo', '<b>IFAL</b> Docs') !!}</a>
+            <a href="{{ url(config('adminlte.dashboard_url', 'admin/home')) }}">{!! config('adminlte.logo', '<b>CentralDoc</b>') !!}</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">

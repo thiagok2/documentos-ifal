@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="col-6 col-lg-8 offset-lg-1">
                     <a href="{{ route('index') }}">
-                        <img src="/img/logo_if.svg" alt="Documentos IFAL" class="logo-img" />
+                        <img src="/img/logo.png" alt="CentralDoc" class="logo-img" />
                     </a>
                 </div>
 
@@ -169,11 +169,11 @@
                 <div class="col-lg-12 text-center">
                     <hr class="split">
                     <a href="{{route('index')}}">
-                        <!-- <img src="/img/" srcset="/img/normativos-logo@2x.png 2x" alt="Documentos IFAL" /> -->
-                        <div class="col-12 text-start">
+                        <!-- <img src="/img/" srcset="/img/normativos-logo@2x.png 2x" alt="CentralDoc" /> -->
+                        <div class="col-10 col-md-5 mx-auto text-center">
                             <a href="{{route('index')}}">
 
-                                <img src="/img/logo_if.svg" alt="Documentos IFAL" class="logo-img" />
+                                <img src="/img/logo.png" alt="CentralDoc" class="logo-img img-fluid d-block mx-auto" />
                                 
                             </a>
                         </div>

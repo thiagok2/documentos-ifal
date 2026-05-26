@@ -11,12 +11,12 @@
         gtag('config', 'G-0M43YF0CSW');
         </script>
 
-        <title>@yield("title", "Portal Documentos IFAL - Uma plataforma de buscas sobre portarias, resoluções e decretos")</title>
+        <title>@yield("title", "CentralDoc - Uma plataforma de buscas sobre portarias, resoluções e decretos")</title>
 
         <meta name="robots" content="index, follow">
         
         <meta name="description" 
-            content="@yield("description", 'No portal você pode realizar buscas sobre portarias, resoluções, decretos e outros atos produzidos na instituição')" />
+            content="@yield("description", 'No CentralDoc você pode realizar buscas sobre portarias, resoluções, decretos e outros atos produzidos na instituição')" />
         
         <meta name="keywords" content="@yield("keywords", "unidades educação, normas, edital, resolução, ata, ementa, normativas, normativos")"  />
 

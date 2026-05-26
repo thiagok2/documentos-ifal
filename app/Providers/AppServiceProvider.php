@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
             $user = auth()->user();
             
             if ($user->isAdmin() || $user->isConselho() || $user->isExtrator()) {
-                $event->menu->add('Documentos IFAL');
+                $event->menu->add('CentralDoc');
                 $event->menu->add(
                     [
                         'text' => 'Publicar',

@@ -3485,6 +3485,10 @@ body {
   margin-bottom: 15px;
 }
 
+.logo-img{
+  mix-blend-mode: multiply;
+}
+
 #header-buscado .logo-img {
   max-height: 40px;
   /* Altura da logo menor que na página inicial */

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Documentos IFAL')
+@section('title', 'CentralDoc')
 
 @section('content_header')
 
@@ -190,7 +190,7 @@
                                     </td>
                                     <td>
                                         @if ($doc->isIndexado())
-                                            <a href="/normativa/view/{{ $doc['arquivo'] }}" target="_blank" title="Abrir no Documentos IFAL">
+                                            <a href="/normativa/view/{{ $doc['arquivo'] }}" target="_blank" title="Abrir no CentralDoc">
                                                 <i class="fa fa-external-link"></i>
                                             </a>
                                        

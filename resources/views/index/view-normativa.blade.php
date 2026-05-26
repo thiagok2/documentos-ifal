@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-6 col-lg-8 offset-lg-1">
                 <a href="{{ route('index') }}">
-                    <img src="/img/logo_if.svg" alt="Documentos IFAL" class="logo-img" />
+                    <img src="/img/logo.png" alt="CentralDoc" class="logo-img" />
                 </a>
             </div>
             <div class="col-6 col-lg-2 text-right">
