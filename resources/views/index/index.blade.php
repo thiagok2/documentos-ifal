@@ -52,7 +52,6 @@
             <div class="row">
                 <div class="col-6 col-lg-8 offset-lg-1">
                     <a href="{{ route('index') }}">
-                        {{-- IMPORTANTE: Coloque o caminho correto para sua logo --}}
                         <img src="/img/logo_if.svg" alt="Documentos IFAL" class="logo-img" />
                     </a>
                 </div>
@@ -174,40 +173,8 @@
                         <div class="col-12 text-start">
                             <a href="{{route('index')}}">
 
-                                <svg width="500" height="90" viewBox="0 0 550 160" xmlns="http://www.w3.org/2000/svg">
-                                    <style>
-                                        .text {
-                                            font-family: Arial, sans-serif;
-                                            font-size: 50px;
-                                            font-weight: bold;
-                                            dominant-baseline: middle;
-                                            text-anchor: start;
-                                            fill: #FFFFFF;
-                                        }
-                                    </style>
-
-                                    <g transform="translate(20, 80)">
-                                        <text class="text" stroke="#FFFFFF" stroke-width="2px">Documentos</text>
-                                    </g>
-
-                                    <g class="logo_if" transform="translate(335, 10)">
-                                        <circle cx="20" cy="20" r="18" fill="#FFFFFF" />
-                                        <rect x="40" y="0" width="35" height="35" fill="#FFFFFF" />
-                                        <rect x="80" y="0" width="35" height="35" fill="#FFFFFF" />
-
-                                        <rect x="0" y="40" width="35" height="35" fill="#FFFFFF" />
-                                        <rect x="40" y="40" width="35" height="35" fill="#FFFFFF" />
-
-
-                                        <rect x="0" y="80" width="35" height="35" fill="#FFFFFF" />
-                                        <rect x="40" y="80" width="35" height="35" fill="#FFFFFF" />
-                                        <rect x="80" y="80" width="35" height="35" fill="#FFFFFF" />
-
-
-                                        <rect x="0" y="120" width="35" height="35" fill="#FFFFFF" />
-                                        <rect x="40" y="120" width="35" height="35" fill="#FFFFFF" />
-                                    </g>
-                                </svg>
+                                <img src="/img/logo_if.svg" alt="Documentos IFAL" class="logo-img" />
+                                
                             </a>
                         </div>
                     </a>
