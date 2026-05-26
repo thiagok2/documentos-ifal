@@ -137,7 +137,10 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function()
     Route::get('consultas-mes',              [ConsultaController::class, 'consultasMes'])->name('consultasMes');
     });
 
-    Route::get('/pnld-questao', [PnldQuestoesController::class, 'index']);
+    Route::get('/pnld-questao', [PnldQuestoesController::class, 'index'])->name('pnld.questoes.index');
+    Route::get('/pnld-questao/{id}', [PnldQuestoesController::class, 'show'])
+        ->where('id', '[0-9]+')
+        ->name('pnld.questoes.show');
     Route::get('/pnld-formulario-avaliacao', [PnldAvaliacaoController::class, 'index'])->name('pnld.avaliacao.index');
     Route::post('/pnld-formulario-avaliacao', [PnldAvaliacaoController::class, 'store'])->name('pnld.avaliacao.store');
 

@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Log;
 use App\Models\TipoDocumento;
 use App\Models\Unidade;
 use App\Services\SearchComponent;
-use App\Searches\Commands\SearchCommandA1;
-use App\Searches\Commands\SearchCommandA0;
+use App\Searches\Commands\SearchCommandUnified;
+use Illuminate\Support\Facades\Session;
 
 use App\Services\DocumentoQuery;
 
@@ -113,88 +113,59 @@ class IndexController extends Controller
 
 
 
-                if ($page == 1) //cadastrar consulta apenas no primeiro acesso
+                if ($page == 1) {
                     SearchComponent::logging($query, $request);
-                
+                }
+
                 $from = (($page - 1) * $size_page);
-            
-                if(str_ends_with($query, '"') && str_starts_with($query, '"')){
-                    $from = (($page - 1) * $size_page);
-                    $searchCommand = new SearchCommandA0('documentos_ifal', 'ato', $publico);
-                    $result = $searchCommand->search($query, $queryFilters, $from, $size_page);
-                    $total = $result->totalResults;
-                    
-                    $max_score = $result->maxScore;
-                    
-                    $total_pages = $result->totalPages;
-                    
-                    $documentos = $result->documentsResult;
-                    $aggregations = $result->aggResults;                
+                $exactPhrase = str_ends_with($query, '"') && str_starts_with($query, '"');
+                $searchCommand = new SearchCommandUnified('documentos_ifal', 'ato', $publico);
+
+                $cacheKey = $this->searchContextCacheKey($query, $queryFilters, $exactPhrase);
+                $withAggregations = ($page == 1 || !Session::has($cacheKey));
+
+                $result = $searchCommand->search(
+                    $query,
+                    $queryFilters,
+                    $from,
+                    $size_page,
+                    $exactPhrase,
+                    $withAggregations
+                );
+
+                if ($result->totalResults == 0 && isset($queryFilters['tipo_doc'])) {
+                    unset($queryFilters['tipo_doc']);
+                    $tipo_doc = null;
+
+                    $cacheKey = $this->searchContextCacheKey($query, $queryFilters, $exactPhrase);
+                    $withAggregations = ($page == 1 || !Session::has($cacheKey));
+
+                    $result = $searchCommand->search(
+                        $query,
+                        $queryFilters,
+                        $from,
+                        $size_page,
+                        $exactPhrase,
+                        $withAggregations
+                    );
                 }
-                else{
-                    // Executa A0 e A1
-                    
-                    $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato', $publico);
-                    $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000); // recupera até 1000 resultados para evitar paginação fragmentada
-                    
-                    $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato', $publico);
-                    $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
 
-                    // Busca não respondeu com tipo, buscar sem tipo
-                    if($resultA0->totalResults == 0 && $resultA1->totalResults == 0){
-                        unset($queryFilters['tipo_doc']);
-                        
-                        $searchCommandA0 = new SearchCommandA0('documentos_ifal', 'ato', $publico);
-                        $resultA0 = $searchCommandA0->search($query, $queryFilters, 0, 1000);
-
-                        $searchCommandA1 = new SearchCommandA1('documentos_ifal', 'ato', $publico);
-                        $resultA1 = $searchCommandA1->search($query, $queryFilters, 0, 1000);
-                    } 
-                    
-                    // Primeira fonte: A0
-                    $docIdsA0 = [];
-                    $finalResults = [];
-                    
-                    // Verifica se existe documentos em resultA0
-                    $docsA0 = (array) $resultA0->documentsResult;
-                    $docsA1 = (array) $resultA1->documentsResult;
-                    
-                    $merged = array_merge($docsA0, $docsA1);
-                    
-                    // Usa array_reduce para eliminar duplicados com base no 'id'
-                    $finalResultsAssoc = array_reduce($merged, function ($carry, $doc) {
-                        $id = $doc['id'] ?? null;
-                        if ($id !== null && !isset($carry[$id])) {
-                            $carry[$id] = $doc;
-                        }
-                        return $carry;
-                    }, []);
-                    
-                    // Reindexa para array simples
-                    $finalResults = array_values($finalResultsAssoc);                    
-                    
-                    // Pagina manualmente os resultados combinados
-                    $total = count($finalResults);
-                    $total_pages = ceil($total / $size_page);
-                    $from = (($page - 1) * $size_page);     
-                    $documentos = array_slice($finalResults, $from, $size_page);
-
-//                     $documentos = array_map(function (array $doc) {
-//                         $doc['ementa'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras suscipit semper sapien vel volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque sed nisi consequat, auctor mauris nec, laoreet ante. Integer nec aliquet nisl. Sed condimentum maximus metus, pretium imperdiet ipsum commodo eu. Mauris tristique purus sagittis lectus suscipit pretium vulputate euismod leo. Sed ac malesuada tellus. Vestibulum a nibh velit. In vel nisi arcu. Integer lacus eros, rutrum et ante sed, bibendum venenatis purus.
-// Etiam consectetur eros at velit sagittis, vitae sollicitudin tortor efficitur. Proin elementum facilisis risus in dictum. Vestibulum viverra rhoncus neque, sed feugiat ante interdum non. Etiam sed augue non elit dictum suscipit. Integer sed urna eget lectus molestie rutrum ut eu velit. Fusce tincidunt nisi nec neque sagittis, sed convallis tortor molestie. Proin a dui tincidunt, tincidunt erat ut, gravida nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sagittis risus mi, sit amet eleifend risus tincidunt ut. Integer in egestas arcu. Donec laoreet metus eget egestas venenatis. Praesent ac metus lorem.
-// ';
-//                         return $doc;
-//                     }, $documentos);
-
-
-                    
-                    // Calcula o max_score dos dois resultados
-                    $max_score = max($resultA0->maxScore ?? 0, $resultA1->maxScore ?? 0);
-                    
-                    // Agregações: escolha uma ou combine (aqui pegamos do A1 como base)
-                    $aggregations = $resultA1->aggResults;
+                if ($withAggregations) {
+                    Session::put($cacheKey, [
+                        'aggregations' => $result->aggResults,
+                        'max_score' => $result->maxScore,
+                    ]);
+                    $aggregations = $result->aggResults;
+                    $max_score = $result->maxScore ?? 0;
+                } else {
+                    $cached = Session::get($cacheKey, []);
+                    $aggregations = $cached['aggregations'] ?? [];
+                    $max_score = $cached['max_score'] ?? ($result->maxScore ?? 0);
                 }
-                
+
+                $total = $result->totalResults;
+                $total_pages = $result->totalPages;
+                $documentos = $result->documentsResult;
                 }
                 return view(
                     'index.index',
@@ -256,6 +227,23 @@ class IndexController extends Controller
             }
 
         }
+    }
+
+    private function searchContextCacheKey(string $query, array $filters, bool $exactPhrase): string
+    {
+        $context = [
+            'query' => $query,
+            'exact' => $exactPhrase,
+            'tipo_doc' => $filters['tipo_doc'] ?? null,
+            'esfera' => $filters['esfera'] ?? null,
+            'ano' => $filters['ano'] ?? null,
+            'fonte' => $filters['fonte'] ?? null,
+            'periodo' => $filters['periodo'] ?? null,
+            'publico' => $filters['publico'] ?? null,
+            'orgao' => $filters['orgao'] ?? null,
+        ];
+
+        return 'index_search_ctx_' . md5(json_encode($context));
     }
 
     protected function likeDocuments($docResult)

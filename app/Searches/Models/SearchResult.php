@@ -21,7 +21,21 @@ class SearchResult
         $this->maxScore = $elasticResult['hits']['max_score'];
         $this->totalPages = ceil($this->totalResults/$sizePage);
 
-        foreach($elasticResult['hits']['hits'] as $hit){
+        $hits = $elasticResult['hits']['hits'] ?? [];
+        $ids = array_map(function ($hit) {
+            return $hit['_id'];
+        }, $hits);
+
+        $persistedIds = [];
+        if (!empty($ids)) {
+            $persistedIds = array_flip(
+                Documento::whereIn('arquivo', $ids)->pluck('arquivo')->all()
+            );
+        }
+
+        $this->documentsResult = [];
+
+        foreach($hits as $hit){
             $doc = array();
             $doc['id'] = $hit['_id'];
             $doc['score'] = $hit['_score'];
@@ -56,9 +70,7 @@ class SearchResult
                 $doc['trechos_destaque'] = null;
             }
 
-            $documento = Documento::where('arquivo', $doc['id'])->first();
-
-            $doc['persisted'] = isset($documento);
+            $doc['persisted'] = isset($persistedIds[$doc['id']]);
 
             $this->documentsResult[] = $doc;
         }

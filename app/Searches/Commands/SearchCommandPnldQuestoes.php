@@ -165,4 +165,74 @@ class SearchCommandPnldQuestoes implements ISearchCommand
 
         return $searchResult;
     }
+
+    public function findById($id): ?array
+    {
+        try {
+            $response = $this->clientElastic->get([
+                'index' => $this->index,
+                'id' => (string) $id,
+            ]);
+
+            $data = is_array($response) ? $response : $response->asArray();
+
+            return $data['_source'] ?? null;
+        } catch (\Exception $e) {
+            $search = $this->clientElastic->search([
+                'index' => $this->index,
+                'body' => [
+                    'size' => 1,
+                    'query' => [
+                        'term' => [
+                            'co_questao' => (int) $id,
+                        ],
+                    ],
+                ],
+            ]);
+
+            $data = is_array($search) ? $search : $search->asArray();
+            $hit = $data['hits']['hits'][0] ?? null;
+
+            return $hit['_source'] ?? null;
+        }
+    }
+
+    public function findRelated(array $source, int $limit = 10): array
+    {
+        $coGrupo = $source['co_grupo'] ?? null;
+        $coQuestao = $source['co_questao'] ?? null;
+
+        if ($coGrupo === null) {
+            return [];
+        }
+
+        $mustNot = [];
+        if ($coQuestao !== null) {
+            $mustNot[] = ['term' => ['co_questao' => (int) $coQuestao]];
+        }
+
+        $body = [
+            'size' => $limit,
+            'query' => [
+                'bool' => [
+                    'must' => [
+                        ['term' => ['co_grupo' => (int) $coGrupo]],
+                    ],
+                    'must_not' => $mustNot,
+                ],
+            ],
+            'sort' => [
+                ['nu_ordem_questao' => ['order' => 'asc']],
+            ],
+        ];
+
+        $response = $this->clientElastic->search([
+            'index' => $this->index,
+            'body' => $body,
+        ]);
+
+        $data = is_array($response) ? $response : $response->asArray();
+
+        return $data['hits']['hits'] ?? [];
+    }
 }

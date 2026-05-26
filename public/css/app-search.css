@@ -3087,7 +3087,7 @@ body .highlight_word {
 
 .form-control:focus {
   border-color: #5ca060 !important;
-  box-shadow: 0 0 0 .2rem #5ca060;
+  box-shadow: none !important;
 }
 
 body .btn {
@@ -3103,7 +3103,7 @@ body .btn {
   color: #ffffff !important;
   background-color: #14791b !important;
   border-color: #14791b !important;
-  box-shadow: 0 0 0 .2rem #14791b !important;
+  box-shadow: none !important;
 }
 
 .btn.btn-outline-secondary:hover {
@@ -3133,7 +3133,7 @@ body .btn.btn-primary.active,
   /*#126c00*/
   border-color: #5ca060 !important;
   color: white !important;
-  box-shadow: 0 0 0 .2rem #5ca060 !important;
+  box-shadow: none !important;
 }
 
 body .btn.btn-primary:hover,
@@ -3225,7 +3225,7 @@ body .pagination .page-item .page-link:focus,
 body .pagination .page-item .page-link.active {
   background-color: #5ca060;
   border: none;
-  box-shadow: none;
+  box-shadow: none !important;
   color: #ffffff !important;
 }
 
@@ -3482,6 +3482,7 @@ body {
   padding: 10px 0;
   /* Padding menor para uma altura reduzida */
   color: white;
+  margin-bottom: 15px;
 }
 
 #header-buscado .logo-img {
@@ -3529,4 +3530,69 @@ body {
   flex-direction: row;
   gap: 5px;
   margin-top: 15px;
+}
+
+.index-loading .fa-spinner,
+.pnld-loading .fa-spinner {
+  color: #14791b;
+}
+
+.documento-titulo-link {
+  color: #14791b !important;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none !important;
+}
+
+.documento-titulo-link:hover,
+.documento-titulo-link:focus {
+  text-decoration: underline !important;
+}
+
+.normativa-detalhes-toggle {
+  border: solid 1px #e2e8e8;
+  background-color: #efeeee;
+  border-radius: 10px;
+  font-size: 14px;
+  padding: 6px 12px;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.normativa-detalhes-toggle:hover {
+  background-color: #ebebf1;
+  text-decoration: none;
+  color: #333;
+}
+
+.normativa-detalhes-panel {
+  border: solid 1px #e8e5e5;
+  border-radius: 13px;
+  background-color: #f8f8f8;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Chips de filtros (Index) */
+.filter-chip {
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.filter-chip--active {
+  background-color: #14791b !important;
+  border-color: #14791b !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.filter-chip--active .badge-info {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.filter-chip--clear {
+  border-style: dashed;
 }

@@ -302,6 +302,12 @@
     <!-- end search form -->
 @endif
 
+<div id="index-loading" class="index-loading text-center py-5 d-none" role="status" aria-live="polite">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+    <p class="mt-3 text-muted mb-0">Buscando documentos, aguarde...</p>
+</div>
+
+<div id="index-conteudo">
 <!-- results -->
 <section id="results">
     <div class="container-fluid">
@@ -342,8 +348,13 @@
                             <!--Score máximo ({{ $max_score }}).-->
                         </p>
                         <div class="mt-2">
-                            @if ((($esfera && $esfera != "all") || $ano || $fonte))
-                                <a href="?query={{ $query }}" class="btn btn-outline-secondary btn-pill btn-sm mb-2">
+                            @php
+                                $hasAnyFilter = (($esfera && $esfera != 'all') || ($ano && $ano != 'all') || ($fonte && $fonte != 'all') || ($tipo_doc && $tipo_doc != 'all') || ($periodo && $periodo != 'all'));
+                            @endphp
+
+                            @if ($hasAnyFilter)
+                                <a href="{{ request()->fullUrlWithQuery(['page' => 1, 'esfera' => null, 'ano' => null, 'fonte' => null, 'tipo_doc' => null, 'periodo' => null]) }}"
+                                   class="btn btn-outline-secondary btn-pill btn-sm mb-2 filter-chip filter-chip--clear">
                                     Limpar Filtros
                                     <span class="badge badge-pill badge-info"></span>
                                 </a>
@@ -352,35 +363,31 @@
                             @if (isset($aggregations))
 
                                 @foreach ($aggregations['ano']['labels'] as $bucket)
-                                        <a href="?query={{ $query }}&ano={{ urlencode($bucket['nome']) }}&esfera={{ $esfera  }}&fonte={{ $fonte  }}"
-                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 <?php                if (isset($ano))
-                                    echo "bg-secondary text-light" ?>">
+                                        <a href="{{ request()->fullUrlWithQuery(['page' => 1, 'ano' => $bucket['nome']]) }}"
+                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 filter-chip {{ ($ano ?? null) == $bucket['nome'] ? 'filter-chip--active' : '' }}">
                                             {{ ucfirst($bucket['nome']) }}
                                             <span class="badge badge-pill badge-info">{{ $bucket['quantidade'] }}</span>
                                         </a>
                                 @endforeach
 
                                 @foreach ($aggregations['esfera']['labels'] as $bucket)
-                                        <a href="?query={{ $query }}&esfera={{ urlencode($bucket['nome']) }}&ano={{ $ano }}&fonte={{ $fonte  }}"
-                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 <?php                if (isset($esfera))
-                                    echo "bg-secondary text-light" ?>">
+                                        <a href="{{ request()->fullUrlWithQuery(['page' => 1, 'esfera' => $bucket['nome']]) }}"
+                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 filter-chip {{ ($esfera ?? null) == $bucket['nome'] ? 'filter-chip--active' : '' }}">
                                             {{ ucfirst($bucket['nome']) }}
                                             <span class="badge badge-pill badge-info">{{ $bucket['quantidade'] }}</span>
                                         </a>
                                 @endforeach
 
                                 @foreach ($aggregations['fonte']['labels'] as $bucket)
-                                        <a href="?query={{ $query }}&fonte={{ urlencode($bucket['nome']) }}&ano={{ $ano  }}&esfera={{ $esfera }}"
-                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 <?php                if (isset($fonte))
-                                    echo "bg-secondary text-light" ?>">
+                                        <a href="{{ request()->fullUrlWithQuery(['page' => 1, 'fonte' => $bucket['nome']]) }}"
+                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 filter-chip {{ ($fonte ?? null) == $bucket['nome'] ? 'filter-chip--active' : '' }}">
                                             {{ ucfirst($bucket['nome']) }}
                                             <span class="badge badge-pill badge-info">{{ $bucket['quantidade'] }}</span>
                                         </a>
                                 @endforeach
                                 @foreach ($aggregations['tipo_doc']['labels'] as $bucket)
-                                        <a href="?query={{ $query }}&tipo_doc={{ urlencode($bucket['nome']) }}&ano={{ $ano  }}&esfera={{ $esfera }}&fonte={{ $fonte  }}"
-                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 <?php                if (isset($tipo_doc))
-                                    echo "bg-secondary text-light" ?>">
+                                        <a href="{{ request()->fullUrlWithQuery(['page' => 1, 'tipo_doc' => $bucket['nome']]) }}"
+                                            class="btn btn-outline-secondary btn-pill btn-sm mb-2 filter-chip {{ ($tipo_doc ?? null) == $bucket['nome'] ? 'filter-chip--active' : '' }}">
                                             {{ ucfirst($bucket['nome']) }}
                                             <span class="badge badge-pill badge-info">{{ $bucket['quantidade'] }}</span>
                                         </a>
@@ -405,9 +412,7 @@
                     ])>
                         <div style="background-color: white !important;" class="card-header">
                             <h6>
-                                <a style="color: #14791b !important;font-size: 20px; font-weight: bold;"
-                                    onmouseover="this.style.setProperty('text-decoration','underline','important');"
-                                    onmouseout="this.style.setProperty('text-decoration','none','important');"
+                                <a class="documento-titulo-link"
                                     id="a-{{$doc['id']}}" href="/normativa/view/{{ $doc['id'] }}?query={{$query}}">
                                     {{-- <i class="fa fa-external-link"></i>--}}
                                     {{ $doc['titulo'] }}
@@ -421,7 +426,8 @@
 
                             </h6>
                             @if (isset($doc['fonte']['sigla']))
-                                <a class="card-down link-subtitulo" href="?query={{$query}}&fonte={{ $doc['fonte']['sigla'] }}">
+                                <a class="card-down link-subtitulo"
+                                   href="{{ request()->fullUrlWithQuery(['page' => 1, 'fonte' => $doc['fonte']['sigla']]) }}">
                                     {{ $doc['fonte']['orgao'] }}
                                 </a>
                             @else
@@ -587,7 +593,7 @@
         <!-- param page_size(default=10)-->
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
-                <nav>
+                <nav class="index-pagination" aria-label="Navegação de páginas">
                     <ul class="pagination justify-content-center">
                         @if ($page > 1)
                             <li class="page-item">
@@ -648,51 +654,73 @@
     </div>
 </section>
 <!-- results -->
+</div>
 <hr class="split">
 
 @endsection
 @push('scripts-caio')
     <script>
-        document.getElementById('form-busca').addEventListener('submit', function(event) {
-            // Pega os elementos pelos IDs que criamos acima
-            var btn = document.getElementById('btn-buscar');
-            var texto = document.getElementById('texto-botao');
-            var loading = document.getElementById('loading-botao');
+        (function () {
+            var loadingArea = document.getElementById('index-loading');
+            var conteudo = document.getElementById('index-conteudo');
 
-            // Se por acaso os elementos não existirem (proteção contra erro), para aqui
-            if (!btn || !texto || !loading) return;
+            function ativarBotao(btnId, textoId, loadingId) {
+                var btn = document.getElementById(btnId);
+                var texto = document.getElementById(textoId);
+                var loadingBotao = document.getElementById(loadingId);
 
-            // 1. Evita clique duplo desabilitando o botão
-            btn.style.pointerEvents = 'none'; // Desabilita cliques
-            btn.style.opacity = '0.8';        // Dá um visual visual levemente apagado
+                if (!btn || !texto || !loadingBotao) {
+                    return;
+                }
 
-            // 2. Troca o conteúdo: Esconde texto, mostra loading
-            texto.classList.add('d-none');
-            loading.classList.remove('d-none');
-            
-            // O form segue o envio naturalmente...
-        });
-    </script>
-        <script>
-        document.getElementById('form-busca-start').addEventListener('submit', function(event) {
-            // Pega os elementos pelos IDs que criamos acima
-            var btn = document.getElementById('btn-buscar-start');
-            var texto = document.getElementById('texto-botao-start');
-            var loading = document.getElementById('loading-botao-start');
+                btn.disabled = true;
+                btn.style.pointerEvents = 'none';
+                btn.style.opacity = '0.85';
+                texto.classList.add('d-none');
+                loadingBotao.classList.remove('d-none');
+            }
 
-            // Se por acaso os elementos não existirem (proteção contra erro), para aqui
-            if (!btn || !texto || !loading) return;
+            function ativarLoading(btnId, textoId, loadingId) {
+                if (loadingArea) {
+                    loadingArea.classList.remove('d-none');
+                }
+                if (conteudo) {
+                    conteudo.classList.add('d-none');
+                }
+                var miniSearch = document.getElementById('mini-search');
+                var searchSection = document.getElementById('search');
+                if (miniSearch) {
+                    miniSearch.classList.add('d-none');
+                }
+                if (searchSection) {
+                    searchSection.classList.add('d-none');
+                }
+                if (btnId) {
+                    ativarBotao(btnId, textoId, loadingId);
+                }
+            }
 
-            // 1. Evita clique duplo desabilitando o botão
-            btn.style.pointerEvents = 'none'; // Desabilita cliques
-            btn.style.opacity = '0.8';        // Dá um visual visual levemente apagado
+            var formBusca = document.getElementById('form-busca');
+            if (formBusca) {
+                formBusca.addEventListener('submit', function () {
+                    ativarLoading('btn-buscar', 'texto-botao', 'loading-botao');
+                });
+            }
 
-            // 2. Troca o conteúdo: Esconde texto, mostra loading
-            texto.classList.add('d-none');
-            loading.classList.remove('d-none');
-            
-            // O form segue o envio naturalmente...
-        });
+            var formBuscaStart = document.getElementById('form-busca-start');
+            if (formBuscaStart) {
+                formBuscaStart.addEventListener('submit', function () {
+                    ativarLoading('btn-buscar-start', 'texto-botao-start', 'loading-botao-start');
+                });
+            }
+
+            document.addEventListener('click', function (event) {
+                var link = event.target.closest('.index-pagination a.page-link');
+                if (link) {
+                    ativarLoading();
+                }
+            });
+        })();
     </script>
     <script src="/js/bootstrap5.min.js"></script>
     <script>
