@@ -21,33 +21,33 @@ services:
             - '.:/var/www/html'
         networks:
             - sail
-        depends_on:
-            - pgsql
-    pgsql:
-        image: 'postgres:17'
-        ports:
-            - '${FORWARD_DB_PORT:-5435}:5432'
-        environment:
-            PGPASSWORD: postgres
-            POSTGRES_DB: documentos-ifal
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-        volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
-            - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
-        networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - pg_isready
-                - '-q'
-                - '-d'
-                - '${DB_DATABASE}'
-                - '-U'
-                - '${DB_USERNAME}'
-            retries: 3
-            timeout: 5s
+    #    depends_on:
+    #         - pgsql
+    # pgsql:
+    #     image: 'postgres:17'
+    #     ports:
+    #         - '${FORWARD_DB_PORT:-5435}:5432'
+    #     environment:
+    #         PGPASSWORD: postgres
+    #         POSTGRES_DB: documentos-ifal
+    #         POSTGRES_USER: postgres
+    #         POSTGRES_PASSWORD: postgres
+    #     volumes:
+    #         - 'sail-pgsql:/var/lib/postgresql/data'
+    #         - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+    #     networks:
+    #         - sail
+    #     healthcheck:
+    #         test:
+    #             - CMD
+    #             - pg_isready
+    #             - '-q'
+    #             - '-d'
+    #             - '${DB_DATABASE}'
+    #             - '-U'
+    #             - '${DB_USERNAME}'
+    #         retries: 3
+    #         timeout: 5s
     # elasticsearch:
     #     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
     #     environment:
@@ -82,8 +82,8 @@ services:
         command: ["sh", "-c", "pip install -r requirements.txt && tail -f /dev/null"]
         networks:
             - sail
-        depends_on:
-            - pgsql
+    #    depends_on:
+    #        - pgsql
     #        - elasticsearch
 networks:
     sail:

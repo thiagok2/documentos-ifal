@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArtefatoController;
 use App\Http\Controllers\Admin\AssessoriaController;
 use App\Http\Controllers\Admin\AssuntoController;
 use App\Http\Controllers\Admin\ConsultaController;
@@ -23,7 +24,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PnldQuestoesController;
 use App\Http\Controllers\PnldAvaliacaoController;
-
+use App\Http\Controllers\PublicArtefatoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,12 +56,22 @@ Route::get('errors/404', function () {
 Route::get('/primeiro-acesso', [PrimeiroAcessoController::class, 'first'])->name('primeiro-acesso');
 Route::post('solicitar-acesso', [PrimeiroAcessoController::class, 'request'])->name('solicitar-acesso');
 
+// Busca Pública de Artefatos
+Route::get('/artefatos', [PublicArtefatoController::class, 'index'])->name('artefatos-search');
+Route::get('/artefatos/download/{id}', [PublicArtefatoController::class, 'download'])->name('artefato-download');
+
 Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function(){
     Route::get('getenv', [EnvController::class, 'getenv'])->name('getenv');
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('guia', function () {
         return view('admin/guide');
     })->name('guia');    
+
+    // Rotas de Artefatos
+    Route::get('artefatos/upload',      [ArtefatoController::class, 'create'])->name('artefato-create');
+    Route::post('artefatos/upload',     [ArtefatoController::class, 'store'])->name('artefato-store');
+    Route::delete('artefatos/delete/{id}', [ArtefatoController::class, 'destroy'])->name('artefato-delete');
+
     Route::get('convites',              [ConviteController::class, 'index'])->name('convites');
 
     Route::get('unidades',              [UnidadeController::class, 'index'])->name('unidades');

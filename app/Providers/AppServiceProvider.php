@@ -32,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
                         'text' => 'Publicar em Lote',
                         'url' => 'admin/documentos/publicar-lote',
                         'icon' => 'fas fa-fw fa-upload'
+                    ],
+                    [
+                        'text' => 'Upload Artefatos',
+                        'url' => 'admin/artefatos/upload',
+                        'icon' => 'fas fa-fw fa-file-pdf'
                     ]
                 );
             }
