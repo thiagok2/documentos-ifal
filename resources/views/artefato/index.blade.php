@@ -76,7 +76,9 @@
                             <div class="card mb-3 card-primary" style="border-left: 5px solid #19882c;">
                                 <div class="card-header bg-white">
                                     <h6>
-                                        <i class="fa fa-file-pdf" style="color: #19882c;"></i> {{ $doc['titulo'] ?? 'Artefato Sem Título' }}
+                                        <a href="{{ route('artefato-view', $doc['id']) }}" style="color: #19882c; text-decoration: none;">
+                                            <i class="fa fa-file-pdf"></i> {{ $doc['titulo'] ?? 'Artefato Sem Título' }}
+                                        </a>
                                         <span class="float-right text-muted" style="font-size: 0.8rem">
                                             {{ date('d/m/Y', strtotime($doc['created_at'])) }}
                                         </span>

@@ -59,6 +59,11 @@ Route::post('solicitar-acesso', [PrimeiroAcessoController::class, 'request'])->n
 // Busca Pública de Artefatos
 Route::get('/artefatos', [PublicArtefatoController::class, 'index'])->name('artefatos-search');
 Route::get('/artefatos/download/{id}', [PublicArtefatoController::class, 'download'])->name('artefato-download');
+Route::get('/artefatos/view-pdf/{id}', [PublicArtefatoController::class, 'viewPdf'])->name('artefato-view-pdf');
+Route::get('/artefatos/view/{id}', [PublicArtefatoController::class, 'show'])->name('artefato-view');
+
+// Rota para o Chatbot (RASA)
+Route::post('/chat/send', [\App\Http\Controllers\ChatController::class, 'sendMessage'])->name('chat-send');
 
 Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function(){
     Route::get('getenv', [EnvController::class, 'getenv'])->name('getenv');

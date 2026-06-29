@@ -108,4 +108,37 @@ class PublicArtefatoController extends Controller
         }
         return redirect()->back()->with('error', 'Arquivo PDF original não foi encontrado no servidor local.');
     }
+
+    public function viewPdf($id)
+    {
+        $filePath = storage_path('app/uploads/artefatos/' . $id);
+        if (file_exists($filePath)) {
+            return response()->file($filePath);
+        }
+        return redirect()->back()->with('error', 'Arquivo PDF original não foi encontrado no servidor local.');
+    }
+
+    public function show($id)
+    {
+        try {
+            $index = env('ELASTICSEARCH_INDEX_ARTEFATOS', 'artefatos_v2');
+            $params = [
+                'index' => $index,
+                'id' => $id
+            ];
+            $response = $this->client->get($params);
+            
+            if (isset($response['_source']['artefato'])) {
+                $doc = $response['_source']['artefato'];
+                $doc['id'] = $response['_id'];
+                return view('artefato.show', compact('doc'));
+            } else {
+                return redirect()->route('artefatos-search')->with('error', 'Artefato não encontrado.');
+            }
+            
+        } catch (\Exception $e) {
+            Log::error('Erro ao buscar detalhes do artefato: ' . $e->getMessage());
+            return redirect()->route('artefatos-search')->with('error', 'Artefato não encontrado ou ocorreu um erro.');
+        }
+    }
 }

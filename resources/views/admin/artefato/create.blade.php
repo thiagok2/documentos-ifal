@@ -35,6 +35,16 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="titulo">Título do Artefato</label>
+                                <small class=".text-muted">(Nome que será exibido na busca)</small>
+                                <input id="titulo" required class="form-control" type="text" name="titulo" value="{{old('titulo')}}"/>
+                            </div>
+                        </div>
+                    </div><!-- end row -->
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label for="resumo">Resumo</label>
                                 <small class=".text-muted">(Descrição breve do artefato)</small>
                                 <textarea id="resumo" required class="form-control" rows="4" name="resumo">{{old('resumo')}}</textarea>                                

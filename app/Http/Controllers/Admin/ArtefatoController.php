@@ -39,6 +39,7 @@ class ArtefatoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'titulo' => 'required|string|max:255',
             'resumo' => 'required|string',
             'lista_entidades' => 'nullable|string',
             'especificacao' => 'nullable|string',
@@ -82,7 +83,7 @@ class ArtefatoController extends Controller
                     'entidades' => $entidadesFormatadas,
                     'uploaded_by' => (string) auth()->user()->id,
                     'created_at' => date('c'), // Formato aceito pelo ES date type
-                    'titulo' => $filename
+                    'titulo' => $request->input('titulo')
                 ],
                 'data' => base64_encode($arquivoConteudo)
             ];
@@ -105,7 +106,7 @@ class ArtefatoController extends Controller
                 throw new Exception("Erro Elastic: " . json_encode($resultElastic));
             }
 
-            return redirect()->route('artefato-create')->with('success', 'Artefato salvo no Elasticsearch com sucesso!');
+            return redirect()->route('artefato-create')->with('success', 'Artefato salvo com sucesso!');
 
         } catch (Exception $e) {
             Log::error('Erro ao salvar artefato no Elasticsearch: ' . $e->getMessage());

@@ -169,4 +169,7 @@
 
 <hr class="split-sm">
 <hr class="split">
+
+@include('includes.chat', ['document_id' => $id, 'is_normativa' => true])
+
 @endsection
