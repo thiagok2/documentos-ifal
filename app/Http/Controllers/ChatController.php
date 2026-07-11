@@ -75,8 +75,13 @@ class ChatController extends Controller
             $rasaData = $response->json();
             
             $reply = "";
+            $isLoadingModel = false;
+
             if (!empty($rasaData)) {
                 foreach ($rasaData as $msg) {
+                    if (isset($msg['custom']) && isset($msg['custom']['is_loading_model']) && $msg['custom']['is_loading_model'] === true) {
+                        $isLoadingModel = true;
+                    }
                     if (isset($msg['text'])) {
                         $reply .= $msg['text'] . "\n\n";
                     }
@@ -94,7 +99,8 @@ class ChatController extends Controller
         }
 
         return response()->json([
-            'reply' => $reply
+            'reply' => $reply,
+            'is_loading_model' => $isLoadingModel
         ]);
     }
 }

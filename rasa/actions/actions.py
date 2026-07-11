@@ -5,6 +5,35 @@ import json
 import urllib.request
 import urllib.error
 import os
+import threading
+import random
+
+unload_timer = None
+
+def unload_model(model_id, api_key, base_url):
+    try:
+        # A API nativa do LM Studio usa /api/v1/models/unload
+        unload_url = base_url.replace("/v1/chat/completions", "/api/v1/models/unload")
+        req = urllib.request.Request(
+            unload_url,
+            data=json.dumps({"model": model_id}).encode('utf-8'),
+            headers={'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'},
+            method='POST'
+        )
+        urllib.request.urlopen(req, timeout=10)
+        print(f"Modelo {model_id} descarregado com sucesso por inatividade.")
+    except Exception as e:
+        print(f"Falha ao descarregar modelo {model_id}: {e}")
+
+def schedule_unload(model_id, api_key, base_url):
+    global unload_timer
+    if unload_timer is not None:
+        unload_timer.cancel()
+    # 15 minutos = 900 segundos
+    unload_timer = threading.Timer(900.0, unload_model, args=[model_id, api_key, base_url])
+    # Como a thread do Rasa Action Server pode morrer, é um best effort
+    unload_timer.daemon = True 
+    unload_timer.start()
 
 class ActionAskLLM(Action):
 
@@ -81,6 +110,11 @@ class ActionAskLLM(Action):
             # Aumentamos o timeout no caso de JIT load, pois carregar o modelo pode demorar
             with urllib.request.urlopen(req, timeout=120) as response:
                 result = json.loads(response.read().decode('utf-8'))
+                
+                # Reseta o timer de inatividade sempre que houver sucesso
+                actual_model_id = result.get('model', model_name)
+                schedule_unload(actual_model_id, api_key, lm_studio_url)
+                
                 return result['choices'][0]['message']['content']
 
         try:
@@ -104,7 +138,19 @@ class ActionAskLLM(Action):
                         
                         if available_models:
                             first_model = available_models[0]
-                            dispatcher.utter_message(text=f"Aguarde, carregando o modelo {first_model} automaticamente...")
+                            # Mensagens solicitadas pelo usuário (sem exibir o nome do modelo)
+                            mensagens_loading = [
+                                "Aguarde, carregando o modelo e ativando a Iúna automaticamente...",
+                                "Ativando a Iúna... Logo ela estará apta a responder às suas perguntas."
+                            ]
+                            loading_msg = random.choice(mensagens_loading)
+                            
+                            # Envia a mensagem com custom payload para o frontend identificar o caso
+                            dispatcher.utter_message(
+                                text=loading_msg,
+                                custom={"is_loading_model": True}
+                            )
+                            
                             llm_reply = make_request(first_model)
                             dispatcher.utter_message(text=llm_reply)
                         else:
