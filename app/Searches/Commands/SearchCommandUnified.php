@@ -103,19 +103,19 @@ class SearchCommandUnified implements ISearchCommand
         }
 
         if ($this->checkHasFilter('tipo_doc', $filters)) {
-            $this->queryBuilder->addBoolFilterTerm($filters['tipo_doc'], 'tipo_doc');
+            $this->queryBuilder->addBoolFilterTerm($filters['tipo_doc'], 'tipo_doc.keyword');
         }
 
         if ($this->checkHasFilter('esfera', $filters)) {
-            $this->queryBuilder->addBoolFilterTerm($filters['esfera'], 'fonte.esfera');
+            $this->queryBuilder->addBoolFilterTerm($filters['esfera'], 'fonte.esfera.keyword');
         }
 
         if ($this->checkHasFilter('ano', $filters)) {
-            $this->queryBuilder->addBoolFilterTerm($filters['ano'], 'ano');
+            $this->queryBuilder->addBoolFilterTerm($filters['ano'], 'ano.keyword');
         }
 
         if ($this->checkHasFilter('fonte', $filters)) {
-            $this->queryBuilder->addBoolFilterTerm($filters['fonte'], 'fonte.sigla');
+            $this->queryBuilder->addBoolFilterTerm($filters['fonte'], 'fonte.sigla.keyword');
         }
 
         if ($this->checkHasFilter('periodo', $filters)) {

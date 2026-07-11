@@ -9,6 +9,33 @@
 
 @include('admin.includes.alerts')
 
+<style>
+    .btn-custom-green {
+        background-color: #19882c !important;
+        border-color: #19882c !important;
+        color: #ffffff !important;
+    }
+    .btn-custom-green:hover, .btn-custom-green:focus, .btn-custom-green:active {
+        background-color: #025310 !important;
+        border-color: #025310 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 0 0.2rem rgba(25, 136, 44, 0.25) !important;
+    }
+    .btn-outline-custom-green {
+        color: #19882c !important;
+        border-color: #19882c !important;
+        background-color: transparent !important;
+    }
+    .btn-outline-custom-green:hover, .btn-outline-custom-green:focus, .btn-outline-custom-green:active {
+        color: #ffffff !important;
+        background-color: #19882c !important;
+        border-color: #19882c !important;
+        box-shadow: 0 0 0 0.2rem rgba(25, 136, 44, 0.25) !important;
+    }
+    .btn-custom-green:focus, .btn-outline-custom-green:focus {
+        outline: none !important;
+    }
+</style>
 
 @if (!empty($query) && (!empty($documentos)))
 
@@ -490,31 +517,12 @@
 
 
                             @auth
-                                @if (
-                                        (auth()->user()->isAdmin() || auth()->user()->unidade->sigla === $doc['fonte']['sigla'])
-                                        && isset($doc['id_persisted']) && isset($doc['persisted'])
-                                    )
-                                    <a style="color: white !important" href="{{ route("documento-edit", $doc['id_persisted']) }}"
-                                        title="Editar" class="btn btn-primary pull-right m-1">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-
-                                    @if (auth()->user()->isAdmin() && !$doc['persisted'])
-                                        <a style="color: white !important" href="{{route('delete-elastic', $doc['id'])}}"
-                                            class="btn btn-danger pull-right m-1">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    @endif
-                                @endif
-
-
                                 @if(!$doc['persisted'] && auth()->user()->isAdmin())
-                                    <div class="alert alert-danger">
+                                    <div class="alert alert-danger mt-2 mb-2">
                                         <strong>Atenção:</strong> este documento não está sendo gerenciado pela área de
                                         administração.
                                     </div>
                                 @endif
-
                             @endauth
                             <!-- </div> -->
                             <div class="container-ementa">
@@ -544,24 +552,42 @@
                                 <div class="buttons-card">
                                     <button id='popoverBtn' {{-- data-bs-toggle="popover" data-bs-placement="top"
                                         data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." --}}
-                                        @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) type="button" data-toggle="collapse"
+                                        @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag]) type="button" data-toggle="collapse"
                                         data-target="#trechos-{{$loop->index}}" aria-expanded="false"
                                         aria-controls="highlight-collapse-{{$doc['id']}}" {{empty($doc['trechos_destaque']) ? 'disabled' : ''}}>
                                         <i class="fa fa-quote-right"></i>
 
                                     </button>
 
-                                    <a href="/normativa/pdf/{{ $doc['id'] }}" @class(['btn-new', 'btn', 'btn-secondary' => $changePrivateFlag, 'btn-primary' => !$changePrivateFlag]) target="_blank">
+                                    <a href="/normativa/pdf/{{ $doc['id'] }}" @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag]) target="_blank">
                                         <i class="fa fa-download"></i>
                                     </a>
                                     <div class="tooltip-custom">
                                         <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
                                         <input aria-hidden="true" id="url-{{ $doc['id']}}" />
-                                        <button class="btn-new btn btn-secondary pull-right" type="button"
+                                        <button @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag]) type="button"
                                             onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
                                             <i class="fa fa-share-alt"></i>
                                         </button>
                                     </div>
+                                    @auth
+                                        @if (
+                                                (auth()->user()->isAdmin() || auth()->user()->unidade->sigla === $doc['fonte']['sigla'])
+                                                && isset($doc['id_persisted']) && isset($doc['persisted'])
+                                            )
+                                            <a href="{{ route("documento-edit", $doc['id_persisted']) }}"
+                                                title="Editar" @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag])>
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+
+                                            @if (auth()->user()->isAdmin() && !$doc['persisted'])
+                                                <a href="{{route('delete-elastic', $doc['id'])}}"
+                                                    class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            @endif
+                                        @endif
+                                    @endauth
                                 </div>
                             </div>
 

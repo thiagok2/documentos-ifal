@@ -94,19 +94,19 @@ class SearchCommandA1 implements ISearchCommand
         }
         
         if($this->checkHasFilter("tipo_doc", $filters))
-            $this->queryBuilder->addBoolFilterTerm($filters["tipo_doc"], "tipo_doc");
+            $this->queryBuilder->addBoolFilterTerm($filters["tipo_doc"], "tipo_doc.keyword");
         
         
         if($this->checkHasFilter("esfera", $filters))
-            $this->queryBuilder->addBoolFilterTerm($filters["esfera"], "fonte.esfera");
+            $this->queryBuilder->addBoolFilterTerm($filters["esfera"], "fonte.esfera.keyword");
             
 
         if($this->checkHasFilter("ano", $filters))
-            $this->queryBuilder->addBoolFilterTerm($filters["ano"], "ano");
+            $this->queryBuilder->addBoolFilterTerm($filters["ano"], "ano.keyword");
         
             
         if($this->checkHasFilter("fonte", $filters))
-            $this->queryBuilder->addBoolFilterTerm($filters["fonte"], "fonte.sigla");
+            $this->queryBuilder->addBoolFilterTerm($filters["fonte"], "fonte.sigla.keyword");
             
 
         if($this->checkHasFilter("periodo", $filters))
@@ -118,19 +118,19 @@ class SearchCommandA1 implements ISearchCommand
     private function addBoolMustExpressions($filters){
        
         if($this->checkHasFilter("tipo_doc", $filters))
-            $this->queryBuilder = $this->queryBuilder->addBoolMustTerm($filters["tipo_doc"], "tipo_doc");
+            $this->queryBuilder = $this->queryBuilder->addBoolMustTerm($filters["tipo_doc"], "tipo_doc.keyword");
            
         
         if($this->checkHasFilter("esfera", $filters))
-            $this->queryBuilder->addBoolMustTerm($filters["esfera"], "fonte.esfera");
+            $this->queryBuilder->addBoolMustTerm($filters["esfera"], "fonte.esfera.keyword");
             
 
         if($this->checkHasFilter("ano", $filters))
-            $this->queryBuilder->addBoolMustTerm($filters["ano"], "ano");
+            $this->queryBuilder->addBoolMustTerm($filters["ano"], "ano.keyword");
         
             
         if($this->checkHasFilter("fonte", $filters))
-            $this->queryBuilder->addBoolMustTerm($filters["fonte"], "fonte.sigla");
+            $this->queryBuilder->addBoolMustTerm($filters["fonte"], "fonte.sigla.keyword");
             
 
         if($this->checkHasFilter("periodo", $filters))

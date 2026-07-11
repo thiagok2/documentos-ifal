@@ -4,6 +4,34 @@
 
 @include('admin.includes.alerts')
 
+<style>
+    .btn-custom-green {
+        background-color: #19882c !important;
+        border-color: #19882c !important;
+        color: #ffffff !important;
+    }
+    .btn-custom-green:hover, .btn-custom-green:focus, .btn-custom-green:active {
+        background-color: #025310 !important;
+        border-color: #025310 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 0 0.2rem rgba(25, 136, 44, 0.25) !important;
+    }
+    .btn-outline-custom-green {
+        color: #19882c !important;
+        border-color: #19882c !important;
+        background-color: transparent !important;
+    }
+    .btn-outline-custom-green:hover, .btn-outline-custom-green:focus, .btn-outline-custom-green:active {
+        color: #ffffff !important;
+        background-color: #19882c !important;
+        border-color: #19882c !important;
+        box-shadow: 0 0 0 0.2rem rgba(25, 136, 44, 0.25) !important;
+    }
+    .btn-custom-green:focus, .btn-outline-custom-green:focus {
+        outline: none !important;
+    }
+</style>
+
 <header id="header-buscado" style="background-image: radial-gradient(ellipse at center, #19882c 1%, #025310 100%); padding: 20px 0;">
     <div class="container-fluid">
         <div class="row">
@@ -73,34 +101,47 @@
                 @foreach ($documentos as $doc)
                     <article class="row">
                         <div class="col-lg-10 offset-lg-1">
-                            <div class="card mb-3 card-primary" style="border-left: 5px solid #19882c;">
-                                <div class="card-header bg-white">
-                                    <h6>
-                                        <a href="{{ route('artefato-view', $doc['id']) }}" style="color: #19882c; text-decoration: none;">
-                                            <i class="fa fa-file-pdf"></i> {{ $doc['titulo'] ?? 'Artefato Sem Título' }}
-                                        </a>
-                                        <span class="float-right text-muted" style="font-size: 0.8rem">
-                                            {{ date('d/m/Y', strtotime($doc['created_at'])) }}
+                            <div class="card mb-4 border-0 shadow-sm" style="border-left: 5px solid #19882c !important; border-radius: 0.5rem;">
+                                <div class="card-header bg-white border-bottom-0 position-relative pt-3 pb-0">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="m-0 font-weight-bold" style="font-size: 1.25rem;">
+                                            <a href="{{ route('artefato-view', $doc['id']) }}" class="stretched-link" style="color: #19882c !important; text-decoration: none;">
+                                                <i class="fa fa-file-pdf mr-2" style="color: #19882c;"></i>{{ $doc['titulo'] ?? 'Artefato Sem Título' }}
+                                            </a>
+                                        </h5>
+                                        <span class="text-muted" style="font-size: 0.85rem; position: relative; z-index: 2;">
+                                            <i class="fa fa-calendar-alt mr-1"></i>{{ date('d/m/Y', strtotime($doc['created_at'])) }}
                                         </span>
-                                    </h6>
+                                    </div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body pt-2">
                                     @if(!empty($doc['especificacao']))
-                                        <p><strong>Especificação:</strong> {{ $doc['especificacao'] }}</p>
+                                        <div class="mb-2">
+                                            <span class="text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px; font-weight: 600;">Especificação</span><br>
+                                            <span class="text-dark" style="font-size: 0.95rem;">{{ $doc['especificacao'] }}</span>
+                                        </div>
                                     @endif
                                     
-                                    <p class="text-justify">{{ $doc['resumo'] }}</p>
+                                    <div class="mb-3">
+                                        <span class="text-muted text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px; font-weight: 600;">Resumo</span><br>
+                                        <p class="text-justify text-secondary mb-0" style="font-size: 0.95rem; line-height: 1.5;">{{ $doc['resumo'] }}</p>
+                                    </div>
 
                                     @if (!empty($doc['entidades']))
-                                        <div class="mb-3">
+                                        <div class="mb-2">
                                             @foreach ($doc['entidades'] as $entidade)
-                                                <span class="badge badge-info">{{ $entidade['texto'] }}</span>
+                                                <span class="badge badge-pill badge-light border text-muted mr-1 px-2 py-1" style="font-weight: 500;">
+                                                    <i class="fa fa-tag mr-1" style="color: #19882c;"></i>{{ $entidade['texto'] }}
+                                                </span>
                                             @endforeach
                                         </div>
                                     @endif
 
-                                    <div class="buttons-card d-flex justify-content-end">
-                                        <a href="{{ route('artefato-download', $doc['id']) }}" class="btn btn-outline-primary btn-sm mr-2" target="_blank" title="Baixar PDF">
+                                    <div class="buttons-card d-flex justify-content-end mt-3" style="position: relative; z-index: 2;">
+                                        <a href="{{ route('artefato-view', $doc['id']) }}" class="btn btn-custom-green btn-sm mr-2" title="Visualizar Artefato">
+                                            <i class="fa fa-eye"></i> Visualizar
+                                        </a>
+                                        <a href="{{ route('artefato-download', $doc['id']) }}" class="btn btn-outline-custom-green btn-sm mr-2" target="_blank" title="Baixar PDF">
                                             <i class="fa fa-download"></i> Baixar
                                         </a>
 

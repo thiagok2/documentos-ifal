@@ -102,20 +102,56 @@ class PublicArtefatoController extends Controller
 
     public function download($id)
     {
+        try {
+            $index = env('ELASTICSEARCH_INDEX_ARTEFATOS', 'artefatos_v2');
+            $params = [
+                'index' => $index,
+                'id' => $id
+            ];
+            $response = $this->client->get($params);
+            
+            if (isset($response['_source']['data'])) {
+                $pdfContent = base64_decode($response['_source']['data']);
+                return response($pdfContent)
+                    ->header('Content-Type', 'application/pdf')
+                    ->header('Content-Disposition', 'attachment; filename="' . $id . '"');
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao buscar PDF do Elasticsearch para download: ' . $e->getMessage());
+        }
+
         $filePath = storage_path('app/uploads/artefatos/' . $id);
         if (file_exists($filePath)) {
             return response()->download($filePath);
         }
-        return redirect()->back()->with('error', 'Arquivo PDF original não foi encontrado no servidor local.');
+        return redirect()->back()->with('error', 'Arquivo PDF original não foi encontrado no servidor local nem no Elasticsearch.');
     }
 
     public function viewPdf($id)
     {
+        try {
+            $index = env('ELASTICSEARCH_INDEX_ARTEFATOS', 'artefatos_v2');
+            $params = [
+                'index' => $index,
+                'id' => $id
+            ];
+            $response = $this->client->get($params);
+            
+            if (isset($response['_source']['data'])) {
+                $pdfContent = base64_decode($response['_source']['data']);
+                return response($pdfContent)
+                    ->header('Content-Type', 'application/pdf')
+                    ->header('Content-Disposition', 'inline; filename="' . $id . '"');
+            }
+        } catch (\Exception $e) {
+            Log::error('Erro ao buscar PDF do Elasticsearch: ' . $e->getMessage());
+        }
+
         $filePath = storage_path('app/uploads/artefatos/' . $id);
         if (file_exists($filePath)) {
             return response()->file($filePath);
         }
-        return redirect()->back()->with('error', 'Arquivo PDF original não foi encontrado no servidor local.');
+        return redirect()->back()->with('error', 'Arquivo PDF original não foi encontrado no servidor local nem no Elasticsearch.');
     }
 
     public function show($id)
