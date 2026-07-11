@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  rasa:
+    image: rasa/rasa:3.6.20-full
+    container_name: rasa-server
+    ports:
+      - "0.0.0.0:5050:5005"
+    volumes:
+      - ./rasa:/app
+    command:
+      - run
+      - "-m"
+      - models
+      - "--enable-api"
+      - "--cors"
+      - "*"
+      - "--debug"
+    restart: unless-stopped
+
+  action-server:
+    image: rasa/rasa-sdk:3.6.2
+    container_name: rasa-action-server
+    volumes:
+      - ./rasa/actions:/app/actions
+    env_file:
+      - .env
+    ports:
+      - "5055:5055"

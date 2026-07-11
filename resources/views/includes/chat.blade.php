@@ -1,3 +1,5 @@
+<!-- Importando biblioteca Marked.js para interpretar o Markdown do LLM -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
     /* Estilos do Chat Flutuante */
     .chat-widget-btn {
@@ -22,17 +24,27 @@
     }
     .chat-window {
         position: fixed;
-        bottom: 100px;
+        bottom: 0;
         right: 30px;
-        width: 350px;
-        height: 450px;
+        width: 450px;
+        height: 75vh;
+        max-height: 800px;
         background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        border-radius: 12px 12px 0 0;
+        box-shadow: 0 0 20px rgba(0,0,0,0.2);
         display: none;
         flex-direction: column;
         z-index: 9999;
         overflow: hidden;
+    }
+    @media (max-width: 768px) {
+        .chat-window {
+            width: 100%;
+            height: 100vh;
+            right: 0;
+            border-radius: 0;
+            max-height: 100%;
+        }
     }
     .chat-header {
         background-color: #19882c;
@@ -63,6 +75,27 @@
         font-size: 14px;
         line-height: 1.4;
         word-wrap: break-word;
+    }
+    .chat-message strong, .chat-message b {
+        font-weight: bold !important;
+    }
+    .chat-message ul {
+        padding-left: 20px !important;
+        list-style-type: disc !important;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .chat-message ol {
+        padding-left: 20px !important;
+        list-style-type: decimal !important;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .chat-message p {
+        margin-bottom: 8px;
+    }
+    .chat-message p:last-child {
+        margin-bottom: 0;
     }
     .chat-message.bot {
         background-color: #e9ecef;
@@ -115,7 +148,10 @@
 <div class="chat-window" id="chatWindow">
     <div class="chat-header">
         <span><i class="fa fa-robot"></i> Iúna</span>
-        <span class="close-btn" id="chatCloseBtn"><i class="fa fa-times"></i></span>
+        <div>
+            <span class="action-btn" id="chatClearBtn" title="Limpar Conversa" style="margin-right: 15px; cursor: pointer; font-size: 16px;"><i class="fa fa-trash"></i></span>
+            <span class="action-btn" id="chatCloseBtn" title="Fechar Chat" style="cursor: pointer; font-size: 18px;"><i class="fa fa-times"></i></span>
+        </div>
     </div>
     <div class="chat-body" id="chatBody">
         <div class="chat-message bot">
@@ -133,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatBtn = document.getElementById('chatWidgetBtn');
     const chatWindow = document.getElementById('chatWindow');
     const chatCloseBtn = document.getElementById('chatCloseBtn');
+    const chatClearBtn = document.getElementById('chatClearBtn');
     const chatSendBtn = document.getElementById('chatSendBtn');
     const chatInput = document.getElementById('chatInput');
     const chatBody = document.getElementById('chatBody');
@@ -140,9 +177,46 @@ document.addEventListener('DOMContentLoaded', function() {
     const documentId = "{{ $document_id ?? '' }}";
     const isNormativa = {{ isset($is_normativa) && $is_normativa ? 'true' : 'false' }};
 
+    function saveChatHistory() {
+        localStorage.setItem('chat_history_' + documentId, chatBody.innerHTML);
+    }
+
+    function loadChatHistory() {
+        const saved = localStorage.getItem('chat_history_' + documentId);
+        if (saved) {
+            chatBody.innerHTML = saved;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    }
+
+    // Carrega o histórico ao abrir a página
+    loadChatHistory();
+
+    chatClearBtn.addEventListener('click', () => {
+        if(confirm("Tem certeza que deseja limpar o histórico desta conversa?")) {
+            localStorage.removeItem('chat_history_' + documentId);
+            chatBody.innerHTML = '<div class="chat-message bot">Olá! Eu sou a Iúna. Você tem alguma dúvida sobre este documento? (Histórico limpo)</div>';
+            
+            // Envia o comando /restart oculto para limpar a memória do Rasa
+            fetch('{{ route("chat-send") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    message: '/restart',
+                    document_id: documentId,
+                    is_normativa: isNormativa
+                })
+            });
+        }
+    });
+
     chatBtn.addEventListener('click', () => {
         chatWindow.style.display = 'flex';
         chatBtn.style.display = 'none';
+        chatBody.scrollTop = chatBody.scrollHeight; // Garante rolagem no fim ao abrir
     });
 
     chatCloseBtn.addEventListener('click', () => {
@@ -161,9 +235,26 @@ document.addEventListener('DOMContentLoaded', function() {
     function appendMessage(text, sender) {
         const msgDiv = document.createElement('div');
         msgDiv.className = 'chat-message ' + sender;
-        msgDiv.textContent = text;
+        
+        if (sender === 'bot') {
+            if (typeof marked !== 'undefined') {
+                msgDiv.innerHTML = marked.parse(text);
+            } else {
+                let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                msgDiv.innerHTML = formattedText.replace(/\n/g, '<br>');
+            }
+            // Remove margin-bottom do último paragrafo gerado pelo marked para não quebrar o balão
+            const lastP = msgDiv.querySelector('p:last-child');
+            if(lastP) lastP.style.marginBottom = '0';
+        } else {
+            msgDiv.textContent = text;
+        }
+        
         chatBody.appendChild(msgDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
+        
+        // Salva o histórico sempre que uma nova mensagem for adicionada
+        saveChatHistory();
     }
 
     function sendMessage() {

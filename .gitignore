@@ -27,3 +27,22 @@ __pycache__/
 *.py[cod]
 /logs
 .env.bkp
+
+# Modelos do Rasa (Pesados, não devem ir pro repo)
+/rasa/models/
+*.tar.gz
+
+# Bancos de dados locais do Laravel / Rasa
+*.sqlite
+*.sqlite3
+/database/database.sqlite
+
+# Artefatos / PDFs de Upload Dinâmico
+/storage/app/public/artefatos/
+/public/artefatos/
+/storage/app/public/*.pdf
+
+# Arquivos temporários de Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
