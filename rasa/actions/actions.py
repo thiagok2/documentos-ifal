@@ -138,18 +138,10 @@ class ActionAskLLM(Action):
                         
                         if available_models:
                             first_model = available_models[0]
-                            # Mensagens solicitadas pelo usuário (sem exibir o nome do modelo)
-                            mensagens_loading = [
-                                "Aguarde, carregando o modelo e ativando a Iúna automaticamente...",
-                                "Ativando a Iúna... Logo ela estará apta a responder às suas perguntas."
-                            ]
-                            loading_msg = random.choice(mensagens_loading)
-                            
-                            # Envia a mensagem com custom payload para o frontend identificar o caso
-                            dispatcher.utter_message(
-                                text=loading_msg,
-                                custom={"is_loading_model": True}
-                            )
+                            # Não enviamos a mensagem como balão permanente para não poluir o histórico,
+                            # pois o frontend vai exibir a mensagem no próprio indicador de 'typing' se demorar.
+                            # Mas continuamos mandando o log.
+                            print(f"Iniciando JIT load do modelo {first_model}...")
                             
                             llm_reply = make_request(first_model)
                             dispatcher.utter_message(text=llm_reply)

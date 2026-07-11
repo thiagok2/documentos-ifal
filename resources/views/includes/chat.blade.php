@@ -309,6 +309,16 @@ document.addEventListener('DOMContentLoaded', function() {
         chatBody.appendChild(typingDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
 
+        // Se demorar mais de 5 segundos, avisa ao usuário que a IA está sendo ativada
+        const loadingTimeout = setTimeout(() => {
+            const mensagens = [
+                "Aguarde, carregando o modelo e ativando a Iúna automaticamente... <div class='typing-indicator' style='margin-top: 8px;'><span></span><span></span><span></span></div>",
+                "Ativando a Iúna... Logo ela estará apta a responder às suas perguntas. <div class='typing-indicator' style='margin-top: 8px;'><span></span><span></span><span></span></div>"
+            ];
+            typingDiv.innerHTML = mensagens[Math.floor(Math.random() * mensagens.length)];
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, 5000);
+
         fetch('{{ route("chat-send") }}', {
             method: 'POST',
             headers: {
@@ -323,12 +333,14 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
+            clearTimeout(loadingTimeout);
             chatBody.removeChild(typingDiv);
             if (data.reply) {
                 appendMessage(data.reply, 'bot');
             }
         })
         .catch(error => {
+            clearTimeout(loadingTimeout);
             chatBody.removeChild(typingDiv);
             appendMessage('Desculpe, ocorreu um erro de conexão com o servidor.', 'bot');
             console.error('Error:', error);
