@@ -137,6 +137,27 @@
     .vw-plugin-wrapper, [vw] {
         bottom: 110px !important;
     }
+
+    /* Animação de Loading (3 pontinhos) aguardando resposta */
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px;
+    }
+    .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background-color: #888;
+        border-radius: 50%;
+        animation: typing 1.4s infinite ease-in-out both;
+    }
+    .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typing {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1); }
+    }
 </style>
 
 <!-- Botão Flutuante -->
@@ -281,10 +302,10 @@ document.addEventListener('DOMContentLoaded', function() {
         appendMessage(text, 'user');
         chatInput.value = '';
 
-        // Mostra indicador de digitando
+        // Mostra indicador animado de loading (3 pontinhos) enquanto aguarda o servidor
         const typingDiv = document.createElement('div');
         typingDiv.className = 'chat-message bot typing';
-        typingDiv.innerHTML = '<em>Digitando...</em>';
+        typingDiv.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
         chatBody.appendChild(typingDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
 
