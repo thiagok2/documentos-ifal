@@ -67,7 +67,8 @@ class ActionAskLLM(Action):
 
         api_key = os.environ.get('LM_STUDIO_API_KEY', 'CHAVE_FALTANDO')
         
-        try:
+        def make_request(model_name):
+            payload["model"] = model_name
             req = urllib.request.Request(
                 lm_studio_url, 
                 data=json.dumps(payload).encode('utf-8'),
@@ -77,14 +78,44 @@ class ActionAskLLM(Action):
                 },
                 method='POST'
             )
-            with urllib.request.urlopen(req, timeout=30) as response:
+            # Aumentamos o timeout no caso de JIT load, pois carregar o modelo pode demorar
+            with urllib.request.urlopen(req, timeout=120) as response:
                 result = json.loads(response.read().decode('utf-8'))
-                llm_reply = result['choices'][0]['message']['content']
-                dispatcher.utter_message(text=llm_reply)
+                return result['choices'][0]['message']['content']
+
+        try:
+            llm_reply = make_request("local-model")
+            dispatcher.utter_message(text=llm_reply)
             
         except urllib.error.HTTPError as e:
             error_body = e.read().decode('utf-8')
-            dispatcher.utter_message(text=f"Erro 400 da IA local. Detalhes: {error_body}")
+            if "No models loaded" in error_body or "invalid_request_error" in error_body:
+                try:
+                    # Busca modelos disponíveis na API do LM Studio
+                    models_url = lm_studio_url.replace("/chat/completions", "/models")
+                    req_models = urllib.request.Request(
+                        models_url,
+                        headers={'Authorization': f'Bearer {api_key}'}
+                    )
+                    with urllib.request.urlopen(req_models, timeout=10) as response:
+                        models_data = json.loads(response.read().decode('utf-8'))
+                        # Filtra embeddings
+                        available_models = [m['id'] for m in models_data.get('data', []) if 'embed' not in m['id'].lower()]
+                        
+                        if available_models:
+                            first_model = available_models[0]
+                            dispatcher.utter_message(text=f"Aguarde, carregando o modelo {first_model} automaticamente...")
+                            llm_reply = make_request(first_model)
+                            dispatcher.utter_message(text=llm_reply)
+                        else:
+                            dispatcher.utter_message(text=f"Erro: Nenhum modelo de texto encontrado no LM Studio. Detalhes: {error_body}")
+                except urllib.error.HTTPError as e_retry:
+                    error_retry_body = e_retry.read().decode('utf-8')
+                    dispatcher.utter_message(text=f"Erro ao tentar carregar o modelo. Detalhes: {error_retry_body}")
+                except Exception as e_retry:
+                    dispatcher.utter_message(text=f"Falha ao auto-carregar modelo: {e_retry}")
+            else:
+                dispatcher.utter_message(text=f"Erro 400 da IA local. Detalhes: {error_body}")
         except Exception as e:
             dispatcher.utter_message(text=f"Desculpe, não consegui conectar à IA local. Erro: {e}")
 
