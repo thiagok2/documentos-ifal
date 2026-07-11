@@ -237,24 +237,41 @@ document.addEventListener('DOMContentLoaded', function() {
         msgDiv.className = 'chat-message ' + sender;
         
         if (sender === 'bot') {
-            if (typeof marked !== 'undefined') {
-                msgDiv.innerHTML = marked.parse(text);
-            } else {
-                let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                msgDiv.innerHTML = formattedText.replace(/\n/g, '<br>');
-            }
-            // Remove margin-bottom do último paragrafo gerado pelo marked para não quebrar o balão
-            const lastP = msgDiv.querySelector('p:last-child');
-            if(lastP) lastP.style.marginBottom = '0';
+            chatBody.appendChild(msgDiv);
+            
+            let i = 0;
+            let currentText = "";
+            
+            // Efeito de digitação (simulated streaming)
+            let interval = setInterval(() => {
+                currentText += text.charAt(i);
+                
+                if (typeof marked !== 'undefined') {
+                    msgDiv.innerHTML = marked.parse(currentText);
+                } else {
+                    let formattedText = currentText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    msgDiv.innerHTML = formattedText.replace(/\n/g, '<br>');
+                }
+                
+                // Remove margin-bottom do último paragrafo gerado pelo marked para não quebrar o balão
+                const lastP = msgDiv.querySelector('p:last-child');
+                if(lastP) lastP.style.marginBottom = '0';
+                
+                chatBody.scrollTop = chatBody.scrollHeight;
+                
+                i++;
+                if (i >= text.length) {
+                    clearInterval(interval);
+                    // Salva o histórico apenas quando a digitação terminar
+                    saveChatHistory();
+                }
+            }, 10); // Velocidade: 10ms por caractere
         } else {
             msgDiv.textContent = text;
+            chatBody.appendChild(msgDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            saveChatHistory();
         }
-        
-        chatBody.appendChild(msgDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-        
-        // Salva o histórico sempre que uma nova mensagem for adicionada
-        saveChatHistory();
     }
 
     function sendMessage() {
