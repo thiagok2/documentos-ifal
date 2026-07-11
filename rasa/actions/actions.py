@@ -14,24 +14,29 @@ def unload_model(model_id, api_key, base_url):
     try:
         # A API nativa do LM Studio usa /api/v1/models/unload
         unload_url = base_url.replace("/v1/chat/completions", "/api/v1/models/unload")
+        print(f"[Timer] Disparando unload em: {unload_url} para o modelo {model_id}")
         req = urllib.request.Request(
             unload_url,
-            data=json.dumps({"model": model_id}).encode('utf-8'),
+            data=json.dumps({"instance_id": model_id}).encode('utf-8'),
             headers={'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'},
             method='POST'
         )
-        urllib.request.urlopen(req, timeout=10)
-        print(f"Modelo {model_id} descarregado com sucesso por inatividade.")
+        response = urllib.request.urlopen(req, timeout=10)
+        print(f"[Timer] Resposta do LM Studio: {response.status}")
+        print(f"[Timer] Modelo {model_id} descarregado com sucesso por inatividade.")
     except Exception as e:
-        print(f"Falha ao descarregar modelo {model_id}: {e}")
+        print(f"[Timer] Falha ao descarregar modelo {model_id}: {e}")
 
 def schedule_unload(model_id, api_key, base_url):
     global unload_timer
     if unload_timer is not None:
+        print("Cancelando timer anterior...")
         unload_timer.cancel()
-    # 15 minutos = 900 segundos
-    unload_timer = threading.Timer(900.0, unload_model, args=[model_id, api_key, base_url])
-    # Como a thread do Rasa Action Server pode morrer, é um best effort
+    
+    # 5 minutos para inatividade
+    delay = 300.0
+    print(f"Agendando desligamento do modelo {model_id} em {delay} segundos (5 minutos)...")
+    unload_timer = threading.Timer(delay, unload_model, args=[model_id, api_key, base_url])
     unload_timer.daemon = True 
     unload_timer.start()
 
