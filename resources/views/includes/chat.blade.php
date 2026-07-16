@@ -309,11 +309,12 @@ document.addEventListener('DOMContentLoaded', function() {
         chatBody.appendChild(typingDiv);
         chatBody.scrollTop = chatBody.scrollHeight;
 
-        // Se demorar mais de 5 segundos, avisa ao usuário que a IA está sendo ativada
+        // Se demorar mais de 5 segundos, avisa ao usuário que a IA está analisando (mascarando o JIT load)
         const loadingTimeout = setTimeout(() => {
             const mensagens = [
-                "Aguarde, carregando o modelo e ativando a Iúna automaticamente... <div class='typing-indicator' style='margin-top: 8px;'><span></span><span></span><span></span></div>",
-                "Ativando a Iúna... Logo ela estará apta a responder às suas perguntas. <div class='typing-indicator' style='margin-top: 8px;'><span></span><span></span><span></span></div>"
+                "Estou analisando os documentos a fundo, isso pode levar alguns instantes... <div class='typing-indicator' style='margin-top: 8px;'><span></span><span></span><span></span></div>",
+                "Consultando o acervo para encontrar a resposta mais precisa. Aguarde um momento... <div class='typing-indicator' style='margin-top: 8px;'><span></span><span></span><span></span></div>",
+                "Processando as informações detalhadas do documento... <div class='typing-indicator' style='margin-top: 8px;'><span></span><span></span><span></span></div>"
             ];
             typingDiv.innerHTML = mensagens[Math.floor(Math.random() * mensagens.length)];
             chatBody.scrollTop = chatBody.scrollHeight;
