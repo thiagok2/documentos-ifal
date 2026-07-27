@@ -115,6 +115,18 @@
                                     </div>
                                 </div>  
                             </div><!-- end row -->
+
+                            @if(auth()->check() && auth()->user()->isAdmin())
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="manual_score">Pontuação/Score</label>
+                                        <small class=".text-muted">(Apenas admins. Ex: 1000 p/ oficiais)</small>
+                                        <input type="number" value="{{ $documento->manual_score ?? 0 }}" class="form-control" id="manual_score" name="manual_score" min="0" max="1000">
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
                                                                                                                     
                             <div class="row">
                                 <div class="col-md-6">

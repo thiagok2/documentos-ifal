@@ -55,6 +55,12 @@ class IndexController extends Controller
         $size_page = $request->has('page_size') ? $request->query("page_size") : self::RESULTS_PER_PAGE;
 
         $publico = filter_var($request->query("publico", true), FILTER_VALIDATE_BOOLEAN);
+
+        // Security fix: Força a busca por documentos públicos caso não esteja logado
+        if (!auth()->check()) {
+            $publico = true;
+        }
+
         $tipo_doc = $request->query("tipo_doc");
         $esfera = $request->query("esfera");
         $periodo = $request->query("periodo");
@@ -100,15 +106,14 @@ class IndexController extends Controller
 
                 $arrayTerms = explode(' ', $query);
                 $beginTerm = $arrayTerms[0];
-                $endTerm = end($arrayTerms);
 
-                $hasFilterTipoDoc = TipoDocumento::where('nome', 'ilike', $beginTerm)->count();
+                if (empty($queryFilters['tipo_doc'])) {
+                    $hasFilterTipoDoc = TipoDocumento::where('nome', 'ilike', $beginTerm)->count();
 
-                if ($hasFilterTipoDoc) {
-
-                    $query = count($arrayTerms) > 1 ? str_replace($beginTerm, "", $query) : $query;
-                    $queryFilters['tipo_doc'] = $beginTerm;
-                    $tipo_doc = $beginTerm;
+                    if ($hasFilterTipoDoc) {
+                        $queryFilters['tipo_doc'] = $beginTerm;
+                        $tipo_doc = $beginTerm;
+                    }
                 }
 
 

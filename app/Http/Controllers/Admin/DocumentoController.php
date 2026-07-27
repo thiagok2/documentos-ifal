@@ -83,6 +83,9 @@ class DocumentoController extends Controller
             }
 
             $data= $request->all();
+            if(!auth()->user()->isAdmin()){
+                unset($data['manual_score']);
+            }
          
             $documento = new Documento();
             $documento->fill($data);
@@ -346,6 +349,9 @@ class DocumentoController extends Controller
             $documento = Documento::find($documentoId);
 
             $data= $request->all();
+            if(!auth()->user()->isAdmin()){
+                unset($data['manual_score']);
+            }
             $documento->fill($data);
 
             $tags = explode(",", $data["palavras_chave"]);
@@ -449,6 +455,7 @@ class DocumentoController extends Controller
                 'tags'            => $documento->palavrasChaves->pluck('tag')->toArray() ?? [],
                 'tipo_entrada'    => 'individual',
                 'publico'         => (bool) $documento->publico, 
+                'manual_score'    => (int) $documento->manual_score,
                 'fonte' => [
                     'orgao'    => $documento->unidade->nome ?? 'IFAL',
                     'sigla'    => $documento->unidade->sigla ?? 'IFAL',

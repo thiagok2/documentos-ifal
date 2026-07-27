@@ -117,10 +117,9 @@
                                                 Pesquisando
                                         </span></button>
                                     @if (auth()->check() && auth()->user()->unidade)
-                                        <button type="button" class="btn btn-mobile btn-info btn-sm" data-toggle="collapse"
+                                        <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse"
                                             data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i
                                                 class="fa fa-cogs"></i> Configurações da busca</button>
-                                        <input type="hidden" name="orgao" value="{{ auth()->user()->unidade->nome }}">
                                     @endif
                                 </div>
                             </div>
@@ -134,6 +133,7 @@
                         <div class="row">
                             <div class="col text-center mb-3">
                                 <label class="custom-switch">
+                                    <input type="hidden" name="publico" value="0">
                                     <input type="checkbox" name="publico" value="1" {{$changePrivateFlag ? '' : 'checked'}}>
                                     <span class="slider round"></span>
                                     <span class="switch-label ml-2">Buscar Apenas Documentos Públicos</span>
@@ -268,7 +268,6 @@
                                     <button type="button" class="btn btn-mobile btn-info ml-1" data-toggle="collapse"
                                         data-target="#filters-menu" aria-expanded="false" aria-controls="collapseExample"><i
                                             class="fa fa-cogs"></i> Configurações da busca</button>
-                                    <input type="hidden" name="orgao" value="{{ auth()->user()->unidade->nome }}">
                                 @endif
                             </div>
 
@@ -282,6 +281,7 @@
                             <div class="row">
                                 <div class="col text-center mb-3">
                                     <label class="custom-switch">
+                                        <input type="hidden" name="publico" value="0">
                                         <input type="checkbox" id="switchPublico" value="1" name="publico" checked>
                                         <span class="slider round"></span>
                                         <span class="switch-label ml-2">Buscar Apenas Documentos Públicos</span>
@@ -431,12 +431,7 @@
         @foreach ($documentos as $doc)
             <article class="row">
                 <div class="col-lg-10 offset-lg-1">
-                    <div @class([
-                        'card',
-                        'mb-3',
-                        'card-secondary' => $changePrivateFlag,
-                        'card-primary' => !$changePrivateFlag,
-                    ])>
+                    <div class="card mb-3 card-primary">
                         <div style="background-color: white !important;" class="card-header">
                             <h6>
                                 <a class="documento-titulo-link"
@@ -552,20 +547,20 @@
                                 <div class="buttons-card">
                                     <button id='popoverBtn' {{-- data-bs-toggle="popover" data-bs-placement="top"
                                         data-bs-title="Trechos" data-bs-content="Aqui tem os trechos encontrados." --}}
-                                        @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag]) type="button" data-toggle="collapse"
+                                        class="btn btn-outline-custom-green" type="button" data-toggle="collapse"
                                         data-target="#trechos-{{$loop->index}}" aria-expanded="false"
                                         aria-controls="highlight-collapse-{{$doc['id']}}" {{empty($doc['trechos_destaque']) ? 'disabled' : ''}}>
                                         <i class="fa fa-quote-right"></i>
 
                                     </button>
 
-                                    <a href="/normativa/pdf/{{ $doc['id'] }}" @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag]) target="_blank">
+                                    <a href="/normativa/pdf/{{ $doc['id'] }}" class="btn btn-outline-custom-green" target="_blank">
                                         <i class="fa fa-download"></i>
                                     </a>
                                     <div class="tooltip-custom">
                                         <span class="tooltiptext" id="tooltip-{{ $doc['id']}}">Link copiado!</span>
                                         <input aria-hidden="true" id="url-{{ $doc['id']}}" />
-                                        <button @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag]) type="button"
+                                        <button class="btn btn-outline-custom-green" type="button"
                                             onclick="share('{{ $doc['id']}}','{{ $doc['titulo']}}','{{ $doc['ementa']}}')">
                                             <i class="fa fa-share-alt"></i>
                                         </button>
@@ -576,7 +571,7 @@
                                                 && isset($doc['id_persisted']) && isset($doc['persisted'])
                                             )
                                             <a href="{{ route("documento-edit", $doc['id_persisted']) }}"
-                                                title="Editar" @class(['btn', 'btn-secondary' => $changePrivateFlag, 'btn-outline-custom-green' => !$changePrivateFlag])>
+                                                title="Editar" class="btn btn-outline-custom-green">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 

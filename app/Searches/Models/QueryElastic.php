@@ -25,7 +25,18 @@ class QueryElastic
             'type' => '_doc',
             'body' => [
                 'min_score' => 0.5,
-                'query' =>  $this->queryArray,
+                'query' =>  [
+                    'function_score' => [
+                        'query' => $this->queryArray,
+                        'field_value_factor' => [
+                            'field' => 'ato.manual_score',
+                            'factor' => 1,
+                            'modifier' => 'none',
+                            'missing' => 0
+                        ],
+                        'boost_mode' => 'sum'
+                    ]
+                ],
                 'size' =>   $this->size,
                 'from' => isset($this->from) ? $this->from : 0,
                 '_source' => [$this->root.".*"],

@@ -34,7 +34,7 @@ class UserUnidadeConselhoFederalSeeder extends Seeder
 
         $email = trim(explode(";",$unidade->email)[0]);
         $nome = $unidade->nome;
-        $senha = Hash::make('123456') ;
+        $senha = Hash::make('admin@123456#7') ;
 
         $user = User::create([
             'name' => $nome,
