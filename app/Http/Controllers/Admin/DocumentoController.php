@@ -85,6 +85,7 @@ class DocumentoController extends Controller
             $data= $request->all();
             if(!auth()->user()->isAdmin()){
                 unset($data['manual_score']);
+                unset($data['oficial']);
             }
          
             $documento = new Documento();
@@ -351,6 +352,7 @@ class DocumentoController extends Controller
             $data= $request->all();
             if(!auth()->user()->isAdmin()){
                 unset($data['manual_score']);
+                unset($data['oficial']);
             }
             $documento->fill($data);
 
@@ -456,6 +458,7 @@ class DocumentoController extends Controller
                 'tipo_entrada'    => 'individual',
                 'publico'         => (bool) $documento->publico, 
                 'manual_score'    => (int) $documento->manual_score,
+                'oficial'         => (bool) $documento->oficial,
                 'fonte' => [
                     'orgao'    => $documento->unidade->nome ?? 'IFAL',
                     'sigla'    => $documento->unidade->sigla ?? 'IFAL',

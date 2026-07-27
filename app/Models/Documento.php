@@ -40,11 +40,12 @@ class Documento extends Model
         'ano', 'titulo','numero','ementa','url','data_publicacao','tipo_documento_id',
         'assunto_id','unidade_id' , 'nome_original', 
         'tipo_entrada','url_extrator', 'id_extrator', 'numero_processo',
-        'publico','arquivo', 'conteudo', 'manual_score'
+        'publico','arquivo', 'conteudo', 'manual_score', 'oficial'
 
     ];
     protected $casts = [
         'publico' => 'boolean',
+        'oficial' => 'boolean',
     ];    
 
     public function isCompleto(){
@@ -182,7 +183,8 @@ class Documento extends Model
                     "url" => $this->unidade->url
                 ],
                 "publico" => $this->publico,
-                "manual_score" => $this->manual_score
+                "manual_score" => $this->manual_score,
+                "oficial" => (bool) $this->oficial
             ]
         ];
 

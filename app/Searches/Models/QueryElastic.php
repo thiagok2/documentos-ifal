@@ -28,12 +28,21 @@ class QueryElastic
                 'query' =>  [
                     'function_score' => [
                         'query' => $this->queryArray,
-                        'field_value_factor' => [
-                            'field' => 'ato.manual_score',
-                            'factor' => 1,
-                            'modifier' => 'none',
-                            'missing' => 0
+                        'functions' => [
+                            [
+                                'field_value_factor' => [
+                                    'field' => 'ato.manual_score',
+                                    'factor' => 1,
+                                    'modifier' => 'none',
+                                    'missing' => 0
+                                ]
+                            ],
+                            [
+                                'filter' => [ 'term' => [ 'ato.oficial' => true ] ],
+                                'weight' => 10000
+                            ]
                         ],
+                        'score_mode' => 'sum',
                         'boost_mode' => 'sum'
                     ]
                 ],

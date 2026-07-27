@@ -118,11 +118,24 @@
 
                             @if(auth()->check() && auth()->user()->isAdmin())
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="manual_score">Pontuação/Score</label>
-                                        <small class=".text-muted">(Apenas admins. Ex: 1000 p/ oficiais)</small>
-                                        <input type="number" value="{{ $documento->manual_score ?? 0 }}" class="form-control" id="manual_score" name="manual_score" min="0" max="1000">
+                                        <small class=".text-muted">(Arraste para definir a importância)</small>
+                                        <div class="d-flex align-items-center">
+                                            <input type="range" value="{{ $documento->manual_score ?? 0 }}" class="form-control-range mr-2" id="manual_score" name="manual_score" min="0" max="1000" step="1" oninput="document.getElementById('score_val').innerText = this.value">
+                                            <span id="score_val" class="badge badge-secondary" style="font-size: 14px;">{{ $documento->manual_score ?? 0 }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="switch-wrapper mt-4">
+                                        <input type="hidden" name="oficial" value="0">
+                                        <input type="checkbox" id="oficial" name="oficial" class="switch-input" value="1" {{ $documento->oficial ? 'checked' : '' }}>
+                                        <label for="oficial" class="switch-label">
+                                          <span class="switch-slider"></span>
+                                          Documento Oficial (Estrutural)
+                                        </label>
                                     </div>
                                 </div>
                             </div>
