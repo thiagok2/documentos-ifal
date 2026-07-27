@@ -28,9 +28,10 @@ class SearchResult
 
         $persistedIds = [];
         if (!empty($ids)) {
-            $persistedIds = array_flip(
-                Documento::whereIn('arquivo', $ids)->pluck('arquivo')->all()
-            );
+            $persistedDocs = Documento::whereIn('arquivo', $ids)->get(['id', 'arquivo']);
+            foreach ($persistedDocs as $d) {
+                $persistedIds[$d->arquivo] = $d->id;
+            }
         }
 
         $this->documentsResult = [];
@@ -71,6 +72,9 @@ class SearchResult
             }
 
             $doc['persisted'] = isset($persistedIds[$doc['id']]);
+            if ($doc['persisted']) {
+                $doc['id_persisted'] = $persistedIds[$doc['id']];
+            }
 
             $this->documentsResult[] = $doc;
         }
