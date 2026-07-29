@@ -216,6 +216,7 @@ class UsuarioController extends Controller
 
         }catch(\Exception $e){
             DB::rollBack();
+            \Illuminate\Support\Facades\Log::error("ERRO AO CRIAR USUARIO: " . $e->getMessage() . "\n" . $e->getTraceAsString());
 
             $messageError = getenv('APP_DEBUG') === 'true' ? $e->getMessage():
             "Operação não foi realizada. Verifique se os dados estão corretos. 

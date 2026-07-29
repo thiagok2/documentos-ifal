@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bem vindo ao Documentos</title>
+    <title>Bem vindo ao CentralDoc</title>
 
     <style type="text/css">
         body{
@@ -310,7 +310,7 @@
                                             <tbody>
                                             <tr>
                                                 <td valign="top" class="mcnTextContent" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: center;">
-                                                    <span style="color:#D3D3D3">Cadastro na plataforma Normativas</span>
+                                                    <span style="color:#D3D3D3">Cadastro na plataforma CentralDoc</span>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -332,8 +332,8 @@
                                             <tr>
                                                 <td class="mcnImageContent" valign="top" style="padding-right: 0;padding-left: 0;padding-top: 0;padding-bottom: 0;text-align: center;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
 
-                                                    <a href="https://revolutiontea.com" title="" class="" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                                        <img align="center" alt="" src="https://normativasconselhos.ifal.edu.br/img/normativos-logo.png" width="600" style="max-width: 300px;padding-bottom: 0;margin-top: 30px; display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;"
+                                                    <a href="{{getenv('APP_URL')}}" title="CentralDoc" class="" target="_blank" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                                                        <img align="center" alt="CentralDoc" src="{{getenv('APP_URL')}}/img/logo.png" width="200" style="max-width: 200px;padding-bottom: 0;margin-top: 30px; display: inline !important;vertical-align: bottom;border: 0;height: auto;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;"
                                                              class="mcnImage">
                                                     </a>
 
@@ -405,24 +405,7 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnTextBlock mcnTableAux">
-                                <tbody class="mcnTextBlockOuter">
-                                <tr>
-                                    <td valign="top" class="mcnTextBlockInner" style="background-color: #87aab0; padding-top: 9px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
-                                        <table align="left" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%;min-width: 100%;border-collapse: collapse;mso-table-lspace: 0;mso-table-rspace: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;" width="100%" class="mcnTextContentContainer">
-                                            <tbody>
-                                            <tr>
-                                                <td style="float: right">
-                                                    <img src="https://normativasconselhos.ifal.edu.br/img/logo-nees-branca.png" alt="NEES">
-                                                    <img style="margin: 0 20px" src="https://normativasconselhos.ifal.edu.br/img/logo-gov.png" alt="Governo Federal">
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+
                         </td>
                     </tr>
                 </table>
@@ -434,7 +417,7 @@
                                 <tbody>
                                 <tr>
                                     <td valign="top" class="mcnTextContent" style="padding-top: 0;padding-right: 18px;padding-bottom: 9px;padding-left: 18px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;word-break: break-word;color: #656565;font-family: Helvetica;font-size: 12px;line-height: 150%;text-align: center;">
-                                        Você recebeu este email porque foi cadastrado na plataforma <a href="{{getenv('APP_URL')}}" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">Normativas</a>
+                                        Você recebeu este email porque foi cadastrado na plataforma <a href="{{getenv('APP_URL')}}" style="mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;color: #656565;font-weight: normal;text-decoration: underline;">CentralDoc</a>
                                     </td>
                                 </tr>
                                 </tbody>
